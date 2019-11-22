@@ -5,7 +5,7 @@ import core.Settings;
 import movement.map.DijkstraPathFinder;
 import movement.map.MapNode;
 import movement.map.SimMap;
-import movement.nodegrid.NodeGrid;
+import movement.nodegrid.NodeGridBuilder;
 import movement.nodegrid.Polygon;
 
 import java.util.List;
@@ -13,7 +13,7 @@ import java.util.List;
 public class NodeGridMovement extends MovementModel implements RenderableMovement {
     private static final String RASTER_INTERVAL = "ngmRasterInterval";
 
-    private NodeGrid nodeGrid;
+    private SimMap nodeGrid;
 
     private MapNode currentNode;
 
@@ -23,12 +23,33 @@ public class NodeGridMovement extends MovementModel implements RenderableMovemen
         super(settings);
         double rasterInterval = settings.getDouble(RASTER_INTERVAL);
         Polygon outerBound = new Polygon(
-                new Coord(0, 0),
+                new Coord(0, 10),
                 new Coord(50, 50),
                 new Coord(200, 100),
                 new Coord(100, 0)
         );
-        nodeGrid = new NodeGrid.Builder(rasterInterval).add(outerBound).build();
+        Polygon cutout = new Polygon(
+                new Coord(50, 40),
+                new Coord(75, 50),
+                new Coord(80, 20)
+        );
+        outerBound.translate(50, 50);
+        cutout.translate(50, 50);
+        MapNode pointOfInterest = new MapNode(new Coord(0, 0));
+        MapNode pointOfInterestEntry1 = new MapNode(new Coord(100, 25));
+        MapNode pointOfInterestEntry2 = new MapNode(new Coord(25, 100));
+        pointOfInterest.addNeighbor(pointOfInterestEntry1);
+        pointOfInterest.addNeighbor(pointOfInterestEntry2);
+        pointOfInterestEntry1.addNeighbor(pointOfInterest);
+        pointOfInterestEntry2.addNeighbor(pointOfInterest);
+
+        nodeGrid = new NodeGridBuilder(rasterInterval)
+                .add(outerBound)
+                .subtract(cutout)
+                .attachNodeByClosestNodes(pointOfInterestEntry1, 3)
+                .attachNodeByClosestNodes(pointOfInterestEntry2, 5)
+                .addDisconnectedNodes(pointOfInterest)
+                .build();
         pathFinder = new DijkstraPathFinder(null);
     }
 

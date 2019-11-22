@@ -38,6 +38,12 @@ public class Polygon {
         return !this.isInside(point);
     }
 
+    public void translate(double dx, double dy) {
+        for (Coord point : vertices) {
+            point.translate(dx, dy);
+        }
+    }
+
     public Coord[] getVertices() {
         return vertices;
     }
