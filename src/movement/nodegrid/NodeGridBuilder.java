@@ -14,8 +14,6 @@ public class NodeGridBuilder {
 
     private List<Polygon> excludedPolygons = new ArrayList<>();
 
-    private List<MapNode> disconnectedNodes = new ArrayList<>();
-
     private Map<MapNode, Integer> numberOfAttachmentsByNode = new HashMap<>();
 
     public NodeGridBuilder(double rasterInterval) {
@@ -37,18 +35,12 @@ public class NodeGridBuilder {
         return this;
     }
 
-    public NodeGridBuilder addDisconnectedNodes(MapNode... disconnectedNodes) {
-        this.disconnectedNodes.addAll(Arrays.asList(disconnectedNodes));
-        return this;
-    }
-
     public SimMap build() {
         Map<Coord, MapNode> nodes = new HashMap<>();
         MapNode[][] raster = rasterPolygonsAndUpdateMap(nodes);
 
         connectAdjacentNodes(raster);
         connectNodesByTheirClosestNodes(nodes);
-        updateWithDisconnectNodes(nodes);
 
         return new SimMap(nodes);
     }
@@ -107,12 +99,6 @@ public class NodeGridBuilder {
             }
 
             nodes.put(nodeToConnect.getLocation(), nodeToConnect);
-        }
-    }
-
-    private void updateWithDisconnectNodes(Map<Coord, MapNode> nodes) {
-        for (MapNode node : disconnectedNodes) {
-            nodes.put(node.getLocation(), node);
         }
     }
 
