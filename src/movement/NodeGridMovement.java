@@ -48,7 +48,6 @@ public class NodeGridMovement extends MovementModel implements RenderableMovemen
                 .subtract(cutout)
                 .attachNodeByClosestNodes(pointOfInterestEntry1, 3)
                 .attachNodeByClosestNodes(pointOfInterestEntry2, 5)
-                .addDisconnectedNodes(pointOfInterest)
                 .build();
         pathFinder = new DijkstraPathFinder(null);
     }
