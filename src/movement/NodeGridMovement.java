@@ -28,7 +28,13 @@ public class NodeGridMovement extends MovementModel implements RenderableMovemen
                 new Coord(200, 100),
                 new Coord(100, 0)
         );
+        Polygon cutout = new Polygon(
+                new Coord(50, 40),
+                new Coord(75, 50),
+                new Coord(80, 20)
+        );
         outerBound.translate(50, 50);
+        cutout.translate(50, 50);
         MapNode pointOfInterest = new MapNode(new Coord(0, 0));
         MapNode pointOfInterestEntry1 = new MapNode(new Coord(100, 25));
         MapNode pointOfInterestEntry2 = new MapNode(new Coord(25, 100));
@@ -39,6 +45,7 @@ public class NodeGridMovement extends MovementModel implements RenderableMovemen
 
         nodeGrid = new NodeGridBuilder(rasterInterval)
                 .add(outerBound)
+                .subtract(cutout)
                 .attachNodeByClosestNodes(pointOfInterestEntry1, 3)
                 .attachNodeByClosestNodes(pointOfInterestEntry2, 5)
                 .addDisconnectedNodes(pointOfInterest)
