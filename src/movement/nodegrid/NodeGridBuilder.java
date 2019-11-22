@@ -14,7 +14,9 @@ public class NodeGridBuilder {
 
     private List<Polygon> excludedPolygons = new ArrayList<>();
 
-    private Map<MapNode, Integer> numberOfAttachmentsByPointOfInterest = new HashMap<>();
+    private List<MapNode> disconnectedNodes = new ArrayList<>();
+
+    private Map<MapNode, Integer> numberOfAttachmentsByNode = new HashMap<>();
 
     public NodeGridBuilder(double rasterInterval) {
         this.rasterInterval = rasterInterval;
@@ -31,23 +33,38 @@ public class NodeGridBuilder {
     }
 
     public NodeGridBuilder attachNodeByClosestNodes(MapNode node, int numberOfClosestNodes) {
-        numberOfAttachmentsByPointOfInterest.put(node, numberOfClosestNodes);
+        numberOfAttachmentsByNode.put(node, numberOfClosestNodes);
+        return this;
+    }
+
+    public NodeGridBuilder addDisconnectedNodes(MapNode... disconnectedNodes) {
+        this.disconnectedNodes.addAll(Arrays.asList(disconnectedNodes));
         return this;
     }
 
     public SimMap build() {
         Map<Coord, MapNode> nodes = new HashMap<>();
+        MapNode[][] raster = rasterPolygonsAndUpdateMap(nodes);
 
+        connectAdjacentNodes(raster);
+        connectNodesByTheirClosestNodes(nodes);
+        updateWithDisconnectNodes(nodes);
+
+        return new SimMap(nodes);
+    }
+
+    private MapNode[][] rasterPolygonsAndUpdateMap(Map<Coord, MapNode> nodes) {
         int verticalResolution = getVerticalRasterResolution();
         int horizontalResolution = getHorizontalRasterResolution();
         MapNode[][] raster = new MapNode[verticalResolution][horizontalResolution];
 
+        Coord rasterOffset = getRasterAttachmentPoint();
         double verticalStepSize = getVerticalRasterStepSize();
         double horizontalStepSize = getHorizontalRasterStepSize();
         for (int rowIndex = 0; rowIndex < verticalResolution; rowIndex++) {
             for (int columnIndex = 0; columnIndex < horizontalResolution; columnIndex++) {
-                double x = columnIndex * horizontalStepSize + getHorizontalRowOffset(rowIndex);
-                double y = rowIndex * verticalStepSize;
+                double x = columnIndex * horizontalStepSize + getHorizontalRowOffset(rowIndex) + rasterOffset.getX();
+                double y = rowIndex * verticalStepSize + rasterOffset.getY();
                 Coord location = new Coord(x, y);
 
                 boolean isInsideIncludedPolygon = includedPolygons.stream().anyMatch(p -> p.isInside(location));
@@ -60,11 +77,43 @@ public class NodeGridBuilder {
             }
         }
 
-        connectAdjacentNodes(raster);
+        return raster;
+    }
 
-        SimMap nodeGrid = new SimMap(nodes);
-        nodeGrid.translate(getRasterAttachmentPoint().getX(), getRasterAttachmentPoint().getY());
-        return nodeGrid;
+    private void connectAdjacentNodes(MapNode[][] raster) {
+        for (int rowIndex = 0; rowIndex < raster.length; rowIndex++) {
+            for (int columnIndex = 0; columnIndex < raster[rowIndex].length; columnIndex++) {
+                MapNode node = raster[rowIndex][columnIndex];
+                if (node != null) {
+                    getAdjacentNodes(raster, rowIndex, columnIndex).forEach(node::addNeighbor);
+                }
+            }
+        }
+    }
+
+    // naive implementation might become too slow for a large number of nodes
+    private void connectNodesByTheirClosestNodes(Map<Coord, MapNode> nodes) {
+        List<MapNode> rasterNodes = new ArrayList<>(nodes.values());
+        for (MapNode nodeToConnect : numberOfAttachmentsByNode.keySet()) {
+            Comparator<MapNode> comparator = new MapNodeDistanceComparator(nodeToConnect.getLocation());
+            rasterNodes.sort(comparator);
+
+            int numberOfAttachmentPoints = numberOfAttachmentsByNode.get(nodeToConnect);
+            List<MapNode> nClosestNodes = rasterNodes.subList(0, Math.min(nodes.size(), numberOfAttachmentPoints));
+
+            for (MapNode node : nClosestNodes) {
+                nodeToConnect.addNeighbor(node);
+                node.addNeighbor(nodeToConnect);
+            }
+
+            nodes.put(nodeToConnect.getLocation(), nodeToConnect);
+        }
+    }
+
+    private void updateWithDisconnectNodes(Map<Coord, MapNode> nodes) {
+        for (MapNode node : disconnectedNodes) {
+            nodes.put(node.getLocation(), node);
+        }
     }
 
     private BoundingBox getRasterBoundingBox() {
@@ -109,17 +158,6 @@ public class NodeGridBuilder {
 
     private boolean isRowHorizontallyOffset(int rowIndex) {
         return rowIndex % 2 != 0;
-    }
-
-    private void connectAdjacentNodes(MapNode[][] raster) {
-        for (int rowIndex = 0; rowIndex < raster.length; rowIndex++) {
-            for (int columnIndex = 0; columnIndex < raster[rowIndex].length; columnIndex++) {
-                MapNode node = raster[rowIndex][columnIndex];
-                if (node != null) {
-                    getAdjacentNodes(raster, rowIndex, columnIndex).forEach(node::addNeighbor);
-                }
-            }
-        }
     }
 
     private List<MapNode> getAdjacentNodes(MapNode[][] raster, int rowIndex, int columnIndex) {
