@@ -7,6 +7,7 @@ import movement.map.SimMap;
 import movement.pathfinding.AStarPathFinder;
 import movement.nodegrid.NodeGridBuilder;
 import movement.nodegrid.Polygon;
+import movement.pathfinding.PathFinder;
 
 import java.util.Arrays;
 import java.util.List;
@@ -16,7 +17,7 @@ public class NodeGridMovement extends MovementModel implements RenderableMovemen
 
     private SimMap nodeGrid;
 
-    private AStarPathFinder pathFinder;
+    private PathFinder pathFinder;
 
     private MapNode currentNode;
 
