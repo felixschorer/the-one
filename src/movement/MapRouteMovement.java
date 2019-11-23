@@ -7,11 +7,12 @@ package movement;
 import java.util.List;
 
 import core.SettingsError;
-import movement.map.DijkstraPathFinder;
+import movement.pathfinding.DijkstraPathFinder;
 import movement.map.MapNode;
 import movement.map.MapRoute;
 import core.Coord;
 import core.Settings;
+import movement.pathfinding.PathFinder;
 
 /**
  * Map based movement model that uses predetermined paths within the map area.
@@ -38,7 +39,7 @@ public class MapRouteMovement extends MapBasedMovement implements
 	public static final String ROUTE_FIRST_STOP_S = "routeFirstStop";
 
 	/** the Dijkstra shortest path finder */
-	private DijkstraPathFinder pathFinder;
+	private PathFinder pathFinder;
 
 	/** Prototype's reference to all routes read for the group */
 	private List<MapRoute> allRoutes = null;
@@ -107,7 +108,7 @@ public class MapRouteMovement extends MapBasedMovement implements
 		Path p = new Path(generateSpeed());
 		MapNode to = route.nextStop();
 
-		List<MapNode> nodePath = pathFinder.getShortestPath(lastMapNode, to);
+		List<MapNode> nodePath = pathFinder.findPath(lastMapNode, to);
 
 		// this assertion should never fire if the map is checked in read phase
 		assert nodePath.size() > 0 : "No path from " + lastMapNode + " to " +

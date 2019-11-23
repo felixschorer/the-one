@@ -7,13 +7,15 @@ Report.nrofReports = 0
 Events.nrof = 0
 
 Scenario.nrofHostGroups = 1
+
 Group1.groupID = x
-Group1.nrofHosts = 100
 Group1.nrofInterfaces = 1
 Group1.interface1 = myInterface
 myInterface.type = SimpleBroadcastInterface
 myInterface.transmitRange = 0
 myInterface.transmitSpeed = 0
+Group1.router = PassiveRouter
+
+Group1.nrofHosts = 10
 Group1.movementModel = NodeGridMovement
 Group1.ngmRasterInterval = 1
-Group1.router = PassiveRouter

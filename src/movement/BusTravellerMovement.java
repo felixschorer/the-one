@@ -7,11 +7,12 @@ package movement;
 import java.util.List;
 import java.util.Random;
 
-import movement.map.DijkstraPathFinder;
+import movement.pathfinding.DijkstraPathFinder;
 import movement.map.MapNode;
 import movement.map.SimMap;
 import core.Coord;
 import core.Settings;
+import movement.pathfinding.PathFinder;
 
 /**
  *
@@ -45,7 +46,7 @@ public class BusTravellerMovement extends MapBasedMovement implements
 	private ContinueBusTripDecider cbtd;
 	private double[] probabilities;
 	private double probTakeOtherBus;
-	private DijkstraPathFinder pathFinder;
+	private PathFinder pathFinder;
 
 	private Coord startBusStop;
 	private Coord endBusStop;
@@ -133,7 +134,7 @@ public class BusTravellerMovement extends MapBasedMovement implements
 			}
 			MapNode thisNode = map.getNodeByCoord(location);
 			MapNode destinationNode = map.getNodeByCoord(latestBusStop);
-			List<MapNode> nodes = pathFinder.getShortestPath(thisNode,
+			List<MapNode> nodes = pathFinder.findPath(thisNode,
 					destinationNode);
 			Path path = new Path(generateSpeed());
 			for (MapNode node : nodes) {

@@ -1,5 +1,6 @@
 # Compiled files
 *.class
+out
 
 # Simulation report files
 *reports*/*.txt

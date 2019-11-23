@@ -10,11 +10,12 @@ import java.io.File;
 import java.util.LinkedList;
 import java.util.List;
 
-import movement.map.DijkstraPathFinder;
+import movement.pathfinding.DijkstraPathFinder;
 import movement.map.MapNode;
 import movement.map.SimMap;
 import core.Coord;
 import core.Settings;
+import movement.pathfinding.PathFinder;
 
 /**
  * A Class to model movement when people are out shopping or doing other
@@ -48,7 +49,7 @@ public class EveningActivityMovement extends MapBasedMovement
 
 	private int mode;
 	private boolean ready;
-	private DijkstraPathFinder pathFinder;
+	private PathFinder pathFinder;
 
 	private Coord lastWaypoint;
 	private Coord startAtLocation;
@@ -179,7 +180,7 @@ public class EveningActivityMovement extends MapBasedMovement
 			MapNode thisNode = map.getNodeByCoord(lastWaypoint);
 			MapNode destinationNode = map.getNodeByCoord(startAtLocation);
 
-			List<MapNode> nodes = pathFinder.getShortestPath(thisNode,
+			List<MapNode> nodes = pathFinder.findPath(thisNode,
 					destinationNode);
 			Path path = new Path(generateSpeed());
 			for (MapNode node : nodes) {

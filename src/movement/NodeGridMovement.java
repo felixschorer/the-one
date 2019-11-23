@@ -2,12 +2,16 @@ package movement;
 
 import core.Coord;
 import core.Settings;
-import movement.map.DijkstraPathFinder;
 import movement.map.MapNode;
 import movement.map.SimMap;
+import movement.pathfinding.AStarPathFinder;
 import movement.nodegrid.NodeGridBuilder;
 import movement.nodegrid.Polygon;
+import movement.pathfinding.Heuristic;
+import movement.pathfinding.PathFinder;
+import movement.pathfinding.RandomizedDistanceHeuristic;
 
+import java.util.Arrays;
 import java.util.List;
 
 public class NodeGridMovement extends MovementModel implements RenderableMovement {
@@ -15,46 +19,43 @@ public class NodeGridMovement extends MovementModel implements RenderableMovemen
 
     private SimMap nodeGrid;
 
+    private PathFinder pathFinder;
+
     private MapNode currentNode;
 
-    private DijkstraPathFinder pathFinder;
+    private List<MapNode> pointsOfInterest;
+
+    private boolean pickPointOfInterest = true;
 
     public NodeGridMovement(Settings settings) {
         super(settings);
         double rasterInterval = settings.getDouble(RASTER_INTERVAL);
         Polygon outerBound = new Polygon(
-                new Coord(0, 10),
-                new Coord(50, 50),
-                new Coord(200, 100),
-                new Coord(100, 0)
+                new Coord(0, 0),
+                new Coord(0, 40),
+                new Coord(160, 40),
+                new Coord(160, 0)
         );
-        Polygon cutout = new Polygon(
-                new Coord(50, 40),
-                new Coord(75, 50),
-                new Coord(80, 20)
-        );
-        outerBound.translate(50, 50);
-        cutout.translate(50, 50);
-        MapNode pointOfInterest = new MapNode(new Coord(0, 0));
-        MapNode pointOfInterestEntry1 = new MapNode(new Coord(100, 25));
-        MapNode pointOfInterestEntry2 = new MapNode(new Coord(25, 100));
-        pointOfInterest.addNeighbor(pointOfInterestEntry1);
-        pointOfInterest.addNeighbor(pointOfInterestEntry2);
-        pointOfInterestEntry1.addNeighbor(pointOfInterest);
-        pointOfInterestEntry2.addNeighbor(pointOfInterest);
+        outerBound.translate(20, 30);
+
+        MapNode pointOfInterest1 = new MapNode(new Coord(0, 0));
+        MapNode pointOfInterest2 = new MapNode(new Coord(200, 100));
+        pointsOfInterest = Arrays.asList(pointOfInterest1, pointOfInterest2);
 
         nodeGrid = new NodeGridBuilder(rasterInterval)
                 .add(outerBound)
-                .subtract(cutout)
-                .attachNodeByClosestNodes(pointOfInterestEntry1, 3)
-                .attachNodeByClosestNodes(pointOfInterestEntry2, 5)
+                .attachNodeByClosestNodes(pointOfInterest1, 1)
+                .attachNodeByClosestNodes(pointOfInterest2, 1)
                 .build();
-        pathFinder = new DijkstraPathFinder(null);
+
+        Heuristic heuristic = new RandomizedDistanceHeuristic(rng::nextGaussian, 2);
+        pathFinder = new AStarPathFinder(heuristic);
     }
 
     public NodeGridMovement(NodeGridMovement other) {
         super(other);
         nodeGrid = other.nodeGrid;
+        pointsOfInterest = other.pointsOfInterest;
         pathFinder = other.pathFinder;
     }
 
@@ -66,15 +67,17 @@ public class NodeGridMovement extends MovementModel implements RenderableMovemen
     @Override
     public Path getPath() {
         MapNode from = currentNode;
-        MapNode to = pickRandomNode(nodeGrid.getNodes());
+        MapNode to = pickPointOfInterest ? pickRandomNode(pointsOfInterest) : pickRandomNode(nodeGrid.getNodes());
+        pickPointOfInterest = !pickPointOfInterest;
         currentNode = to;
 
-        List<MapNode> shortestPath = pathFinder.getShortestPath(from, to);
+        List<MapNode> shortestPath = pathFinder.findPath(from, to);
 
         Path path = new Path();
-        if (shortestPath.size() > 0) {
-            path.addWaypoint(shortestPath.get(0).getLocation(), 1);
+        for (MapNode hop : shortestPath) {
+            path.addWaypoint(hop.getLocation(), 1);
         }
+
         return path;
     }
 
