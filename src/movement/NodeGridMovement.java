@@ -63,7 +63,6 @@ public class NodeGridMovement extends MovementModel implements RenderableMovemen
     public Path getPath() {
         MapNode from = currentNode;
         MapNode to = schedule.getNextEvent().getLocation();
-//        System.out.println("next destination:" + to);
         currentNode = to;
 
         List<MapNode> shortestPath = pathFinder.findPath(from, to);
