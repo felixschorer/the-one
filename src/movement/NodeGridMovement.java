@@ -32,14 +32,14 @@ public class NodeGridMovement extends MovementModel implements RenderableMovemen
         double rasterInterval = settings.getDouble(RASTER_INTERVAL);
         Polygon outerBound = new Polygon(
                 new Coord(0, 0),
-                new Coord(0, 100),
-                new Coord(100, 100),
-                new Coord(100, 0)
+                new Coord(0, 40),
+                new Coord(160, 40),
+                new Coord(160, 0)
         );
-        outerBound.translate(50, 50);
+        outerBound.translate(20, 30);
 
         MapNode pointOfInterest1 = new MapNode(new Coord(0, 0));
-        MapNode pointOfInterest2 = new MapNode(new Coord(200, 200));
+        MapNode pointOfInterest2 = new MapNode(new Coord(200, 100));
         pointsOfInterest = Arrays.asList(pointOfInterest1, pointOfInterest2);
 
         nodeGrid = new NodeGridBuilder(rasterInterval)
@@ -48,7 +48,7 @@ public class NodeGridMovement extends MovementModel implements RenderableMovemen
                 .attachNodeByClosestNodes(pointOfInterest2, 1)
                 .build();
 
-        Heuristic heuristic = new RandomizedDistanceHeuristic(rng::nextDouble, 5);
+        Heuristic heuristic = new RandomizedDistanceHeuristic(rng::nextGaussian, 2);
         pathFinder = new AStarPathFinder(heuristic);
     }
 
