@@ -2,20 +2,23 @@ package movement;
 
 import core.Coord;
 import core.Settings;
+import input.OSMReader;
 import movement.map.MapNode;
 import movement.map.SimMap;
+import movement.nodegrid.NodeGridSettings;
 import movement.pathfinding.AStarPathFinder;
 import movement.nodegrid.NodeGridBuilder;
-import movement.nodegrid.Polygon;
 import movement.pathfinding.Heuristic;
 import movement.pathfinding.PathFinder;
 import movement.pathfinding.RandomizedDistanceHeuristic;
 
-import java.util.Arrays;
+import java.io.File;
 import java.util.List;
 
 public class NodeGridMovement extends MovementModel implements RenderableMovement {
-    private static final String RASTER_INTERVAL = "ngmRasterInterval";
+    private static NodeGridSettings cachedMapSettings = null;
+
+    private static SimMap cachedMap = null;
 
     private SimMap nodeGrid;
 
@@ -23,31 +26,9 @@ public class NodeGridMovement extends MovementModel implements RenderableMovemen
 
     private MapNode currentNode;
 
-    private List<MapNode> pointsOfInterest;
-
-    private boolean pickPointOfInterest = true;
-
     public NodeGridMovement(Settings settings) {
         super(settings);
-        double rasterInterval = settings.getDouble(RASTER_INTERVAL);
-        Polygon outerBound = new Polygon(
-                new Coord(0, 0),
-                new Coord(0, 40),
-                new Coord(160, 40),
-                new Coord(160, 0)
-        );
-        outerBound.translate(20, 30);
-
-        MapNode pointOfInterest1 = new MapNode(new Coord(0, 0));
-        MapNode pointOfInterest2 = new MapNode(new Coord(200, 100));
-        pointsOfInterest = Arrays.asList(pointOfInterest1, pointOfInterest2);
-
-        nodeGrid = new NodeGridBuilder(rasterInterval)
-                .add(outerBound)
-                .attachNodeByClosestNodes(pointOfInterest1, 1)
-                .attachNodeByClosestNodes(pointOfInterest2, 1)
-                .build();
-
+        nodeGrid = readMap();
         Heuristic heuristic = new RandomizedDistanceHeuristic(rng::nextGaussian, 2);
         pathFinder = new AStarPathFinder(heuristic);
     }
@@ -55,7 +36,6 @@ public class NodeGridMovement extends MovementModel implements RenderableMovemen
     public NodeGridMovement(NodeGridMovement other) {
         super(other);
         nodeGrid = other.nodeGrid;
-        pointsOfInterest = other.pointsOfInterest;
         pathFinder = other.pathFinder;
     }
 
@@ -67,8 +47,7 @@ public class NodeGridMovement extends MovementModel implements RenderableMovemen
     @Override
     public Path getPath() {
         MapNode from = currentNode;
-        MapNode to = pickPointOfInterest ? pickRandomNode(pointsOfInterest) : pickRandomNode(nodeGrid.getNodes());
-        pickPointOfInterest = !pickPointOfInterest;
+        MapNode to = pickRandomNode(nodeGrid.getNodes());
         currentNode = to;
 
         List<MapNode> shortestPath = pathFinder.findPath(from, to);
@@ -95,5 +74,27 @@ public class NodeGridMovement extends MovementModel implements RenderableMovemen
     private MapNode pickRandomNode(List<MapNode> graphNodes) {
         int chosenIndex = rng.nextInt(graphNodes.size());
         return graphNodes.get(chosenIndex);
+    }
+
+    public static SimMap readMap() {
+        NodeGridSettings settings = new NodeGridSettings();
+        if (settings.equals(cachedMapSettings) && cachedMap != null) {
+            return cachedMap;
+        }
+
+        OSMReader reader = new OSMReader(settings.getReferenceLong(), settings.getReferenceLat());
+        NodeGridBuilder builder = new NodeGridBuilder(settings.getRasterInterval());
+
+        for (String includedPolygonPath : settings.getIncludedPolygons()) {
+            builder.add(reader.readPolygons(new File(includedPolygonPath)));
+        }
+
+        for (String includedPolygonPath : settings.getExcludedPolygons()) {
+            builder.subtract(reader.readPolygons(new File(includedPolygonPath)));
+        }
+
+        cachedMap = builder.build();
+        cachedMapSettings = settings;
+        return cachedMap;
     }
 }

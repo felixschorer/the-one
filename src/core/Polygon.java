@@ -1,6 +1,4 @@
-package movement.nodegrid;
-
-import core.Coord;
+package core;
 
 public class Polygon {
     private Coord[] vertices;
