@@ -16,6 +16,6 @@ myInterface.transmitRange = 0
 myInterface.transmitSpeed = 0
 Group1.router = PassiveRouter
 
-Group1.nrofHosts = 10
+Group1.nrofHosts = 1
 Group1.movementModel = NodeGridMovement
 Group1.ngmRasterInterval = 1

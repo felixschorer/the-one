@@ -27,6 +27,8 @@ public class NodeGridMovement extends MovementModel implements RenderableMovemen
 
     private boolean pickPointOfInterest = true;
 
+    private Schedule schedule = new Schedule();
+
     public NodeGridMovement(Settings settings) {
         super(settings);
         double rasterInterval = settings.getDouble(RASTER_INTERVAL);
@@ -67,8 +69,7 @@ public class NodeGridMovement extends MovementModel implements RenderableMovemen
     @Override
     public Path getPath() {
         MapNode from = currentNode;
-        MapNode to = pickPointOfInterest ? pickRandomNode(pointsOfInterest) : pickRandomNode(nodeGrid.getNodes());
-        pickPointOfInterest = !pickPointOfInterest;
+        MapNode to = schedule.getNextEvent().location;
         currentNode = to;
 
         List<MapNode> shortestPath = pathFinder.findPath(from, to);
