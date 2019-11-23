@@ -21,6 +21,8 @@ public class AStarPathFinder implements PathFinder {
 
     @Override
     public List<MapNode> findPath(MapNode from, MapNode to) {
+        assert from.isType(okMapNodes) && to.isType(okMapNodes);
+
         PriorityQueue<NodeWithCost> openList = new PriorityQueue<>();
         Set<MapNode> closedList = new HashSet<>();
         Map<MapNode, MapNode> predecessor = new HashMap<>();
@@ -37,8 +39,7 @@ public class AStarPathFinder implements PathFinder {
             closedList.add(currentNode);
 
             for (MapNode successor : currentNode.getNeighbors()) {
-                boolean successorOk = successor.isType(okMapNodes) || successor.equals(to);
-                if (!successorOk || closedList.contains(successor)) {
+                if (!successor.isType(okMapNodes) || closedList.contains(successor)) {
                     continue;
                 }
                 double cost = currentNode.getLocation().distance(successor.getLocation());
