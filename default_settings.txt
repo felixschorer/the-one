@@ -18,4 +18,7 @@ Group1.router = PassiveRouter
 
 Group1.nrofHosts = 10
 Group1.movementModel = NodeGridMovement
-Group1.ngmRasterInterval = 1
+NodeGridMovement.rasterInterval = 0.6
+NodeGridMovement.includedPolygon1 = data/FMI/magistrale.osm
+NodeGridMovement.referenceLong = 11.666516
+NodeGridMovement.referenceLat = 48.262
