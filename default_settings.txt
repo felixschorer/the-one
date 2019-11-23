@@ -20,5 +20,5 @@ Group1.nrofHosts = 10
 Group1.movementModel = NodeGridMovement
 NodeGridMovement.rasterInterval = 0.6
 NodeGridMovement.includedPolygon1 = data/FMI/magistrale.osm
-NodeGridMovement.referenceLong = 11.666516
-NodeGridMovement.referenceLat = 48.262
+NodeGridMovement.referenceLong = 11.666566
+NodeGridMovement.referenceLat = 48.263536

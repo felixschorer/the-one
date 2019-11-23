@@ -77,7 +77,7 @@ public class OSMReader {
     }
 
     public static double latitudeToY(double latitude) {
-        return Math.log(Math.tan(Math.PI / 4 + Math.toRadians(latitude) / 2)) * EQUATOR_CIRCUMFERENCE_IN_METERS;
+        return - Math.log(Math.tan(Math.PI / 4 + Math.toRadians(latitude) / 2)) * EQUATOR_CIRCUMFERENCE_IN_METERS;
     }
     public static double longitudeToX(double longitude) {
         return Math.toRadians(longitude) * EQUATOR_CIRCUMFERENCE_IN_METERS;
