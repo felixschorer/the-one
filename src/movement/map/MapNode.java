@@ -75,7 +75,7 @@ public class MapNode implements Comparable<MapNode> {
 			}
 		}
 
-		return false;
+		return types.length == 0;
 	}
 
 	/**

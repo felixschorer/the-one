@@ -10,12 +10,13 @@ import java.io.File;
 import java.util.LinkedList;
 import java.util.List;
 
-import movement.map.DijkstraPathFinder;
+import movement.pathfinding.DijkstraPathFinder;
 import movement.map.MapNode;
 import movement.map.SimMap;
 import core.Coord;
 import core.Settings;
 import core.SimClock;
+import movement.pathfinding.PathFinder;
 
 /**
  * A Class to model movement at home. If the node happens to be at some other
@@ -38,7 +39,7 @@ public class HomeActivityMovement extends MapBasedMovement
 	public static final String STD_FOR_TIME_DIFF_SETTING = "timeDiffSTD";
 
 	private int mode;
-	private DijkstraPathFinder pathFinder;
+	private PathFinder pathFinder;
 
 	private int distance;
 
@@ -167,7 +168,7 @@ public class HomeActivityMovement extends MapBasedMovement
 			}
 			MapNode thisNode = map.getNodeByCoord(lastWaypoint);
 			MapNode destinationNode = map.getNodeByCoord(homeLocation);
-			List<MapNode> nodes = pathFinder.getShortestPath(thisNode,
+			List<MapNode> nodes = pathFinder.findPath(thisNode,
 					destinationNode);
 			Path path = new Path(generateSpeed());
 			for (MapNode node : nodes) {

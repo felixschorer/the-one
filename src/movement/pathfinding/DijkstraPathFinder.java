@@ -2,7 +2,9 @@
  * Copyright 2010 Aalto University, ComNet
  * Released under GPLv3. See LICENSE.txt for details.
  */
-package movement.map;
+package movement.pathfinding;
+
+import movement.map.MapNode;
 
 import java.util.Comparator;
 import java.util.HashMap;
@@ -17,7 +19,7 @@ import java.util.Set;
 /**
  * Implementation of the Dijkstra's shortest path algorithm.
  */
-public class DijkstraPathFinder {
+public class DijkstraPathFinder implements PathFinder {
 	/** Value for infinite distance  */
 	private static final Double INFINITY = Double.MAX_VALUE;
 	/** Initial size of the priority queue */
@@ -39,7 +41,7 @@ public class DijkstraPathFinder {
 	 * @param okMapNodes The map node types that are OK for paths or null if
 	 * all nodes are OK
 	 */
-	public DijkstraPathFinder(int [] okMapNodes) {
+	public DijkstraPathFinder(int[] okMapNodes) {
 		super();
 		this.okMapNodes = okMapNodes;
 	}
@@ -70,7 +72,8 @@ public class DijkstraPathFinder {
 	 * @return a shortest path between the source and destination nodes in
 	 * a list of MapNodes or an empty list if such path is not available
 	 */
-	public List<MapNode> getShortestPath(MapNode from, MapNode to) {
+	@Override
+	public List<MapNode> findPath(MapNode from, MapNode to) {
 		List<MapNode> path = new LinkedList<MapNode>();
 
 		if (from.compareTo(to) == 0) { // source and destination are the same

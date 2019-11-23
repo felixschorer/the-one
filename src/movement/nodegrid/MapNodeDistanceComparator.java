@@ -16,12 +16,6 @@ public class MapNodeDistanceComparator implements Comparator<MapNode> {
     public int compare(MapNode a, MapNode b) {
         double distanceToA = referencePoint.distance(a.getLocation());
         double distanceToB = referencePoint.distance(b.getLocation());
-        if (distanceToA - distanceToB > 0) {
-            return 1;
-        }
-        if (distanceToA - distanceToB < 0) {
-            return -1;
-        }
-        return 0;
+        return Double.compare(distanceToA, distanceToB);
     }
 }

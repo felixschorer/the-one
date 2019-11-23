@@ -18,7 +18,7 @@ import java.util.Set;
 /**
  * Dijkstra's shortest path implementation for schedule data
  */
-/* TODO: combine this with movement.map.DijkstraPathFinder? */
+/* TODO: combine this with movement.pathfinding.DijkstraPathFinder? */
 public class ScheduleDijkstra {
 	/** Value for infinite distance  */
 	private static final Double INFINITY = Double.MAX_VALUE;

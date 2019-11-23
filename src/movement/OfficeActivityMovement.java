@@ -10,9 +10,10 @@ import java.io.File;
 import java.util.LinkedList;
 import java.util.List;
 
+import movement.pathfinding.PathFinder;
 import util.ParetoRNG;
 
-import movement.map.DijkstraPathFinder;
+import movement.pathfinding.DijkstraPathFinder;
 import movement.map.MapNode;
 import movement.map.SimMap;
 import core.Coord;
@@ -53,7 +54,7 @@ public class OfficeActivityMovement extends MapBasedMovement implements
 	private int workDayLength;
 	private int startedWorkingTime;
 	private boolean ready;;
-	private DijkstraPathFinder pathFinder;
+	private PathFinder pathFinder;
 
 	private ParetoRNG paretoRNG;
 
@@ -201,7 +202,7 @@ public class OfficeActivityMovement extends MapBasedMovement implements
 			}
 			MapNode thisNode = map.getNodeByCoord(lastWaypoint);
 			MapNode destinationNode = map.getNodeByCoord(officeLocation);
-			List<MapNode> nodes = pathFinder.getShortestPath(thisNode,
+			List<MapNode> nodes = pathFinder.findPath(thisNode,
 					destinationNode);
 			Path path = new Path(generateSpeed());
 			for (MapNode node : nodes) {

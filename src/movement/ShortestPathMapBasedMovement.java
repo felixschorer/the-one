@@ -6,10 +6,11 @@ package movement;
 
 import java.util.List;
 
-import movement.map.DijkstraPathFinder;
+import movement.pathfinding.DijkstraPathFinder;
 import movement.map.MapNode;
 import movement.map.PointsOfInterest;
 import core.Settings;
+import movement.pathfinding.PathFinder;
 
 /**
  * Map based movement model that uses Dijkstra's algorithm to find shortest
@@ -18,7 +19,7 @@ import core.Settings;
 public class ShortestPathMapBasedMovement extends MapBasedMovement implements
 	SwitchableMovement {
 	/** the Dijkstra shortest path finder */
-	private DijkstraPathFinder pathFinder;
+	private PathFinder pathFinder;
 
 	/** Points Of Interest handler */
 	private PointsOfInterest pois;
@@ -50,7 +51,7 @@ public class ShortestPathMapBasedMovement extends MapBasedMovement implements
 		Path p = new Path(generateSpeed());
 		MapNode to = pois.selectDestination();
 
-		List<MapNode> nodePath = pathFinder.getShortestPath(lastMapNode, to);
+		List<MapNode> nodePath = pathFinder.findPath(lastMapNode, to);
 
 		// this assertion should never fire if the map is checked in read phase
 		assert nodePath.size() > 0 : "No path from " + lastMapNode + " to " +
