@@ -7,7 +7,9 @@ import movement.map.SimMap;
 import movement.pathfinding.AStarPathFinder;
 import movement.nodegrid.NodeGridBuilder;
 import movement.nodegrid.Polygon;
+import movement.pathfinding.Heuristic;
 import movement.pathfinding.PathFinder;
+import movement.pathfinding.RandomizedDistanceHeuristic;
 
 import java.util.Arrays;
 import java.util.List;
@@ -46,7 +48,7 @@ public class NodeGridMovement extends MovementModel implements RenderableMovemen
                 .attachNodeByClosestNodes(pointOfInterest2, 1)
                 .build();
 
-        AStarPathFinder.Heuristic heuristic = new AStarPathFinder.RandomizedDistanceHeuristic(rng::nextDouble, 5);
+        Heuristic heuristic = new RandomizedDistanceHeuristic(rng::nextDouble, 5);
         pathFinder = new AStarPathFinder(heuristic);
     }
 

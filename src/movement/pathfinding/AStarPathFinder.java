@@ -3,7 +3,6 @@ package movement.pathfinding;
 import movement.map.MapNode;
 
 import java.util.*;
-import java.util.function.Supplier;
 
 public class AStarPathFinder implements PathFinder {
     private int[] okMapNodes;
@@ -67,44 +66,6 @@ public class AStarPathFinder implements PathFinder {
             to = predecessor.get(to);
         }
         return path;
-    }
-
-    /**
-     * Heuristic for choosing the next node.
-     * The following must be true: 0 <= returned cost <= actual cost.
-     * The actual cost is the distance between the two points.
-     * If the returned cost is smaller than the actual cost, the path might not be optimal.
-     */
-    @FunctionalInterface
-    public interface Heuristic {
-        double compute(MapNode form, MapNode to);
-    }
-
-    public static class DistanceHeuristic implements Heuristic {
-        @Override
-        public double compute(MapNode mapNode, MapNode mapNode2) {
-            return mapNode.getLocation().distance(mapNode2.getLocation());
-        }
-    }
-
-    public static class RandomizedDistanceHeuristic implements Heuristic {
-        private final double magnitude;
-        private final Supplier<Double> randomSupplier;
-
-        public RandomizedDistanceHeuristic(Supplier<Double> randomSupplier) {
-            this(randomSupplier, 1);
-        }
-
-        public RandomizedDistanceHeuristic(Supplier<Double> randomSupplier, double magnitude) {
-            this.magnitude = magnitude;
-            this.randomSupplier = randomSupplier;
-        }
-
-        @Override
-        public double compute(MapNode mapNode, MapNode mapNode2) {
-            double costReduction = Math.abs(magnitude * randomSupplier.get());
-            return Math.max(0, mapNode.getLocation().distance(mapNode2.getLocation()) - costReduction);
-        }
     }
 
     private static class NodeWithCost implements Comparable<NodeWithCost> {
