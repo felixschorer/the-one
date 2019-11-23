@@ -5,8 +5,8 @@ import java.util.Map;
 public class OSMRelation extends OSMEntity {
     private final Map<OSMEntity, String> members;
 
-    public OSMRelation(String id, Map<OSMEntity, String> members, Map<String, String> tags) {
-        super(id, tags);
+    public OSMRelation(String fileName, String id, Map<OSMEntity, String> members, Map<String, String> tags) {
+        super(fileName, id, tags);
         this.members = members;
     }
 

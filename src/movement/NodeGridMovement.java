@@ -2,25 +2,19 @@ package movement;
 
 import core.Coord;
 import core.Settings;
-import input.osm.OSMArea;
-import input.osm.OSMMultiPolygon;
-import input.osm.OSMReader;
 import movement.map.MapNode;
 import movement.map.SimMap;
 import movement.nodegrid.NodeGridSettings;
+import movement.nodegrid.OSM2NodeGrid;
 import movement.pathfinding.AStarPathFinder;
-import movement.nodegrid.NodeGridBuilder;
 import movement.pathfinding.Heuristic;
 import movement.pathfinding.PathFinder;
 import movement.pathfinding.RandomizedDistanceHeuristic;
 
-import java.io.File;
-import java.util.List;
+import java.util.*;
 
 public class NodeGridMovement extends MovementModel implements RenderableMovement {
-    private static NodeGridSettings cachedMapSettings = null;
-
-    private static SimMap cachedMap = null;
+    private Set<MapNode> pointsOfInterest;
 
     private SimMap nodeGrid;
 
@@ -30,7 +24,11 @@ public class NodeGridMovement extends MovementModel implements RenderableMovemen
 
     public NodeGridMovement(Settings settings) {
         super(settings);
-        nodeGrid = readMap();
+
+        OSM2NodeGrid osm2NodeGrid = new OSM2NodeGrid(new NodeGridSettings());
+        nodeGrid = osm2NodeGrid.getSimMap();
+        pointsOfInterest = osm2NodeGrid.getPointsOfInterest();
+
         Heuristic heuristic = new RandomizedDistanceHeuristic(rng::nextGaussian, 2);
         pathFinder = new AStarPathFinder(heuristic);
     }
@@ -38,6 +36,7 @@ public class NodeGridMovement extends MovementModel implements RenderableMovemen
     public NodeGridMovement(NodeGridMovement other) {
         super(other);
         nodeGrid = other.nodeGrid;
+        pointsOfInterest = other.pointsOfInterest;
         pathFinder = other.pathFinder;
     }
 
@@ -76,35 +75,5 @@ public class NodeGridMovement extends MovementModel implements RenderableMovemen
     private MapNode pickRandomNode(List<MapNode> graphNodes) {
         int chosenIndex = rng.nextInt(graphNodes.size());
         return graphNodes.get(chosenIndex);
-    }
-
-    public static SimMap readMap() {
-        NodeGridSettings settings = new NodeGridSettings();
-        if (settings.equals(cachedMapSettings) && cachedMap != null) {
-            return cachedMap;
-        }
-
-        NodeGridBuilder builder = new NodeGridBuilder(settings.getRasterInterval());
-
-        for (String path : settings.getOsmFiles()) {
-            OSMReader reader = new OSMReader(new File(path), settings.getReferenceLong(), settings.getReferenceLat());
-
-            for (OSMArea area : reader.getAreas()) {
-                builder.add(area.getPolygon());
-            }
-
-            for (OSMMultiPolygon polygon : reader.getMultiPolygons()) {
-                for (OSMArea area : polygon.getOuterPolygons()) {
-                    builder.add(area.getPolygon());
-                }
-                for (OSMArea area : polygon.getInnerPolygons()) {
-                    builder.subtract(area.getPolygon());
-                }
-            }
-        }
-
-        cachedMap = builder.build();
-        cachedMapSettings = settings;
-        return cachedMap;
     }
 }

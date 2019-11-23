@@ -23,6 +23,7 @@ public class OSMReader {
     private static final String AREA = "area";
     private static final String RELATION = "relation";
 
+    private final OSMEntityFactory entityFactory;
     private final Document doc;
 
     private final double referenceX;
@@ -32,8 +33,9 @@ public class OSMReader {
     private Map<String, OSMWay> cachedWays;
     private Map<String, OSMRelation> cachedRelations;
 
-    public OSMReader(File osmFile, double referenceLongitude, double referenceLatitude) {
-        doc = parseXmlDocument(osmFile);
+    public OSMReader(String osmFileName, double referenceLongitude, double referenceLatitude) {
+        entityFactory = new OSMEntityFactory(osmFileName);
+        doc = parseXmlDocument(new File(osmFileName));
         referenceX = longitudeToX(referenceLongitude);
         referenceY = latitudeToY(referenceLatitude);
     }
@@ -49,7 +51,7 @@ public class OSMReader {
     public Collection<OSMArea> getAreas() {
         return readWays().values().stream()
                 .filter(way -> way.getTags().containsKey(AREA))
-                .map(OSMArea::new)
+                .map(entityFactory::area)
                 .collect(Collectors.toList());
     }
 
@@ -68,13 +70,13 @@ public class OSMReader {
                 OSMWay way = (OSMWay) entityWithRole.getKey();
                 String role = entityWithRole.getValue();
                 if ("outer".equals(role)) {
-                    outerPolygons.add(new OSMArea(way));
+                    outerPolygons.add(entityFactory.area(way));
                 }
                 if ("inner".equals(role)) {
-                    innerPolygons.add(new OSMArea(way));
+                    innerPolygons.add(entityFactory.area(way));
                 }
             }
-            polygons.add(new OSMMultiPolygon(relation.getId(), outerPolygons, innerPolygons, relation.getTags()));
+            polygons.add(entityFactory.multiPolygon(relation.getId(), outerPolygons, innerPolygons, relation.getTags()));
         }
         return polygons;
     }
@@ -92,7 +94,7 @@ public class OSMReader {
                     points.add(nodes.get(ref));
                 }
                 String id = readId(way);
-                OSMWay osmWay = new OSMWay(id, points, readTags(way));
+                OSMWay osmWay = entityFactory.way(id, points, readTags(way));
                 ways.put(id, osmWay);
             }
             cachedWays = ways;
@@ -110,7 +112,7 @@ public class OSMReader {
                 double x = longitudeToX(longitude) - referenceX;
                 double y = latitudeToY(latitude) - referenceY;
                 String id = readId(node);
-                OSMNode osmNode = new OSMNode(id, new Coord(x, y), readTags(node));
+                OSMNode osmNode = entityFactory.node(id, new Coord(x, y), readTags(node));
                 nodes.put(id, osmNode);
             }
             cachedNodes = nodes;
@@ -132,7 +134,7 @@ public class OSMReader {
                     members.put(getRelatedEntity(type, ref), role);
                 }
                 String id = readId(relation);
-                OSMRelation osmRelation = new OSMRelation(id, members, readTags(relation));
+                OSMRelation osmRelation = entityFactory.relation(id, members, readTags(relation));
                 relations.put(id, osmRelation);
             }
             cachedRelations = relations;
@@ -149,7 +151,7 @@ public class OSMReader {
             case WAY:
                 return ways.get(id);
             default:
-                return new OSMEntity(id, Map.of());
+                return entityFactory.entity(id, Map.of());
         }
     }
 

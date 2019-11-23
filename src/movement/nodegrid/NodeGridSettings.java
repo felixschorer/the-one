@@ -42,22 +42,6 @@ public class NodeGridSettings {
         return osmFiles;
     }
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        NodeGridSettings that = (NodeGridSettings) o;
-        return Double.compare(that.getRasterInterval(), getRasterInterval()) == 0 &&
-                Double.compare(that.getReferenceLong(), getReferenceLong()) == 0 &&
-                Double.compare(that.getReferenceLat(), getReferenceLat()) == 0 &&
-                getOsmFiles().equals(that.getOsmFiles());
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(getRasterInterval(), getReferenceLong(), getReferenceLat(), getOsmFiles());
-    }
-
     private static Set<String> readPaths(Settings settings, String settingName) {
         Set<String> includedPolygons = new HashSet<>();
         for (int current = 1; settings.contains(settingName + current); current++) {

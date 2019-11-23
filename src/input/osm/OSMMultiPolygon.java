@@ -8,12 +8,13 @@ public class OSMMultiPolygon extends OSMEntity {
     private final List<OSMArea> innerPolygons;
 
     public OSMMultiPolygon(
+            String fileName,
             String id,
             List<OSMArea> outerPolygons,
             List<OSMArea> innerPolygons,
             Map<String, String> tags
     ) {
-        super(id, tags);
+        super(fileName, id, tags);
         this.outerPolygons = outerPolygons;
         this.innerPolygons = innerPolygons;
     }
