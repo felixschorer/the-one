@@ -2,7 +2,9 @@ package movement;
 
 import core.Coord;
 import core.Settings;
-import input.OSMReader;
+import input.osm.OSMArea;
+import input.osm.OSMMultiPolygon;
+import input.osm.OSMReader;
 import movement.map.MapNode;
 import movement.map.SimMap;
 import movement.nodegrid.NodeGridSettings;
@@ -82,15 +84,23 @@ public class NodeGridMovement extends MovementModel implements RenderableMovemen
             return cachedMap;
         }
 
-        OSMReader reader = new OSMReader(settings.getReferenceLong(), settings.getReferenceLat());
         NodeGridBuilder builder = new NodeGridBuilder(settings.getRasterInterval());
 
-        for (String includedPolygonPath : settings.getIncludedPolygons()) {
-            builder.add(reader.readPolygons(new File(includedPolygonPath)));
-        }
+        for (String path : settings.getOsmFiles()) {
+            OSMReader reader = new OSMReader(new File(path), settings.getReferenceLong(), settings.getReferenceLat());
 
-        for (String includedPolygonPath : settings.getExcludedPolygons()) {
-            builder.subtract(reader.readPolygons(new File(includedPolygonPath)));
+            for (OSMArea area : reader.getAreas()) {
+                builder.add(area.getPolygon());
+            }
+
+            for (OSMMultiPolygon polygon : reader.getMultiPolygons()) {
+                for (OSMArea area : polygon.getOuterPolygons()) {
+                    builder.add(area.getPolygon());
+                }
+                for (OSMArea area : polygon.getInnerPolygons()) {
+                    builder.subtract(area.getPolygon());
+                }
+            }
         }
 
         cachedMap = builder.build();

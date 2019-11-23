@@ -1,0 +1,198 @@
+package input.osm;
+
+import core.Coord;
+import core.SimError;
+import org.w3c.dom.Document;
+import org.w3c.dom.Element;
+import org.w3c.dom.NodeList;
+import org.xml.sax.SAXException;
+
+import javax.xml.parsers.DocumentBuilder;
+import javax.xml.parsers.DocumentBuilderFactory;
+import javax.xml.parsers.ParserConfigurationException;
+import java.io.File;
+import java.io.IOException;
+import java.util.*;
+import java.util.stream.Collectors;
+
+public class OSMReader {
+    private static final double EQUATOR_CIRCUMFERENCE_IN_METERS = 6378137.0;
+
+    private static final String WAY = "way";
+    private static final String NODE = "node";
+    private static final String AREA = "area";
+    private static final String RELATION = "relation";
+
+    private final Document doc;
+
+    private final double referenceX;
+    private final double referenceY;
+
+    private Map<String, OSMNode> cachedNodes;
+    private Map<String, OSMWay> cachedWays;
+    private Map<String, OSMRelation> cachedRelations;
+
+    public OSMReader(File osmFile, double referenceLongitude, double referenceLatitude) {
+        doc = parseXmlDocument(osmFile);
+        referenceX = longitudeToX(referenceLongitude);
+        referenceY = latitudeToY(referenceLatitude);
+    }
+
+    public Collection<OSMNode> getNodes() {
+        return readNodes().values();
+    }
+
+    public Collection<OSMWay> getWays() {
+        return readWays().values();
+    }
+
+    public Collection<OSMArea> getAreas() {
+        return readWays().values().stream()
+                .filter(way -> way.getTags().containsKey(AREA))
+                .map(OSMArea::new)
+                .collect(Collectors.toList());
+    }
+
+    public Collection<OSMMultiPolygon> getMultiPolygons() {
+        List<OSMMultiPolygon> polygons = new ArrayList<>();
+        for (OSMRelation relation : readRelations().values()) {
+            if (!"multipolygon".equals(relation.getTags().get("type"))) {
+                continue;
+            }
+            List<OSMArea> outerPolygons = new ArrayList<>();
+            List<OSMArea> innerPolygons = new ArrayList<>();
+            for (Map.Entry<OSMEntity, String> entityWithRole : relation.getMembers().entrySet()) {
+                if (!(entityWithRole.getKey() instanceof OSMWay)) {
+                    continue;
+                }
+                OSMWay way = (OSMWay) entityWithRole.getKey();
+                String role = entityWithRole.getValue();
+                if ("outer".equals(role)) {
+                    outerPolygons.add(new OSMArea(way));
+                }
+                if ("inner".equals(role)) {
+                    innerPolygons.add(new OSMArea(way));
+                }
+            }
+            polygons.add(new OSMMultiPolygon(relation.getId(), outerPolygons, innerPolygons, relation.getTags()));
+        }
+        return polygons;
+    }
+
+    private Map<String, OSMWay> readWays() {
+        if (cachedWays == null) {
+            Map<String, OSMWay> ways = new HashMap<>();
+            Map<String, OSMNode> nodes = readNodes();
+            NodeList wayNodesList = doc.getElementsByTagName(WAY);
+            for (Element way : toElementList(wayNodesList)) {
+                NodeList ndNodeList = way.getElementsByTagName("nd");
+                List<OSMNode> points = new ArrayList<>(ndNodeList.getLength());
+                for (Element nd : toElementList(ndNodeList)) {
+                    String ref = nd.getAttribute("ref");
+                    points.add(nodes.get(ref));
+                }
+                String id = readId(way);
+                OSMWay osmWay = new OSMWay(id, points, readTags(way));
+                ways.put(id, osmWay);
+            }
+            cachedWays = ways;
+        }
+        return cachedWays;
+    }
+
+    private Map<String, OSMNode> readNodes() {
+        if (cachedNodes == null) {
+            Map<String, OSMNode> nodes = new HashMap<>();
+            NodeList nodeNodeList = doc.getElementsByTagName(NODE);
+            for (Element node : toElementList(nodeNodeList)) {
+                double longitude = Double.parseDouble(node.getAttribute("lon"));
+                double latitude = Double.parseDouble(node.getAttribute("lat"));
+                double x = longitudeToX(longitude) - referenceX;
+                double y = latitudeToY(latitude) - referenceY;
+                String id = readId(node);
+                OSMNode osmNode = new OSMNode(id, new Coord(x, y), readTags(node));
+                nodes.put(id, osmNode);
+            }
+            cachedNodes = nodes;
+        }
+        return cachedNodes;
+    }
+
+    private Map<String, OSMRelation> readRelations() {
+        if (cachedRelations == null) {
+            Map<String, OSMRelation> relations = new HashMap<>();
+            NodeList relationNodeList = doc.getElementsByTagName(RELATION);
+            for (Element relation : toElementList(relationNodeList)) {
+                NodeList memberNodeList = relation.getElementsByTagName("member");
+                Map<OSMEntity, String> members = new HashMap<>();
+                for (Element member : toElementList(memberNodeList)) {
+                    String type = member.getAttribute("type");
+                    String ref = member.getAttribute("ref");
+                    String role = member.getAttribute("role");
+                    members.put(getRelatedEntity(type, ref), role);
+                }
+                String id = readId(relation);
+                OSMRelation osmRelation = new OSMRelation(id, members, readTags(relation));
+                relations.put(id, osmRelation);
+            }
+            cachedRelations = relations;
+        }
+        return cachedRelations;
+    }
+
+    private OSMEntity getRelatedEntity(String type, String id) {
+        Map<String, OSMNode> nodes = readNodes();
+        Map<String, OSMWay> ways = readWays();
+        switch (type) {
+            case NODE:
+                return nodes.get(id);
+            case WAY:
+                return ways.get(id);
+            default:
+                return new OSMEntity(id, Map.of());
+        }
+    }
+
+    private static String readId(Element element) {
+        return element.getAttribute("id");
+    }
+
+    private static Map<String, String> readTags(Element element) {
+        Map<String, String> tags = new HashMap<>();
+        NodeList tagNodeList = element.getElementsByTagName("tag");
+        for (Element tag : toElementList(tagNodeList)) {
+            String key = tag.getAttribute("k");
+            String value = tag.getAttribute("v");
+            tags.put(key, value);
+        }
+        return tags;
+    }
+
+    private static double latitudeToY(double latitude) {
+        return - Math.log(Math.tan(Math.PI / 4 + Math.toRadians(latitude) / 2)) * EQUATOR_CIRCUMFERENCE_IN_METERS;
+    }
+
+    private static double longitudeToX(double longitude) {
+        return Math.toRadians(longitude) * EQUATOR_CIRCUMFERENCE_IN_METERS;
+    }
+
+    private Document parseXmlDocument(File osmFile) {
+        try {
+            DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
+            DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
+            Document doc = dBuilder.parse(osmFile);
+            doc.getDocumentElement().normalize();
+            return doc;
+        } catch (IOException | ParserConfigurationException | SAXException e) {
+            throw new SimError(e.getMessage());
+        }
+    }
+
+    private static List<Element> toElementList(NodeList nodeList) {
+        List<Element> elements = new ArrayList<>(nodeList.getLength());
+        for (int index = 0; index < nodeList.getLength(); index++) {
+            elements.add((Element) nodeList.item(index));
+        }
+        return elements;
+    }
+}
