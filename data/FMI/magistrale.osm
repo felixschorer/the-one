@@ -8,6 +8,16 @@
   <node id='-117178' action='modify' visible='true' lat='48.26248594455' lon='11.66816979513' />
   <node id='-117180' action='modify' visible='true' lat='48.26246808857' lon='11.66828647122' />
   <node id='-117182' action='modify' visible='true' lat='48.26251005011' lon='11.66830658779' />
+  <node id='-120440' action='modify' visible='true' lat='48.26221185457' lon='11.66886314616'>
+    <tag k='capacity' v='200' />
+    <tag k='usage' v='lecture_hall' />
+  </node>
+  <node id='-120461' action='modify' visible='true' lat='48.26225649473' lon='11.66882023081' />
+  <node id='-120554' action='modify' visible='true' lat='48.26228336859' lon='11.66844338045'>
+    <tag k='capacity' v='200' />
+    <tag k='usage' v='lecture_hall' />
+  </node>
+  <node id='-120556' action='modify' visible='true' lat='48.2623351511' lon='11.66840180621' />
   <node id='1204630196' timestamp='2011-03-16T19:33:50Z' uid='6998' user='saerdnaer' visible='true' version='1' changeset='7578766' lat='48.2627127' lon='11.6675437' />
   <node id='1204630203' timestamp='2011-03-16T19:33:50Z' uid='6998' user='saerdnaer' visible='true' version='1' changeset='7578766' lat='48.2623111' lon='11.6686058' />
   <node id='1204630205' timestamp='2011-04-07T08:49:01Z' uid='6998' user='saerdnaer' visible='true' version='2' changeset='7792094' lat='48.2622987' lon='11.6686716' />
@@ -195,10 +205,12 @@
   <node id='1224163387' timestamp='2011-03-29T11:59:40Z' uid='6998' user='saerdnaer' visible='true' version='1' changeset='7706131' lat='48.2623572' lon='11.6681052' />
   <node id='1224163390' timestamp='2015-03-15T17:42:44Z' uid='834127' user='kartler175' visible='true' version='3' changeset='29500808' lat='48.2627324' lon='11.6669842' />
   <node id='1224163396' timestamp='2011-03-29T11:59:40Z' uid='6998' user='saerdnaer' visible='true' version='1' changeset='7706131' lat='48.2623678' lon='11.6683108' />
-  <node id='1235752294' timestamp='2011-04-07T08:48:53Z' uid='6998' user='saerdnaer' visible='true' version='1' changeset='7792094' lat='48.2623483' lon='11.6684248'>
+  <node id='1235752294' action='modify' timestamp='2011-04-07T08:48:53Z' uid='6998' user='saerdnaer' visible='true' version='1' changeset='7792094' lat='48.2623483' lon='11.6684248'>
+    <tag k='door' v='yes' />
     <tag k='level' v='0' />
   </node>
-  <node id='1235752297' timestamp='2011-04-07T08:48:53Z' uid='6998' user='saerdnaer' visible='true' version='1' changeset='7792094' lat='48.2622706' lon='11.6688451'>
+  <node id='1235752297' action='modify' timestamp='2011-04-07T08:48:53Z' uid='6998' user='saerdnaer' visible='true' version='1' changeset='7792094' lat='48.2622706' lon='11.6688451'>
+    <tag k='door' v='yes' />
     <tag k='level' v='0' />
   </node>
   <node id='1376262583' timestamp='2011-07-27T21:27:16Z' uid='6998' user='saerdnaer' visible='true' version='1' changeset='8849484' lat='48.2623786' lon='11.6682516' />
@@ -248,6 +260,18 @@
     <nd ref='-117180' />
     <nd ref='-117182' />
     <nd ref='-117177' />
+  </way>
+  <way id='-120462' action='modify' visible='true'>
+    <nd ref='-120440' />
+    <nd ref='-120461' />
+    <nd ref='1235752297' />
+    <tag k='footway' v='yes' />
+  </way>
+  <way id='-120555' action='modify' visible='true'>
+    <nd ref='-120554' />
+    <nd ref='-120556' />
+    <nd ref='1235752294' />
+    <tag k='footway' v='yes' />
   </way>
   <way id='104405158' action='modify' timestamp='2016-06-25T14:01:04Z' uid='6998' user='saerdnaer' visible='true' version='12' changeset='40282437'>
     <nd ref='1204631425' />
