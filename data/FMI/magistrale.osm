@@ -1,5 +1,9 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <osm version='0.6' generator='JOSM'>
+  <node id='-102424' action='modify' visible='true' lat='48.262382659' lon='11.66896716786'>
+    <tag k='capacity' v='600' />
+    <tag k='usage' v='lecture_hall' />
+  </node>
   <node id='1204630196' timestamp='2011-03-16T19:33:50Z' uid='6998' user='saerdnaer' visible='true' version='1' changeset='7578766' lat='48.2627127' lon='11.6675437' />
   <node id='1204630203' timestamp='2011-03-16T19:33:50Z' uid='6998' user='saerdnaer' visible='true' version='1' changeset='7578766' lat='48.2623111' lon='11.6686058' />
   <node id='1204630205' timestamp='2011-04-07T08:49:01Z' uid='6998' user='saerdnaer' visible='true' version='2' changeset='7792094' lat='48.2622987' lon='11.6686716' />
@@ -224,6 +228,14 @@
   <node id='4264507650' timestamp='2016-06-25T14:00:47Z' uid='6998' user='saerdnaer' visible='true' version='1' changeset='40282437' lat='48.2625724' lon='11.6683175'>
     <tag k='door' v='yes' />
   </node>
+  <way id='-102444' action='modify' visible='true'>
+    <nd ref='-102424' />
+    <nd ref='1204630487' />
+  </way>
+  <way id='-102448' action='modify' visible='true'>
+    <nd ref='1204631319' />
+    <nd ref='-102424' />
+  </way>
   <way id='104405158' timestamp='2016-06-25T14:01:04Z' uid='6998' user='saerdnaer' visible='true' version='12' changeset='40282437'>
     <nd ref='1204631425' />
     <nd ref='1204631224' />
