@@ -26,10 +26,6 @@ public class NodeGridMovement extends MovementModel implements RenderableMovemen
 
     private MapNode currentNode;
 
-    private List<MapNode> pointsOfInterest;
-
-    private boolean pickPointOfInterest = true;
-
     public NodeGridMovement(Settings settings) {
         super(settings);
         nodeGrid = readMap();
@@ -40,7 +36,6 @@ public class NodeGridMovement extends MovementModel implements RenderableMovemen
     public NodeGridMovement(NodeGridMovement other) {
         super(other);
         nodeGrid = other.nodeGrid;
-        pointsOfInterest = other.pointsOfInterest;
         pathFinder = other.pathFinder;
     }
 
@@ -52,8 +47,7 @@ public class NodeGridMovement extends MovementModel implements RenderableMovemen
     @Override
     public Path getPath() {
         MapNode from = currentNode;
-        MapNode to = pickPointOfInterest ? pickRandomNode(pointsOfInterest) : pickRandomNode(nodeGrid.getNodes());
-        pickPointOfInterest = !pickPointOfInterest;
+        MapNode to = pickRandomNode(nodeGrid.getNodes());
         currentNode = to;
 
         List<MapNode> shortestPath = pathFinder.findPath(from, to);

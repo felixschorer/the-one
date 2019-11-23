@@ -16,9 +16,9 @@ myInterface.transmitRange = 0
 myInterface.transmitSpeed = 0
 Group1.router = PassiveRouter
 
-Group1.nrofHosts = 10
+Group1.nrofHosts = 20
 Group1.movementModel = NodeGridMovement
-NodeGridMovement.rasterInterval = 0.6
+NodeGridMovement.rasterInterval = 1
 NodeGridMovement.includedPolygon1 = data/FMI/magistrale.osm
 NodeGridMovement.referenceLong = 11.666566
 NodeGridMovement.referenceLat = 48.263536
