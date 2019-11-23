@@ -10,8 +10,6 @@ import movement.nodegrid.Polygon;
 import movement.pathfinding.Heuristic;
 import movement.pathfinding.PathFinder;
 import movement.pathfinding.RandomizedDistanceHeuristic;
-
-import java.util.Arrays;
 import java.util.List;
 
 public class NodeGridMovement extends MovementModel implements RenderableMovement {
@@ -23,9 +21,7 @@ public class NodeGridMovement extends MovementModel implements RenderableMovemen
 
     private MapNode currentNode;
 
-    private List<MapNode> pointsOfInterest;
-
-    private boolean pickPointOfInterest = true;
+    private List<MapNode> locations;
 
     private Schedule schedule = new Schedule();
 
@@ -40,15 +36,13 @@ public class NodeGridMovement extends MovementModel implements RenderableMovemen
         );
         outerBound.translate(20, 30);
 
-        MapNode pointOfInterest1 = new MapNode(new Coord(0, 0));
-        MapNode pointOfInterest2 = new MapNode(new Coord(200, 100));
-        pointsOfInterest = Arrays.asList(pointOfInterest1, pointOfInterest2);
+        NodeGridBuilder builder = new NodeGridBuilder(rasterInterval).add(outerBound);
 
-        nodeGrid = new NodeGridBuilder(rasterInterval)
-                .add(outerBound)
-                .attachNodeByClosestNodes(pointOfInterest1, 1)
-                .attachNodeByClosestNodes(pointOfInterest2, 1)
-                .build();
+        schedule
+                .getSchedule()
+                .forEach(event -> builder.attachNodeByClosestNodes(event.getLocation(), 1));
+
+        nodeGrid = builder.build();
 
         Heuristic heuristic = new RandomizedDistanceHeuristic(rng::nextGaussian, 2);
         pathFinder = new AStarPathFinder(heuristic);
@@ -57,7 +51,6 @@ public class NodeGridMovement extends MovementModel implements RenderableMovemen
     public NodeGridMovement(NodeGridMovement other) {
         super(other);
         nodeGrid = other.nodeGrid;
-        pointsOfInterest = other.pointsOfInterest;
         pathFinder = other.pathFinder;
     }
 
@@ -69,7 +62,8 @@ public class NodeGridMovement extends MovementModel implements RenderableMovemen
     @Override
     public Path getPath() {
         MapNode from = currentNode;
-        MapNode to = schedule.getNextEvent().location;
+        MapNode to = schedule.getNextEvent().getLocation();
+//        System.out.println("next destination:" + to);
         currentNode = to;
 
         List<MapNode> shortestPath = pathFinder.findPath(from, to);

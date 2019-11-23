@@ -16,6 +16,10 @@ public class Schedule {
         schedule = Arrays.asList(event1, event2);
     }
 
+    public List<Event> getSchedule() {
+        return schedule;
+    }
+
     // get next event and increment index such as when calling it next time again we always get the next
     public Event getNextEvent() {
         if (eventIndex < schedule.size() - 1) {
@@ -24,5 +28,4 @@ public class Schedule {
 
         return schedule.get(eventIndex);
     }
-
 }
