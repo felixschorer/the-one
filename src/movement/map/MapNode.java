@@ -25,16 +25,22 @@ public class MapNode implements Comparable<MapNode> {
 	private Coord location;
 	private Vector<MapNode> neighbors;
 	// bit mask of map node's types or 0 if no type's are defined
-	private int type;
+	private int type = 0;
 
 	/**
 	 * Constructor. Creates a map node to a location.
 	 * @param location The location of the node.
 	 */
 	public MapNode(Coord location) {
+		this(location, new int[0]);
+	}
+
+	public MapNode(Coord location, int... types) {
 		this.location = location;
 		this.neighbors = new Vector<MapNode>();
-		type = 0;
+		for (int type : types) {
+			this.addType(type);
+		}
 	}
 
 	/**

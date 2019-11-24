@@ -6,7 +6,6 @@ import movement.map.MapNode;
 import movement.map.SimMap;
 import movement.nodegrid.NodeGridSettings;
 import movement.nodegrid.OSM2NodeGrid;
-import movement.nodegrid.PointOfInterestMapNode;
 import movement.pathfinding.AStarPathFinder;
 import movement.pathfinding.Heuristic;
 import movement.pathfinding.PathFinder;
@@ -17,9 +16,7 @@ import java.util.*;
 public class NodeGridMovement extends MovementModel implements RenderableMovement {
     private static OSM2NodeGrid osm2NodeGridCache = null;
 
-    private static NodeGridSettings nodeGridSettingsCache = null;
-
-    private Set<PointOfInterestMapNode> pointsOfInterest;
+    private Set<MapNode> pointsOfInterest;
 
     private SimMap nodeGrid;
 
@@ -32,8 +29,7 @@ public class NodeGridMovement extends MovementModel implements RenderableMovemen
 
         // cache map in case of multiple host groups
         NodeGridSettings nodeGridSettings = new NodeGridSettings();
-        if (!nodeGridSettings.equals(nodeGridSettingsCache)) {
-            nodeGridSettingsCache = nodeGridSettings;
+        if (osm2NodeGridCache == null || !nodeGridSettings.equals(osm2NodeGridCache.getSettings())) {
             osm2NodeGridCache = new OSM2NodeGrid(nodeGridSettings);
         }
 

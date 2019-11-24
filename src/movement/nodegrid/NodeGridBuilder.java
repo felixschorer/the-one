@@ -109,8 +109,6 @@ public class NodeGridBuilder {
                 nodeToConnect.addNeighbor(node);
                 node.addNeighbor(nodeToConnect);
             }
-
-            nodes.put(nodeToConnect.getLocation(), nodeToConnect);
         }
     }
 
