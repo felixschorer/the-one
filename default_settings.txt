@@ -16,7 +16,7 @@ myInterface.transmitRange = 0
 myInterface.transmitSpeed = 0
 Group1.router = PassiveRouter
 
-Group1.nrofHosts = 20
+Group1.nrofHosts = 10
 Group1.movementModel = NodeGridMovement
 NodeGridMovement.rasterInterval = 1
 NodeGridMovement.osmFile1 = data/FMI/magistrale.osm

@@ -15,6 +15,9 @@
     <tag k='one:point_of_interest' v='1' />
   </node>
   <node id='-120556' action='modify' visible='true' lat='48.2623351511' lon='11.66840180621' />
+  <node id='-120753' action='modify' visible='true' lat='48.2627016271' lon='11.66878666789'>
+    <tag k='one:point_of_interest' v='2' />
+  </node>
   <node id='1204630196' timestamp='2011-03-16T19:33:50Z' uid='6998' user='saerdnaer' visible='true' version='1' changeset='7578766' lat='48.2627127' lon='11.6675437' />
   <node id='1204630203' timestamp='2011-03-16T19:33:50Z' uid='6998' user='saerdnaer' visible='true' version='1' changeset='7578766' lat='48.2623111' lon='11.6686058' />
   <node id='1204630205' timestamp='2011-04-07T08:49:01Z' uid='6998' user='saerdnaer' visible='true' version='2' changeset='7792094' lat='48.2622987' lon='11.6686716' />
@@ -22,6 +25,7 @@
   <node id='1204630229' timestamp='2011-03-16T19:33:51Z' uid='6998' user='saerdnaer' visible='true' version='1' changeset='7578766' lat='48.2622705' lon='11.6688184' />
   <node id='1204630238' action='modify' timestamp='2016-08-02T14:32:44Z' uid='6998' user='saerdnaer' visible='true' version='3' changeset='41193653' lat='48.2625104' lon='11.6687658'>
     <tag k='door' v='yes' />
+    <tag k='one:attachment_point' v='5' />
   </node>
   <node id='1204630250' timestamp='2011-03-16T19:33:52Z' uid='6998' user='saerdnaer' visible='true' version='1' changeset='7578766' lat='48.2624085' lon='11.6680878' />
   <node id='1204630256' timestamp='2011-03-16T19:33:52Z' uid='6998' user='saerdnaer' visible='true' version='1' changeset='7578766' lat='48.2626197' lon='11.6671365' />
@@ -272,6 +276,11 @@
     <nd ref='-120554' />
     <nd ref='-120556' />
     <nd ref='1235752294' />
+    <tag k='one:edge' v='bidirectional' />
+  </way>
+  <way id='-120756' action='modify' visible='true'>
+    <nd ref='-120753' />
+    <nd ref='1204630238' />
     <tag k='one:edge' v='bidirectional' />
   </way>
   <way id='104405158' action='modify' timestamp='2016-06-25T14:01:04Z' uid='6998' user='saerdnaer' visible='true' version='12' changeset='40282437'>
