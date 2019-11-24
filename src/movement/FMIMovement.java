@@ -2,6 +2,7 @@ package movement;
 
 import core.Coord;
 import core.Settings;
+import movement.fmi.Event;
 import movement.fmi.NodeType;
 import movement.map.MapNode;
 import movement.map.SimMap;
@@ -11,7 +12,7 @@ import movement.pathfinding.AStarPathFinder;
 import movement.pathfinding.Heuristic;
 import movement.pathfinding.PathFinder;
 import movement.pathfinding.RandomizedDistanceHeuristic;
-import movement.fmi.Event;
+import movement.fmi.Lecture;
 import movement.fmi.Schedule;
 
 import java.util.*;
@@ -52,21 +53,14 @@ public class FMIMovement extends MovementModel implements RenderableMovement {
         // generate all events
         eventsByTimeslot = new HashMap<>();
         int offset = 1000;
-        int timeStart = offset;
-        // 1 day, 5 2-hour slots between 8am and 6pm,
-        // each room is occupied all the time,
-        // start cum tempore, end cum tempore
         for (int i = 0; i < 5; i++) {
-            int ct = 60 * 15;
-            int duration = 60 * 90;
-            timeStart += ct;
+            int timeStart = offset + Lecture.TOTAL_DURATION * i;
             eventsByTimeslot.put(timeStart, new ArrayList<>());
             for (MapNode location : pointsOfInterest) {
                 if (location.isType(NodeType.LECTURE_HALL.getType())) {
-                    eventsByTimeslot.get(timeStart).add(new Event(location, timeStart));
+                    eventsByTimeslot.get(timeStart).add(new Lecture(location, timeStart, rng));
                 }
             }
-            timeStart += duration + ct;
         }
     }
 
@@ -114,7 +108,7 @@ public class FMIMovement extends MovementModel implements RenderableMovement {
     @Override
     public double nextPathAvailable() {
         double estimatedTime = estimateTravelTime(currentNode, nextEvent.getLocation(), 1);
-        return nextEvent.getTimestampStart() - estimatedTime;
+        return nextEvent.getRealStart() - estimatedTime;
     }
 
     @Override
