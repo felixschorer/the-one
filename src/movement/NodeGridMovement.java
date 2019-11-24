@@ -2,6 +2,7 @@ package movement;
 
 import core.Coord;
 import core.Settings;
+import core.SimClock;
 import movement.map.MapNode;
 import movement.map.SimMap;
 import movement.nodegrid.NodeGridSettings;
@@ -23,6 +24,8 @@ public class NodeGridMovement extends MovementModel implements RenderableMovemen
     private PathFinder pathFinder;
 
     private MapNode currentNode;
+
+    private Event nextEvent;
 
     private Schedule schedule;
 
@@ -58,7 +61,7 @@ public class NodeGridMovement extends MovementModel implements RenderableMovemen
     @Override
     public Path getPath() {
         MapNode from = currentNode;
-        MapNode to = schedule.getNextEvent().getLocation();
+        MapNode to = nextEvent.getLocation();
         currentNode = to;
 
         List<MapNode> shortestPath = pathFinder.findPath(from, to);
@@ -68,11 +71,27 @@ public class NodeGridMovement extends MovementModel implements RenderableMovemen
             path.addWaypoint(hop.getLocation(), 1);
         }
 
+        if (schedule.hasNextEvent()) {
+            nextEvent = schedule.getNextEvent();
+        }
+
         return path;
     }
 
     @Override
+    public boolean isActive() {
+        return true;
+    }
+
+    @Override
+    public double nextPathAvailable() {
+        double estimatedTime = estimateTravelTime(currentNode, nextEvent.getLocation(), 1);
+        return nextEvent.getTimestamp() - estimatedTime;
+    }
+
+    @Override
     public Coord getInitialLocation() {
+        nextEvent = schedule.getNextEvent();
         currentNode = pickRandomNode(nodeGrid.getNodes());
         return currentNode.getLocation().clone();
     }
@@ -80,6 +99,17 @@ public class NodeGridMovement extends MovementModel implements RenderableMovemen
     @Override
     public MovementModel replicate() {
         return new NodeGridMovement(this);
+    }
+
+    private double estimateTravelTime(MapNode from, MapNode to, double averageSpeed) {
+        List<MapNode> path = new AStarPathFinder().findPath(from, to);
+        double distance = 0;
+        MapNode current = from;
+        for (MapNode next : path) {
+            distance += current.getLocation().distance(next.getLocation());
+            current = next;
+        }
+        return distance / averageSpeed;
     }
 
     private MapNode pickRandomNode(List<MapNode> graphNodes) {
