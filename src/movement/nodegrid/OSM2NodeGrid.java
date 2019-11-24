@@ -8,7 +8,7 @@ import movement.map.SimMap;
 import java.util.*;
 
 public class OSM2NodeGrid {
-    private static final String ATTACHMENT_POINT = "one:attachments";
+    private static final String ATTACHMENT_POINT = "one:attachment_point";
 
     private static final String EDGE = "one:edge";
     private static final String BIDIRECTIONAL = "bidirectional";

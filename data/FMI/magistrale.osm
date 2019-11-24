@@ -23,7 +23,7 @@
   <node id='1204630205' timestamp='2011-04-07T08:49:01Z' uid='6998' user='saerdnaer' visible='true' version='2' changeset='7792094' lat='48.2622987' lon='11.6686716' />
   <node id='1204630206' timestamp='2011-03-16T19:33:50Z' uid='6998' user='saerdnaer' visible='true' version='1' changeset='7578766' lat='48.2623407' lon='11.6689214' />
   <node id='1204630229' timestamp='2011-03-16T19:33:51Z' uid='6998' user='saerdnaer' visible='true' version='1' changeset='7578766' lat='48.2622705' lon='11.6688184' />
-  <node id='1204630238' timestamp='2016-08-02T14:32:44Z' uid='6998' user='saerdnaer' visible='true' version='3' changeset='41193653' lat='48.2625104' lon='11.6687658'>
+  <node id='1204630238' action='modify' timestamp='2016-08-02T14:32:44Z' uid='6998' user='saerdnaer' visible='true' version='3' changeset='41193653' lat='48.2625104' lon='11.6687658'>
     <tag k='door' v='yes' />
   </node>
   <node id='1204630250' timestamp='2011-03-16T19:33:52Z' uid='6998' user='saerdnaer' visible='true' version='1' changeset='7578766' lat='48.2624085' lon='11.6680878' />
@@ -44,7 +44,7 @@
   <node id='1204630483' timestamp='2011-03-16T19:34:01Z' uid='6998' user='saerdnaer' visible='true' version='1' changeset='7578766' lat='48.2623327' lon='11.6683641' />
   <node id='1204630487' action='modify' timestamp='2016-08-02T14:32:45Z' uid='6998' user='saerdnaer' visible='true' version='3' changeset='41193653' lat='48.2624127' lon='11.6688898'>
     <tag k='door' v='yes' />
-    <tag k='one:attachments' v='5' />
+    <tag k='one:attachment_point' v='4' />
   </node>
   <node id='1204630491' timestamp='2011-03-16T19:34:01Z' uid='6998' user='saerdnaer' visible='true' version='1' changeset='7578766' lat='48.2622479' lon='11.6689208' />
   <node id='1204630524' timestamp='2011-03-16T19:34:02Z' uid='6998' user='saerdnaer' visible='true' version='1' changeset='7578766' lat='48.2623102' lon='11.6689534' />
@@ -110,7 +110,7 @@
   <node id='1204631302' timestamp='2015-09-07T01:40:52Z' uid='3164012' user='danidoedel' visible='true' version='2' changeset='33844986' lat='48.2625804' lon='11.6681539' />
   <node id='1204631319' action='modify' timestamp='2016-08-02T14:32:45Z' uid='6998' user='saerdnaer' visible='true' version='3' changeset='41193653' lat='48.2623341' lon='11.6689309'>
     <tag k='door' v='yes' />
-    <tag k='one:attachments' v='5' />
+    <tag k='one:attachment_point' v='4' />
   </node>
   <node id='1204631325' timestamp='2013-01-02T14:18:00Z' uid='641681' user='andreasbalzer' visible='true' version='2' changeset='14500387' lat='48.2627231' lon='11.6674591' />
   <node id='1204631342' timestamp='2011-03-16T19:34:29Z' uid='6998' user='saerdnaer' visible='true' version='1' changeset='7578766' lat='48.2625832' lon='11.6671237' />
@@ -210,12 +210,12 @@
   <node id='1235752294' action='modify' timestamp='2011-04-07T08:48:53Z' uid='6998' user='saerdnaer' visible='true' version='1' changeset='7792094' lat='48.2623483' lon='11.6684248'>
     <tag k='door' v='yes' />
     <tag k='level' v='0' />
-    <tag k='one:attachments' v='3' />
+    <tag k='one:attachment_point' v='3' />
   </node>
   <node id='1235752297' action='modify' timestamp='2011-04-07T08:48:53Z' uid='6998' user='saerdnaer' visible='true' version='1' changeset='7792094' lat='48.2622706' lon='11.6688451'>
     <tag k='door' v='yes' />
     <tag k='level' v='0' />
-    <tag k='one:attachments' v='3' />
+    <tag k='one:attachment_point' v='3' />
   </node>
   <node id='1376262583' timestamp='2011-07-27T21:27:16Z' uid='6998' user='saerdnaer' visible='true' version='1' changeset='8849484' lat='48.2623786' lon='11.6682516' />
   <node id='2091432671' timestamp='2016-08-02T14:32:47Z' uid='6998' user='saerdnaer' visible='true' version='3' changeset='41193653' lat='48.2627124' lon='11.6671489'>
