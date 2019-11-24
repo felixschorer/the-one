@@ -2,7 +2,7 @@
 <osm version='0.6' generator='JOSM'>
   <node id='-102424' action='modify' visible='true' lat='48.26242729901' lon='11.66910261942'>
     <tag k='one:capacity' v='600' />
-    <tag k='one:point_of_interest' v='lecture_hall' />
+    <tag k='one:point_of_interest' v='0' />
   </node>
   <node id='-117177' action='modify' visible='true' lat='48.26253147727' lon='11.66819795832' />
   <node id='-117179' action='modify' visible='true' lat='48.26248594455' lon='11.66816979513' />
@@ -10,12 +10,12 @@
   <node id='-117183' action='modify' visible='true' lat='48.26251005011' lon='11.66830658779' />
   <node id='-120440' action='modify' visible='true' lat='48.26220033757' lon='11.66886487616'>
     <tag k='one:capacity' v='200' />
-    <tag k='one:point_of_interest' v='lecture_hall' />
+    <tag k='one:point_of_interest' v='0' />
   </node>
   <node id='-120461' action='modify' visible='true' lat='48.26225591888' lon='11.66882369081' />
   <node id='-120554' action='modify' visible='true' lat='48.26228336859' lon='11.66844338045'>
     <tag k='one:capacity' v='200' />
-    <tag k='one:point_of_interest' v='lecture_hall' />
+    <tag k='one:point_of_interest' v='0' />
   </node>
   <node id='-120556' action='modify' visible='true' lat='48.2623351511' lon='11.66840180621' />
   <node id='1204630196' timestamp='2011-03-16T19:33:50Z' uid='6998' user='saerdnaer' visible='true' version='1' changeset='7578766' lat='48.2627127' lon='11.6675437' />

@@ -16,14 +16,14 @@ public class OSM2NodeGrid {
     private static final String POINT_OF_INTEREST = "one:point_of_interest";
     private static final String CAPACITY = "one:capacity";
 
-    private Set<MapNode> pointsOfInterest;
+    private Set<PointOfInterestMapNode> pointsOfInterest;
     private SimMap simMap;
 
     public OSM2NodeGrid(NodeGridSettings settings) {
         load(settings);
     }
 
-    public Set<MapNode> getPointsOfInterest() {
+    public Set<PointOfInterestMapNode> getPointsOfInterest() {
         return pointsOfInterest;
     }
 
@@ -34,7 +34,7 @@ public class OSM2NodeGrid {
     // TODO: split this method into smaller chucks
     private void load(NodeGridSettings settings) {
         NodeGridBuilder builder = new NodeGridBuilder(settings.getRasterInterval());
-        Set<MapNode> pointsOfInterest = new HashSet<>();
+        Set<PointOfInterestMapNode> pointsOfInterest = new HashSet<>();
         Map<Coord, MapNode> mapNodes = new HashMap<>();
 
         for (String path : settings.getOsmFiles()) {
@@ -60,9 +60,9 @@ public class OSM2NodeGrid {
                 if (mapNodes.containsKey(osmNode.getLocation())) {
                     continue;
                 }
-                MapNode node = new MapNode(osmNode.getLocation());
 
                 if (osmNode.getTags().containsKey(ATTACHMENT_POINT)) {
+                    MapNode node = new MapNode(osmNode.getLocation());
                     int attachments = Integer.parseInt(osmNode.getTags().get(ATTACHMENT_POINT));
                     int numberOfAttachments = Math.max(1, (int) Math.round(attachments / settings.getRasterInterval()));
                     mapNodes.put(osmNode.getLocation(), node);
@@ -70,6 +70,12 @@ public class OSM2NodeGrid {
                 }
 
                 if (osmNode.getTags().containsKey(POINT_OF_INTEREST)) {
+                    short type = Short.parseShort(osmNode.getTags().get(POINT_OF_INTEREST));
+                    Integer capacity = null;
+                    if (osmNode.getTags().containsKey(CAPACITY)) {
+                        capacity = Integer.parseInt(osmNode.getTags().get(CAPACITY));
+                    }
+                    PointOfInterestMapNode node = new PointOfInterestMapNode(osmNode.getLocation(), type, capacity);
                     mapNodes.put(osmNode.getLocation(), node);
                     pointsOfInterest.add(node);
                 }

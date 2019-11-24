@@ -6,6 +6,7 @@ import movement.map.MapNode;
 import movement.map.SimMap;
 import movement.nodegrid.NodeGridSettings;
 import movement.nodegrid.OSM2NodeGrid;
+import movement.nodegrid.PointOfInterestMapNode;
 import movement.pathfinding.AStarPathFinder;
 import movement.pathfinding.Heuristic;
 import movement.pathfinding.PathFinder;
@@ -14,7 +15,11 @@ import movement.pathfinding.RandomizedDistanceHeuristic;
 import java.util.*;
 
 public class NodeGridMovement extends MovementModel implements RenderableMovement {
-    private Set<MapNode> pointsOfInterest;
+    private static OSM2NodeGrid osm2NodeGridCache = null;
+
+    private static NodeGridSettings nodeGridSettingsCache = null;
+
+    private Set<PointOfInterestMapNode> pointsOfInterest;
 
     private SimMap nodeGrid;
 
@@ -25,9 +30,15 @@ public class NodeGridMovement extends MovementModel implements RenderableMovemen
     public NodeGridMovement(Settings settings) {
         super(settings);
 
-        OSM2NodeGrid osm2NodeGrid = new OSM2NodeGrid(new NodeGridSettings());
-        nodeGrid = osm2NodeGrid.getSimMap();
-        pointsOfInterest = osm2NodeGrid.getPointsOfInterest();
+        // cache map in case of multiple host groups
+        NodeGridSettings nodeGridSettings = new NodeGridSettings();
+        if (!nodeGridSettings.equals(nodeGridSettingsCache)) {
+            nodeGridSettingsCache = nodeGridSettings;
+            osm2NodeGridCache = new OSM2NodeGrid(nodeGridSettings);
+        }
+
+        nodeGrid = osm2NodeGridCache.getSimMap();
+        pointsOfInterest = osm2NodeGridCache.getPointsOfInterest();
 
         Heuristic heuristic = new RandomizedDistanceHeuristic(rng::nextGaussian, 2);
         pathFinder = new AStarPathFinder(heuristic);
