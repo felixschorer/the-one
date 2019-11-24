@@ -15,7 +15,6 @@ public class OSM2NodeGrid {
     private static final String BIDIRECTIONAL = "bidirectional";
 
     private static final String POINT_OF_INTEREST = "one:point_of_interest";
-    private static final String CAPACITY = "one:capacity";
 
     private final NodeGridSettings settings;
 
