@@ -43,20 +43,18 @@ public class OSM2NodeGrid {
         Set<MapNode> pointsOfInterest = new HashSet<>();
         Map<Coord, MapNode> nodes = new HashMap<>();
 
-        for (String path : settings.getOsmFiles()) {
-            OSMReader reader = new OSMReader(path, settings.getReferenceLong(), settings.getReferenceLat());
+        OSMReader reader = new OSMReader(settings.getOsmFile(), settings.getReferenceLong(), settings.getReferenceLat());
 
-            loadIncludedAreas(reader).forEach(builder::add);
-            loadExcludedAreas(reader).forEach(builder::subtract);
+        loadIncludedAreas(reader).forEach(builder::add);
+        loadExcludedAreas(reader).forEach(builder::subtract);
 
-            for (MapNode node : loadPointsOfInterest(reader)) {
-                nodes.put(node.getLocation(), node);
-                pointsOfInterest.add(node);
-            }
-
-            insertAttachmentNodes(builder, nodes, reader);
-            insertEdges(nodes, reader);
+        for (MapNode node : loadPointsOfInterest(reader)) {
+            nodes.put(node.getLocation(), node);
+            pointsOfInterest.add(node);
         }
+
+        insertAttachmentNodes(builder, nodes, reader);
+        insertEdges(nodes, reader);
 
         nodes.putAll(builder.build());
         this.simMap = new SimMap(nodes);
