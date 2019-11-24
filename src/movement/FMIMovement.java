@@ -2,6 +2,7 @@ package movement;
 
 import core.Coord;
 import core.Settings;
+import movement.fmi.NodeType;
 import movement.map.MapNode;
 import movement.map.SimMap;
 import movement.nodegrid.NodeGridSettings;
@@ -10,15 +11,12 @@ import movement.pathfinding.AStarPathFinder;
 import movement.pathfinding.Heuristic;
 import movement.pathfinding.PathFinder;
 import movement.pathfinding.RandomizedDistanceHeuristic;
-import movement.scheduling.Event;
-import movement.scheduling.Schedule;
+import movement.fmi.Event;
+import movement.fmi.Schedule;
 
 import java.util.*;
 
-public class NodeGridMovement extends MovementModel implements RenderableMovement {
-    private static final int LECTURE_HALL = 1;
-    private static final int COLLECTION_AREA = 2;
-
+public class FMIMovement extends MovementModel implements RenderableMovement {
     private static OSM2NodeGrid osm2NodeGridCache = null;
 
     private Set<MapNode> pointsOfInterest;
@@ -35,7 +33,7 @@ public class NodeGridMovement extends MovementModel implements RenderableMovemen
 
     private Map<Integer, List<Event>> eventsByTimeslot;
 
-    public NodeGridMovement(Settings settings) {
+    public FMIMovement(Settings settings) {
         super(settings);
 
         // cache map in case of multiple host groups
@@ -63,7 +61,7 @@ public class NodeGridMovement extends MovementModel implements RenderableMovemen
             int timeEnd = timeStart + 60 * 90;
             eventsByTimeslot.put(timeStart, new ArrayList<>());
             for (MapNode location : pointsOfInterest) {
-                if (location.isType(LECTURE_HALL)) {
+                if (location.isType(NodeType.LECTURE_HALL.getType())) {
                     eventsByTimeslot.get(timeStart).add(new Event(location, timeStart, timeEnd));
                 }
             }
@@ -71,7 +69,7 @@ public class NodeGridMovement extends MovementModel implements RenderableMovemen
         }
     }
 
-    public NodeGridMovement(NodeGridMovement other) {
+    public FMIMovement(FMIMovement other) {
         super(other);
         nodeGrid = other.nodeGrid;
         pointsOfInterest = other.pointsOfInterest;
@@ -124,7 +122,7 @@ public class NodeGridMovement extends MovementModel implements RenderableMovemen
 
     @Override
     public MovementModel replicate() {
-        return new NodeGridMovement(this);
+        return new FMIMovement(this);
     }
 
     private double estimateTravelTime(MapNode from, MapNode to, double averageSpeed) {
