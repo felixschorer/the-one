@@ -15,6 +15,7 @@ import movement.fmi.Event;
 import movement.fmi.Schedule;
 
 import java.util.*;
+import java.util.stream.Collectors;
 
 public class FMIMovement extends MovementModel implements RenderableMovement {
     private static OSM2NodeGrid osm2NodeGridCache = null;
@@ -57,15 +58,15 @@ public class FMIMovement extends MovementModel implements RenderableMovement {
         // start cum tempore, end cum tempore
         for (int i = 0; i < 5; i++) {
             int ct = 60 * 15;
+            int duration = 60 * 90;
             timeStart += ct;
-            int timeEnd = timeStart + 60 * 90;
             eventsByTimeslot.put(timeStart, new ArrayList<>());
             for (MapNode location : pointsOfInterest) {
                 if (location.isType(NodeType.LECTURE_HALL.getType())) {
-                    eventsByTimeslot.get(timeStart).add(new Event(location, timeStart, timeEnd));
+                    eventsByTimeslot.get(timeStart).add(new Event(location, timeStart));
                 }
             }
-            timeStart += timeEnd + ct;
+            timeStart += duration + ct;
         }
     }
 
@@ -74,7 +75,10 @@ public class FMIMovement extends MovementModel implements RenderableMovement {
         nodeGrid = other.nodeGrid;
         pointsOfInterest = other.pointsOfInterest;
         pathFinder = other.pathFinder;
-        schedule = new Schedule(other.eventsByTimeslot, rng);
+        ArrayList<MapNode> collectionAreas = pointsOfInterest.stream()
+                .filter(location -> location.isType(NodeType.COLLECTION_AREA.getType()))
+                .collect(Collectors.toCollection(ArrayList::new));
+        schedule = new Schedule(other.eventsByTimeslot, collectionAreas, rng);
     }
 
     @Override
