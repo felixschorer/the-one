@@ -4,16 +4,19 @@ import core.Coord;
 import core.Settings;
 import movement.map.MapNode;
 import movement.map.SimMap;
+import movement.nodegrid.NodeGridSettings;
+import movement.nodegrid.OSM2NodeGrid;
 import movement.pathfinding.AStarPathFinder;
-import movement.nodegrid.NodeGridBuilder;
-import movement.nodegrid.Polygon;
 import movement.pathfinding.Heuristic;
 import movement.pathfinding.PathFinder;
 import movement.pathfinding.RandomizedDistanceHeuristic;
-import java.util.List;
+
+import java.util.*;
 
 public class NodeGridMovement extends MovementModel implements RenderableMovement {
-    private static final String RASTER_INTERVAL = "ngmRasterInterval";
+    private static OSM2NodeGrid osm2NodeGridCache = null;
+
+    private Set<MapNode> pointsOfInterest;
 
     private SimMap nodeGrid;
 
@@ -21,28 +24,19 @@ public class NodeGridMovement extends MovementModel implements RenderableMovemen
 
     private MapNode currentNode;
 
-    private List<MapNode> locations;
-
-    private Schedule schedule = new Schedule();
+    private Schedule schedule;
 
     public NodeGridMovement(Settings settings) {
         super(settings);
-        double rasterInterval = settings.getDouble(RASTER_INTERVAL);
-        Polygon outerBound = new Polygon(
-                new Coord(0, 0),
-                new Coord(0, 40),
-                new Coord(160, 40),
-                new Coord(160, 0)
-        );
-        outerBound.translate(20, 30);
 
-        NodeGridBuilder builder = new NodeGridBuilder(rasterInterval).add(outerBound);
+        // cache map in case of multiple host groups
+        NodeGridSettings nodeGridSettings = new NodeGridSettings();
+        if (osm2NodeGridCache == null || !nodeGridSettings.equals(osm2NodeGridCache.getSettings())) {
+            osm2NodeGridCache = new OSM2NodeGrid(nodeGridSettings);
+        }
 
-        schedule
-                .getSchedule()
-                .forEach(event -> builder.attachNodeByClosestNodes(event.getLocation(), 1));
-
-        nodeGrid = builder.build();
+        nodeGrid = osm2NodeGridCache.getSimMap();
+        pointsOfInterest = osm2NodeGridCache.getPointsOfInterest();
 
         Heuristic heuristic = new RandomizedDistanceHeuristic(rng::nextGaussian, 2);
         pathFinder = new AStarPathFinder(heuristic);
@@ -51,7 +45,9 @@ public class NodeGridMovement extends MovementModel implements RenderableMovemen
     public NodeGridMovement(NodeGridMovement other) {
         super(other);
         nodeGrid = other.nodeGrid;
+        pointsOfInterest = other.pointsOfInterest;
         pathFinder = other.pathFinder;
+        schedule = new Schedule(pointsOfInterest);
     }
 
     @Override

@@ -1,6 +1,5 @@
 package movement;
 
-import core.Coord;
 import movement.map.MapNode;
 import java.util.*;
 
@@ -8,16 +7,16 @@ public class Schedule {
     private int eventIndex;
     private List<Event> schedule;
 
-    public Schedule() {
+    public Schedule(Set<MapNode> pointsOfInterest) {
         // init dummy data
-        Event event1 = new Event(new MapNode(new Coord(150, 250)), 0);
-        Event event2 = new Event(new MapNode(new Coord(10, 10)), 100);
-        eventIndex = -1;
-        schedule = Arrays.asList(event1, event2);
-    }
+        schedule = new ArrayList<>();
+        int time = 0;
+        for (MapNode node : pointsOfInterest) {
+            schedule.add(new Event(node, time));
+            time += 100;
+        }
 
-    public List<Event> getSchedule() {
-        return schedule;
+        eventIndex = -1;
     }
 
     // get next event and increment index such as when calling it next time again we always get the next

@@ -1,6 +1,8 @@
 package movement.nodegrid;
 
+import core.BoundingBox;
 import core.Coord;
+import core.Polygon;
 import movement.map.MapNode;
 import movement.map.SimMap;
 
@@ -21,12 +23,22 @@ public class NodeGridBuilder {
     }
 
     public NodeGridBuilder add(Polygon... polygons) {
-        includedPolygons.addAll(Arrays.asList(polygons));
+        add(Arrays.asList(polygons));
+        return this;
+    }
+
+    public NodeGridBuilder add(List<Polygon> polygons) {
+        includedPolygons.addAll(polygons);
         return this;
     }
 
     public NodeGridBuilder subtract(Polygon... polygons) {
-        excludedPolygons.addAll(Arrays.asList(polygons));
+        subtract(Arrays.asList(polygons));
+        return this;
+    }
+
+    public NodeGridBuilder subtract(List<Polygon> polygons) {
+        excludedPolygons.addAll(polygons);
         return this;
     }
 
@@ -35,14 +47,14 @@ public class NodeGridBuilder {
         return this;
     }
 
-    public SimMap build() {
+    public Map<Coord, MapNode> build() {
         Map<Coord, MapNode> nodes = new HashMap<>();
         MapNode[][] raster = rasterPolygonsAndUpdateMap(nodes);
 
         connectAdjacentNodes(raster);
         connectNodesByTheirClosestNodes(nodes);
 
-        return new SimMap(nodes);
+        return nodes;
     }
 
     private MapNode[][] rasterPolygonsAndUpdateMap(Map<Coord, MapNode> nodes) {
@@ -97,8 +109,6 @@ public class NodeGridBuilder {
                 nodeToConnect.addNeighbor(node);
                 node.addNeighbor(nodeToConnect);
             }
-
-            nodes.put(nodeToConnect.getLocation(), nodeToConnect);
         }
     }
 

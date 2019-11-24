@@ -1,6 +1,4 @@
-package movement.nodegrid;
-
-import core.Coord;
+package core;
 
 import java.util.Arrays;
 import java.util.stream.Stream;
