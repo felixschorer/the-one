@@ -2,23 +2,21 @@ package movement;
 
 import core.Coord;
 import core.Settings;
-import input.OSMReader;
 import movement.map.MapNode;
 import movement.map.SimMap;
 import movement.nodegrid.NodeGridSettings;
+import movement.nodegrid.OSM2NodeGrid;
 import movement.pathfinding.AStarPathFinder;
-import movement.nodegrid.NodeGridBuilder;
 import movement.pathfinding.Heuristic;
 import movement.pathfinding.PathFinder;
 import movement.pathfinding.RandomizedDistanceHeuristic;
 
-import java.io.File;
-import java.util.List;
+import java.util.*;
 
 public class NodeGridMovement extends MovementModel implements RenderableMovement {
-    private static NodeGridSettings cachedMapSettings = null;
+    private static OSM2NodeGrid osm2NodeGridCache = null;
 
-    private static SimMap cachedMap = null;
+    private Set<MapNode> pointsOfInterest;
 
     private SimMap nodeGrid;
 
@@ -28,7 +26,16 @@ public class NodeGridMovement extends MovementModel implements RenderableMovemen
 
     public NodeGridMovement(Settings settings) {
         super(settings);
-        nodeGrid = readMap();
+
+        // cache map in case of multiple host groups
+        NodeGridSettings nodeGridSettings = new NodeGridSettings();
+        if (osm2NodeGridCache == null || !nodeGridSettings.equals(osm2NodeGridCache.getSettings())) {
+            osm2NodeGridCache = new OSM2NodeGrid(nodeGridSettings);
+        }
+
+        nodeGrid = osm2NodeGridCache.getSimMap();
+        pointsOfInterest = osm2NodeGridCache.getPointsOfInterest();
+
         Heuristic heuristic = new RandomizedDistanceHeuristic(rng::nextGaussian, 2);
         pathFinder = new AStarPathFinder(heuristic);
     }
@@ -36,6 +43,7 @@ public class NodeGridMovement extends MovementModel implements RenderableMovemen
     public NodeGridMovement(NodeGridMovement other) {
         super(other);
         nodeGrid = other.nodeGrid;
+        pointsOfInterest = other.pointsOfInterest;
         pathFinder = other.pathFinder;
     }
 
@@ -74,27 +82,5 @@ public class NodeGridMovement extends MovementModel implements RenderableMovemen
     private MapNode pickRandomNode(List<MapNode> graphNodes) {
         int chosenIndex = rng.nextInt(graphNodes.size());
         return graphNodes.get(chosenIndex);
-    }
-
-    public static SimMap readMap() {
-        NodeGridSettings settings = new NodeGridSettings();
-        if (settings.equals(cachedMapSettings) && cachedMap != null) {
-            return cachedMap;
-        }
-
-        OSMReader reader = new OSMReader(settings.getReferenceLong(), settings.getReferenceLat());
-        NodeGridBuilder builder = new NodeGridBuilder(settings.getRasterInterval());
-
-        for (String includedPolygonPath : settings.getIncludedPolygons()) {
-            builder.add(reader.readPolygons(new File(includedPolygonPath)));
-        }
-
-        for (String includedPolygonPath : settings.getExcludedPolygons()) {
-            builder.subtract(reader.readPolygons(new File(includedPolygonPath)));
-        }
-
-        cachedMap = builder.build();
-        cachedMapSettings = settings;
-        return cachedMap;
     }
 }

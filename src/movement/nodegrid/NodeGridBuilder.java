@@ -47,14 +47,14 @@ public class NodeGridBuilder {
         return this;
     }
 
-    public SimMap build() {
+    public Map<Coord, MapNode> build() {
         Map<Coord, MapNode> nodes = new HashMap<>();
         MapNode[][] raster = rasterPolygonsAndUpdateMap(nodes);
 
         connectAdjacentNodes(raster);
         connectNodesByTheirClosestNodes(nodes);
 
-        return new SimMap(nodes);
+        return nodes;
     }
 
     private MapNode[][] rasterPolygonsAndUpdateMap(Map<Coord, MapNode> nodes) {
@@ -109,8 +109,6 @@ public class NodeGridBuilder {
                 nodeToConnect.addNeighbor(node);
                 node.addNeighbor(nodeToConnect);
             }
-
-            nodes.put(nodeToConnect.getLocation(), nodeToConnect);
         }
     }
 
