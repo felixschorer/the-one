@@ -2,8 +2,6 @@ package movement.fmi;
 
 import movement.map.MapNode;
 
-import java.util.Random;
-
 public class Event {
     private MapNode location;
     private int timestampStart;
