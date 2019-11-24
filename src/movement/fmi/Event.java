@@ -1,4 +1,4 @@
-package movement.scheduling;
+package movement.fmi;
 
 import movement.map.MapNode;
 

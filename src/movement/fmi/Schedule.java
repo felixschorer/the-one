@@ -1,6 +1,4 @@
-package movement.scheduling;
-
-import movement.scheduling.Event;
+package movement.fmi;
 
 import java.util.*;
 import java.util.stream.Collectors;
