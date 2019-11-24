@@ -8,10 +8,13 @@ import movement.map.SimMap;
 import java.util.*;
 
 public class OSM2NodeGrid {
-    private static final String DOOR = "door";
-    private static final String FOOT_WAY = "footway";
-    private static final String USAGE = "usage";
-    private static final String LECTURE_HALL = "lecture_hall";
+    private static final String ATTACHMENT_POINT = "one:attachments";
+
+    private static final String EDGE = "one:edge";
+    private static final String BIDIRECTIONAL = "bidirectional";
+
+    private static final String POINT_OF_INTEREST = "one:point_of_interest";
+    private static final String CAPACITY = "one:capacity";
 
     private Set<MapNode> pointsOfInterest;
     private SimMap simMap;
@@ -59,12 +62,14 @@ public class OSM2NodeGrid {
                 }
                 MapNode node = new MapNode(osmNode.getLocation());
 
-                if (osmNode.getTags().containsKey(DOOR)) {
+                if (osmNode.getTags().containsKey(ATTACHMENT_POINT)) {
+                    int attachments = Integer.parseInt(osmNode.getTags().get(ATTACHMENT_POINT));
+                    int numberOfAttachments = Math.max(1, (int) Math.round(attachments / settings.getRasterInterval()));
                     mapNodes.put(osmNode.getLocation(), node);
-                    builder.attachNodeByClosestNodes(node, 3);
+                    builder.attachNodeByClosestNodes(node, numberOfAttachments);
                 }
 
-                if (LECTURE_HALL.equals(osmNode.getTags().get(USAGE))) {
+                if (osmNode.getTags().containsKey(POINT_OF_INTEREST)) {
                     mapNodes.put(osmNode.getLocation(), node);
                     pointsOfInterest.add(node);
                 }
@@ -72,7 +77,7 @@ public class OSM2NodeGrid {
 
             // add paths
             for (OSMWay way : reader.getWays()) {
-                if (way.getTags().containsKey(FOOT_WAY)) {
+                if (way.getTags().containsKey(EDGE)) {
                     List<OSMNode> waypoints = way.getNodes();
 
                     // add missing intermediary waypoints
@@ -88,7 +93,9 @@ public class OSM2NodeGrid {
                         MapNode current = mapNodes.get(waypoints.get(index).getLocation());
                         MapNode next = mapNodes.get(waypoints.get(index + 1).getLocation());
                         current.addNeighbor(next);
-                        next.addNeighbor(current);
+                        if (BIDIRECTIONAL.equals(way.getTags().get(EDGE))) {
+                            next.addNeighbor(current);
+                        }
                     }
                 }
             }
