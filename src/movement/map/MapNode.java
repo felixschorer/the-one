@@ -74,7 +74,7 @@ public class MapNode implements Comparable<MapNode> {
 	 * types matched
 	 * @see #isType(int)
 	 */
-	public boolean isType(int[] types) {
+	public boolean isType(int... types) {
 		for (int type : types) {
 			if (isType(type)) {
 				return true;
