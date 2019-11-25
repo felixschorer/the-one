@@ -20,5 +20,3 @@ Group1.nrofHosts = 10
 Group1.movementModel = FMIMovement
 NodeGrid.rasterInterval = 1
 NodeGrid.osmFile = data/FMI/magistrale.osm
-NodeGrid.referenceLong = 11.666566
-NodeGrid.referenceLat = 48.263536

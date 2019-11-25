@@ -1,5 +1,6 @@
 package input.osm;
 
+import core.BoundingBox;
 import core.Coord;
 import core.SimError;
 import org.w3c.dom.Document;
@@ -16,7 +17,7 @@ import java.util.*;
 import java.util.stream.Collectors;
 
 public class OSMReader {
-    private static final double EQUATOR_CIRCUMFERENCE_IN_METERS = 6378137.0;
+    private static final double EQUATOR_CIRCUMFERENCE_IN_METERS = 6370997.0;
 
     private static final String WAY = "way";
     private static final String NODE = "node";
@@ -26,18 +27,15 @@ public class OSMReader {
     private final OSMEntityFactory entityFactory;
     private final Document doc;
 
-    private final double referenceX;
-    private final double referenceY;
+    private Double scaleFactor;
 
     private Map<String, OSMNode> cachedNodes;
     private Map<String, OSMWay> cachedWays;
     private Map<String, OSMRelation> cachedRelations;
 
-    public OSMReader(String osmFileName, double referenceLongitude, double referenceLatitude) {
+    public OSMReader(String osmFileName) {
         entityFactory = new OSMEntityFactory(osmFileName);
         doc = parseXmlDocument(new File(osmFileName));
-        referenceX = longitudeToX(referenceLongitude);
-        referenceY = latitudeToY(referenceLatitude);
     }
 
     public Collection<OSMNode> getNodes() {
@@ -109,15 +107,31 @@ public class OSMReader {
             for (Element node : toElementList(nodeNodeList)) {
                 double longitude = Double.parseDouble(node.getAttribute("lon"));
                 double latitude = Double.parseDouble(node.getAttribute("lat"));
-                double x = longitudeToX(longitude) - referenceX;
-                double y = latitudeToY(latitude) - referenceY;
+
+                if (scaleFactor == null) {
+                    scaleFactor = Math.cos(Math.toRadians(latitude));
+                }
+
+                double x = longitudeToX(longitude, scaleFactor);
+                double y = latitudeToY(latitude, scaleFactor);
                 String id = readId(node);
                 OSMNode osmNode = entityFactory.node(id, new Coord(x, y), readTags(node));
                 nodes.put(id, osmNode);
             }
+            translateNodes(nodes.values());
             cachedNodes = nodes;
         }
         return cachedNodes;
+    }
+
+    private void translateNodes(Collection<OSMNode> nodes) {
+        Coord[] points = nodes.stream().map(OSMNode::getLocation).toArray(Coord[]::new);
+        BoundingBox bb = BoundingBox.fromPoints(points);
+        double xOffset = -bb.getTopLeft().getX();
+        double yOffset = -bb.getTopLeft().getY();
+        for (Coord point : points) {
+            point.translate(xOffset, yOffset);
+        }
     }
 
     private Map<String, OSMRelation> readRelations() {
@@ -170,14 +184,6 @@ public class OSMReader {
         return tags;
     }
 
-    private static double latitudeToY(double latitude) {
-        return - Math.log(Math.tan(Math.PI / 4 + Math.toRadians(latitude) / 2)) * EQUATOR_CIRCUMFERENCE_IN_METERS;
-    }
-
-    private static double longitudeToX(double longitude) {
-        return Math.toRadians(longitude) * EQUATOR_CIRCUMFERENCE_IN_METERS;
-    }
-
     private Document parseXmlDocument(File osmFile) {
         try {
             DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
@@ -188,6 +194,14 @@ public class OSMReader {
         } catch (IOException | ParserConfigurationException | SAXException e) {
             throw new SimError(e.getMessage());
         }
+    }
+
+    private static double latitudeToY(double latitude, double scaleFactor) {
+        return - Math.log(Math.tan(Math.PI / 4 + Math.toRadians(latitude) / 2)) * EQUATOR_CIRCUMFERENCE_IN_METERS * scaleFactor;
+    }
+
+    private static double longitudeToX(double longitude, double scaleFactor) {
+        return Math.toRadians(longitude) * EQUATOR_CIRCUMFERENCE_IN_METERS * scaleFactor;
     }
 
     private static List<Element> toElementList(NodeList nodeList) {

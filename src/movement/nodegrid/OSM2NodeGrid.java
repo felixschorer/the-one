@@ -43,7 +43,7 @@ public class OSM2NodeGrid {
         Set<MapNode> pointsOfInterest = new HashSet<>();
         Map<Coord, MapNode> nodes = new HashMap<>();
 
-        OSMReader reader = new OSMReader(settings.getOsmFile(), settings.getReferenceLong(), settings.getReferenceLat());
+        OSMReader reader = new OSMReader(settings.getOsmFile());
 
         loadIncludedAreas(reader).forEach(builder::add);
         loadExcludedAreas(reader).forEach(builder::subtract);
