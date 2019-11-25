@@ -2,6 +2,7 @@ package movement;
 
 import core.Coord;
 import core.Settings;
+import movement.fmi.Event;
 import movement.fmi.NodeType;
 import movement.map.MapNode;
 import movement.map.SimMap;
@@ -11,10 +12,11 @@ import movement.pathfinding.AStarPathFinder;
 import movement.pathfinding.Heuristic;
 import movement.pathfinding.PathFinder;
 import movement.pathfinding.RandomizedDistanceHeuristic;
-import movement.fmi.Event;
+import movement.fmi.Lecture;
 import movement.fmi.Schedule;
 
 import java.util.*;
+import java.util.stream.Collectors;
 
 public class FMIMovement extends MovementModel implements RenderableMovement {
     private static OSM2NodeGrid osm2NodeGridCache = null;
@@ -51,21 +53,14 @@ public class FMIMovement extends MovementModel implements RenderableMovement {
         // generate all events
         eventsByTimeslot = new HashMap<>();
         int offset = 1000;
-        int timeStart = offset;
-        // 1 day, 5 2-hour slots between 8am and 6pm,
-        // each room is occupied all the time,
-        // start cum tempore, end cum tempore
         for (int i = 0; i < 5; i++) {
-            int ct = 60 * 15;
-            timeStart += ct;
-            int timeEnd = timeStart + 60 * 90;
+            int timeStart = offset + Lecture.TOTAL_DURATION * i;
             eventsByTimeslot.put(timeStart, new ArrayList<>());
             for (MapNode location : pointsOfInterest) {
                 if (location.isType(NodeType.LECTURE_HALL.getType())) {
-                    eventsByTimeslot.get(timeStart).add(new Event(location, timeStart, timeEnd));
+                    eventsByTimeslot.get(timeStart).add(new Lecture(location, timeStart, rng));
                 }
             }
-            timeStart += timeEnd + ct;
         }
     }
 
@@ -74,7 +69,10 @@ public class FMIMovement extends MovementModel implements RenderableMovement {
         nodeGrid = other.nodeGrid;
         pointsOfInterest = other.pointsOfInterest;
         pathFinder = other.pathFinder;
-        schedule = new Schedule(other.eventsByTimeslot, rng);
+        ArrayList<MapNode> collectionAreas = pointsOfInterest.stream()
+                .filter(location -> location.isType(NodeType.COLLECTION_AREA.getType()))
+                .collect(Collectors.toCollection(ArrayList::new));
+        schedule = new Schedule(other.eventsByTimeslot, collectionAreas, rng);
     }
 
     @Override
@@ -110,7 +108,7 @@ public class FMIMovement extends MovementModel implements RenderableMovement {
     @Override
     public double nextPathAvailable() {
         double estimatedTime = estimateTravelTime(currentNode, nextEvent.getLocation(), 1);
-        return nextEvent.getTimestampStart() - estimatedTime;
+        return nextEvent.getRealStart() - estimatedTime;
     }
 
     @Override

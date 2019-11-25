@@ -5,12 +5,10 @@ import movement.map.MapNode;
 public class Event {
     private MapNode location;
     private int timestampStart;
-    private int timestampEnd;
 
-    public Event(MapNode location, int timestampStart, int timestampEnd) {
+    public Event(MapNode location, int timestampStart) {
         this.location = location;
         this.timestampStart = timestampStart;
-        this.timestampEnd = timestampEnd;
     }
 
     public MapNode getLocation() {
@@ -21,7 +19,7 @@ public class Event {
         return timestampStart;
     }
 
-    public int getTimestampEnd() {
-        return timestampEnd;
+    public int getRealStart() {
+        return getTimestampStart();
     }
 }
