@@ -7,7 +7,7 @@ import java.util.Random;
 public class Lecture extends Event {
     static public int CT_INCREMENT_START[] = { 0, 60 * 15, 60 * 30 };
     static public int TOTAL_DURATION = 60 * 120;
-    static public int TOTAL_CT = 60 * 15;
+    static public int TOTAL_CT = 60 * 30;
 
     private int ctIncrementStart;
     private int ctIncrementEnd;
