@@ -33,7 +33,7 @@ public class FMIMovement extends MovementModel implements RenderableMovement {
 
     private Schedule schedule;
 
-    private Map<Integer, List<Event>> eventsByTimeslot;
+    private ArrayList<Lecture> lectures;
 
     public FMIMovement(Settings settings) {
         super(settings);
@@ -50,18 +50,27 @@ public class FMIMovement extends MovementModel implements RenderableMovement {
         Heuristic heuristic = new RandomizedDistanceHeuristic(rng::nextGaussian, 2);
         pathFinder = new AStarPathFinder(heuristic);
 
-        // generate all events
-        eventsByTimeslot = new HashMap<>();
-        int offset = 1000;
-        for (int i = 0; i < 5; i++) {
-            int timeStart = offset + Lecture.TOTAL_DURATION * i;
-            eventsByTimeslot.put(timeStart, new ArrayList<>());
-            for (MapNode location : pointsOfInterest) {
-                if (location.isType(NodeType.LECTURE_HALL.getType())) {
-                    eventsByTimeslot.get(timeStart).add(new Lecture(location, timeStart, rng));
-                }
+        lectures = generateLectures();
+    }
+
+    private ArrayList<Lecture> generateLectures() {
+        lectures = new ArrayList<>();
+        ArrayList<MapNode> lectureHalls = pointsOfInterest.stream()
+                .filter(poi -> poi.isType(NodeType.LECTURE_HALL.getType()))
+                .collect(Collectors.toCollection(ArrayList::new));
+        int offset = 300;
+        int startTimesByRoom[] = Arrays.stream(new int[lectureHalls.size()]).map(start -> offset).toArray();
+
+        for (int i = 0; i < lectureHalls.size(); i++) {
+            // only add lecture if room has not been occupied for 10h already
+            while (startTimesByRoom[i] < 60 * 60 * 10) {
+                Lecture lecture = new Lecture(lectureHalls.get(i), startTimesByRoom[i], rng);
+                lectures.add(lecture);
+                startTimesByRoom[i] += lecture.getTotalDuration();
             }
         }
+
+        return lectures;
     }
 
     public FMIMovement(FMIMovement other) {
@@ -70,9 +79,9 @@ public class FMIMovement extends MovementModel implements RenderableMovement {
         pointsOfInterest = other.pointsOfInterest;
         pathFinder = other.pathFinder;
         ArrayList<MapNode> collectionAreas = pointsOfInterest.stream()
-                .filter(location -> location.isType(NodeType.COLLECTION_AREA.getType()))
+                .filter(poi -> poi.isType(NodeType.COLLECTION_AREA.getType()))
                 .collect(Collectors.toCollection(ArrayList::new));
-        schedule = new Schedule(other.eventsByTimeslot, collectionAreas, rng);
+        schedule = new Schedule(other.lectures, collectionAreas, rng);
     }
 
     @Override
