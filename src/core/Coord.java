@@ -4,6 +4,8 @@
  */
 package core;
 
+import java.util.Objects;
+
 /**
  * Class to hold 2D coordinates and perform simple arithmetics and
  * transformations
@@ -12,13 +14,21 @@ public class Coord implements Cloneable, Comparable<Coord> {
 	private double x;
 	private double y;
 
+	private double xRenderOffset;
+	private double yRenderOffset;
+
 	/**
 	 * Constructor.
 	 * @param x Initial X-coordinate
 	 * @param y Initial Y-coordinate
 	 */
 	public Coord(double x, double y) {
+		this(x, y, 0, 0);
+	}
+
+	public Coord(double x, double y, double xRenderOffset, double yRenderOffset) {
 		setLocation(x,y);
+		setDisplayOffset(xRenderOffset, yRenderOffset);
 	}
 
 	/**
@@ -29,6 +39,11 @@ public class Coord implements Cloneable, Comparable<Coord> {
 	public void setLocation(double x, double y) {
 		this.x = x;
 		this.y = y;
+	}
+
+	public void setDisplayOffset(double x, double y) {
+		xRenderOffset = x;
+		yRenderOffset = y;
 	}
 
 	/**
@@ -79,6 +94,14 @@ public class Coord implements Cloneable, Comparable<Coord> {
 		return this.y;
 	}
 
+	public double getDisplayX() {
+		return x + xRenderOffset;
+	}
+
+	public double getDisplayY() {
+		return y + yRenderOffset;
+	}
+
 	/**
 	 * Returns a text representation of the coordinate (rounded to 2 decimals)
 	 * @return a text representation of the coordinate
@@ -101,32 +124,20 @@ public class Coord implements Cloneable, Comparable<Coord> {
 		return clone;
 	}
 
-	/**
-	 * Checks if this coordinate's location is equal to other coordinate's
-	 * @param c The other coordinate
-	 * @return True if locations are the same
-	 */
-	public boolean equals(Coord c) {
-		if (c == this) {
-			return true;
-		}
-		else {
-			return (x == c.x && y == c.y); // XXX: == for doubles...
-		}
+	@Override
+	public boolean equals(Object o) {
+		if (this == o) return true;
+		if (o == null || getClass() != o.getClass()) return false;
+		Coord coord = (Coord) o;
+		return Double.compare(coord.x, x) == 0 &&
+				Double.compare(coord.y, y) == 0 &&
+				Double.compare(coord.xRenderOffset, xRenderOffset) == 0 &&
+				Double.compare(coord.yRenderOffset, yRenderOffset) == 0;
 	}
 
 	@Override
-	public boolean equals(Object o) {
-		if (o == null) return false;
-		return equals((Coord) o);
-	}
-
-	/**
-	 * Returns a hash code for this coordinate
-	 * (actually a hash of the String made of the coordinates)
-	 */
 	public int hashCode() {
-		return (x+","+y).hashCode();
+		return Objects.hash(x, y, xRenderOffset, yRenderOffset);
 	}
 
 	/**

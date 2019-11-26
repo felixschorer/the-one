@@ -118,20 +118,9 @@ public class OSMReader {
                 OSMNode osmNode = entityFactory.node(id, new Coord(x, y), readTags(node));
                 nodes.put(id, osmNode);
             }
-            translateNodes(nodes.values());
             cachedNodes = nodes;
         }
         return cachedNodes;
-    }
-
-    private void translateNodes(Collection<OSMNode> nodes) {
-        Coord[] points = nodes.stream().map(OSMNode::getLocation).toArray(Coord[]::new);
-        BoundingBox bb = BoundingBox.fromPoints(points);
-        double xOffset = -bb.getTopLeft().getX();
-        double yOffset = -bb.getTopLeft().getY();
-        for (Coord point : points) {
-            point.translate(xOffset, yOffset);
-        }
     }
 
     private Map<String, OSMRelation> readRelations() {

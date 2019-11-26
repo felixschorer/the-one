@@ -44,8 +44,8 @@ public class MapGraphic extends PlayFieldGraphic {
 			// draw a line to adjacent nodes
 			for (MapNode n2 : n.getNeighbors()) {
 				c2 = n2.getLocation();
-				g2.drawLine(scale(c2.getX()), scale(c2.getY()),
-						scale(c.getX()), scale(c.getY()));
+				g2.drawLine(scale(c2.getDisplayX()), scale(c2.getDisplayY()),
+						scale(c.getDisplayX()), scale(c.getDisplayY()));
 			}
 		}
 	}

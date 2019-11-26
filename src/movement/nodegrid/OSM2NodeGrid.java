@@ -1,5 +1,6 @@
 package movement.nodegrid;
 
+import core.BoundingBox;
 import core.Coord;
 import core.Polygon;
 import input.osm.*;
@@ -7,6 +8,8 @@ import movement.map.MapNode;
 import movement.map.SimMap;
 
 import java.util.*;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 public class OSM2NodeGrid {
     private static final String ATTACHMENT_POINT = "one:attachment_point";
@@ -15,6 +18,8 @@ public class OSM2NodeGrid {
     private static final String BIDIRECTIONAL = "bidirectional";
 
     private static final String POINT_OF_INTEREST = "one:point_of_interest";
+
+    private static final String PORTAL = "one:portal";
 
     private final NodeGridSettings settings;
 
@@ -39,11 +44,28 @@ public class OSM2NodeGrid {
     }
 
     private void load() {
+        List<NodeGridLevel> levels = settings.getOsmLevelFiles().stream()
+                .map(this::loadLevel)
+                .collect(Collectors.toList());
+
+        connectPortals(levels);
+        layoutLevels(levels);
+
+        pointsOfInterest = new HashSet<>();
+        Map<Coord, MapNode> nodes = new HashMap<>();
+        for (NodeGridLevel level : levels) {
+            nodes.putAll(level.getNodes());
+            pointsOfInterest.addAll(level.getPointsOfInterest());
+        }
+        simMap = new SimMap(nodes);
+    }
+
+    private NodeGridLevel loadLevel(String levelFileName) {
         NodeGridBuilder builder = new NodeGridBuilder(settings.getRasterInterval());
         Set<MapNode> pointsOfInterest = new HashSet<>();
         Map<Coord, MapNode> nodes = new HashMap<>();
 
-        OSMReader reader = new OSMReader(settings.getOsmFile());
+        OSMReader reader = new OSMReader(levelFileName);
 
         loadIncludedAreas(reader).forEach(builder::add);
         loadExcludedAreas(reader).forEach(builder::subtract);
@@ -53,12 +75,53 @@ public class OSM2NodeGrid {
             pointsOfInterest.add(node);
         }
 
+        Map<String, MapNode> portals = loadPortals(reader);
+        for (MapNode portal : portals.values()) {
+            nodes.put(portal.getLocation(), portal);
+        }
+
         insertAttachmentNodes(builder, nodes, reader);
         insertEdges(nodes, reader);
 
         nodes.putAll(builder.build());
-        this.simMap = new SimMap(nodes);
-        this.pointsOfInterest = pointsOfInterest;
+        return new NodeGridLevel(nodes, portals, pointsOfInterest);
+    }
+
+    private void connectPortals(List<NodeGridLevel> levels) {
+        for (NodeGridLevel level : levels) {
+            for (NodeGridLevel otherLevel : levels) {
+                if (level == otherLevel) {
+                    continue;
+                }
+                Map<String, MapNode> portals = level.getPortals();
+                Map<String, MapNode> otherPortals = otherLevel.getPortals();
+                for (String portalId : portals.keySet()) {
+                    MapNode portal = portals.get(portalId);
+                    MapNode otherPortal = otherPortals.get(portalId);
+                    if (otherPortal != null) {
+                        portal.addNeighbor(otherPortal);
+                    }
+                }
+            }
+        }
+    }
+
+    private void layoutLevels(List<NodeGridLevel> levels) {
+        BoundingBox[] levelBoundingBoxes = levels.stream()
+                .map(NodeGridLevel::getBoundingBox)
+                .toArray(BoundingBox[]::new);
+
+        BoundingBox mapBoundingBox = BoundingBox.merge(levelBoundingBoxes);
+
+        for (NodeGridLevel level : levels) {
+            level.translate(-mapBoundingBox.getTopLeft().getX(), -mapBoundingBox.getTopLeft().getY());
+        }
+
+        int yOffset = 0;
+        for (NodeGridLevel level : levels) {
+            level.setDisplayOffset(0, yOffset);
+            yOffset += level.getBoundingBox().getHeight() + 20;
+        }
     }
 
     private void insertEdges(Map<Coord, MapNode> nodes, OSMReader reader) {
@@ -139,6 +202,20 @@ public class OSM2NodeGrid {
             nodes.add(new MapNode(node.getLocation(), types));
         }
         return nodes;
+    }
+
+    private Map<String, MapNode> loadPortals(OSMReader reader) {
+        Map<String, MapNode> portals = new HashMap<>();
+        for (OSMNode node : reader.getNodes()) {
+            Map<String, String> tags = node.getTags();
+            if (!tags.containsKey(PORTAL)) {
+                continue;
+            }
+
+            String portalId = tags.get(PORTAL);
+            portals.put(portalId, new MapNode(node.getLocation()));
+        }
+        return portals;
     }
 
     private Map<Coord, Integer> loadAttachments(OSMReader reader) {
