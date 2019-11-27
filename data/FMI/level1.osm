@@ -1,0 +1,18 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<osm version='0.6' generator='JOSM'>
+  <node id='-120948' action='modify' visible='true' lat='48.26260414933' lon='11.66764517685'>
+    <tag k='one:attachment_point' v='3' />
+    <tag k='one:portal' v='test' />
+  </node>
+  <node id='-120950' action='modify' visible='true' lat='48.26210028189' lon='11.66735341097' />
+  <node id='-120952' action='modify' visible='true' lat='48.26230022988' lon='11.66813946256' />
+  <node id='-120954' action='modify' visible='true' lat='48.26322797833' lon='11.66880365899' />
+  <way id='-120955' action='modify' visible='true'>
+    <nd ref='-120948' />
+    <nd ref='-120950' />
+    <nd ref='-120952' />
+    <nd ref='-120954' />
+    <nd ref='-120948' />
+    <tag k='area' v='yes' />
+  </way>
+</osm>
