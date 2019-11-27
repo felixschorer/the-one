@@ -40,10 +40,17 @@ public class MapGraphic extends PlayFieldGraphic {
 		// draws all edges between map nodes (bidirectional edges twice)
 		for (MapNode n : simMap.getNodes()) {
 			c = n.getLocation();
+			if (c.getLayer() != PlayFieldGraphic.getLayer()) {
+				continue;
+			}
 
 			// draw a line to adjacent nodes
 			for (MapNode n2 : n.getNeighbors()) {
 				c2 = n2.getLocation();
+				if (c2.getLayer() != PlayFieldGraphic.getLayer()) {
+					continue;
+				}
+
 				g2.drawLine(scale(c2.getX()), scale(c2.getY()),
 						scale(c.getX()), scale(c.getY()));
 			}

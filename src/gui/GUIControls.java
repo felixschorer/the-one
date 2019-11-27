@@ -30,6 +30,7 @@ import javax.swing.SpinnerNumberModel;
 
 import core.Coord;
 import core.SimClock;
+import gui.playfield.PlayFieldGraphic;
 
 /**
  * GUI's control panel
@@ -49,6 +50,7 @@ public class GUIControls extends JPanel implements ActionListener, ChangeListene
 	private static final String TEXT_STEP = "step forward one interval";
 	private static final String TEXT_FFW = "enable/disable fast forward";
 	private static final String TEXT_UP_CHOOSER = "GUI update:";
+	private static final String TEXT_LAYER_CHOOSER = "Layer:";
 	private static final String TEXT_SCREEN_SHOT = "screen shot";
 	private static final String TEXT_SIMTIME = "Simulation time - "+
 		"click to force update, right click to change format";
@@ -92,6 +94,7 @@ public class GUIControls extends JPanel implements ActionListener, ChangeListene
 
 	private double guiUpdateInterval;
 	private javax.swing.JSpinner zoomSelector;
+	private javax.swing.JSpinner layerSelector;
 
 	private PlayField pf;
 	private DTNSimGUI gui;
@@ -141,6 +144,8 @@ public class GUIControls extends JPanel implements ActionListener, ChangeListene
 		this.zoomSelector = new JSpinner(new SpinnerNumberModel(1.0, ZOOM_MIN,
 				ZOOM_MAX, 0.001));
 
+		this.layerSelector = new JSpinner(new SpinnerNumberModel(0, 0, 999, 1));
+
 		this.add(simTimeField);
 		this.add(sepsField);
 
@@ -160,10 +165,13 @@ public class GUIControls extends JPanel implements ActionListener, ChangeListene
 		this.updateZoomScale(false);
 
 		this.add(this.zoomSelector);
+		this.add(new JLabel(TEXT_LAYER_CHOOSER));
+		this.add(this.layerSelector);
 		this.add(this.screenShotButton);
 
 		guiUpdateChooser.addActionListener(this);
 		zoomSelector.addChangeListener(this);
+		layerSelector.addChangeListener(this);
 		this.screenShotButton.addActionListener(this);
 	}
 
@@ -302,6 +310,11 @@ public class GUIControls extends JPanel implements ActionListener, ChangeListene
 	}
 
 
+	public void setLayer(int layer) {
+		PlayFieldGraphic.setLayer(layer);
+		this.layerSelector.getModel().setValue(layer);
+	}
+
 	public void actionPerformed(ActionEvent e) {
 		if (e.getSource() == this.playButton) {
 			setPaused(!this.paused); // switch pause/play
@@ -326,6 +339,7 @@ public class GUIControls extends JPanel implements ActionListener, ChangeListene
 
 
 	public void stateChanged(ChangeEvent e) {
+        updateLayer();
 		updateZoomScale(true);
 	}
 
@@ -369,6 +383,11 @@ public class GUIControls extends JPanel implements ActionListener, ChangeListene
 		else {
 			this.pf.setScale(scale);
 		}
+	}
+
+	private void updateLayer() {
+		int layer = ((SpinnerNumberModel)layerSelector.getModel()).getNumber().intValue();
+		PlayFieldGraphic.setLayer(layer);
 	}
 
 	private void takeScreenShot() {

@@ -15,6 +15,8 @@ public abstract class PlayFieldGraphic {
 	 */
 	protected static double scale = 1;
 
+	protected static int layer = 0;
+
 	/**
 	 * Set the zooming factor of the graphics to be drawn
 	 * @param newScale New scale
@@ -29,6 +31,14 @@ public abstract class PlayFieldGraphic {
 	 */
 	public static double getScale() {
 		return scale;
+	}
+
+	public static int getLayer() {
+		return layer;
+	}
+
+	public static void setLayer(int layer) {
+		PlayFieldGraphic.layer = layer;
 	}
 
 	/**

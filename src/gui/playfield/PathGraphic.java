@@ -45,8 +45,10 @@ public class PathGraphic extends PlayFieldGraphic {
 
 		for (int i=1, n=coords.size(); i < n; i++) {
 			Coord next = coords.get(i);
-			g2.drawLine(scale(prev.getX()), scale(prev.getY()),
-					scale(next.getX()), scale(next.getY()));
+			if (next.getLayer() == PlayFieldGraphic.getLayer() && prev.getLayer() == PlayFieldGraphic.getLayer()) {
+				g2.drawLine(scale(prev.getX()), scale(prev.getY()),
+							scale(next.getX()), scale(next.getY()));
+			}
 			prev = next;
 		}
 	}

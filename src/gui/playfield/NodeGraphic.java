@@ -44,6 +44,10 @@ public class NodeGraphic extends PlayFieldGraphic {
 
 	@Override
 	public void draw(Graphics2D g2) {
+		if (node.getLocation().getLayer() != PlayFieldGraphic.getLayer()) {
+			return;
+		}
+
 		drawHost(g2);
 		if (drawBuffer) {
 			drawMessages(g2);

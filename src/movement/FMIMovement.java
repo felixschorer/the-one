@@ -93,9 +93,12 @@ public class FMIMovement extends MovementModel implements RenderableMovement {
     public Path getPath() {
         MapNode from = currentNode;
         MapNode to = nextEvent.getLocation();
-        currentNode = to;
 
         List<MapNode> shortestPath = pathFinder.findPath(from, to);
+
+        if (shortestPath.size() > 0) {
+            currentNode = to;
+        }
 
         Path path = new Path();
         for (MapNode hop : shortestPath) {

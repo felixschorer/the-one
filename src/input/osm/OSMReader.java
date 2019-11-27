@@ -1,6 +1,5 @@
 package input.osm;
 
-import core.BoundingBox;
 import core.Coord;
 import core.SimError;
 import org.w3c.dom.Document;
@@ -33,9 +32,11 @@ public class OSMReader {
     private Map<String, OSMWay> cachedWays;
     private Map<String, OSMRelation> cachedRelations;
 
-    public OSMReader(String osmFileName) {
+    public OSMReader(String osmFileName, double projectionLatitude) {
         entityFactory = new OSMEntityFactory(osmFileName);
         doc = parseXmlDocument(new File(osmFileName));
+        double boundedProjectionLatitude = Math.max(-89, Math.min(89, projectionLatitude));
+        scaleFactor = Math.cos(Math.toRadians(boundedProjectionLatitude));
     }
 
     public Collection<OSMNode> getNodes() {
@@ -107,31 +108,15 @@ public class OSMReader {
             for (Element node : toElementList(nodeNodeList)) {
                 double longitude = Double.parseDouble(node.getAttribute("lon"));
                 double latitude = Double.parseDouble(node.getAttribute("lat"));
-
-                if (scaleFactor == null) {
-                    scaleFactor = Math.cos(Math.toRadians(latitude));
-                }
-
                 double x = longitudeToX(longitude, scaleFactor);
                 double y = latitudeToY(latitude, scaleFactor);
                 String id = readId(node);
                 OSMNode osmNode = entityFactory.node(id, new Coord(x, y), readTags(node));
                 nodes.put(id, osmNode);
             }
-            translateNodes(nodes.values());
             cachedNodes = nodes;
         }
         return cachedNodes;
-    }
-
-    private void translateNodes(Collection<OSMNode> nodes) {
-        Coord[] points = nodes.stream().map(OSMNode::getLocation).toArray(Coord[]::new);
-        BoundingBox bb = BoundingBox.fromPoints(points);
-        double xOffset = -bb.getTopLeft().getX();
-        double yOffset = -bb.getTopLeft().getY();
-        for (Coord point : points) {
-            point.translate(xOffset, yOffset);
-        }
     }
 
     private Map<String, OSMRelation> readRelations() {

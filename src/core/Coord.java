@@ -4,13 +4,18 @@
  */
 package core;
 
+import java.util.Objects;
+
 /**
  * Class to hold 2D coordinates and perform simple arithmetics and
  * transformations
  */
 public class Coord implements Cloneable, Comparable<Coord> {
+	private static final double LAYER_HEIGHT = 3;
+
 	private double x;
 	private double y;
+	private int layer = 0;
 
 	/**
 	 * Constructor.
@@ -59,6 +64,19 @@ public class Coord implements Cloneable, Comparable<Coord> {
 	public double distance(Coord other) {
 		double dx = this.x - other.x;
 		double dy = this.y - other.y;
+		double dz = (this.layer - other.layer) * LAYER_HEIGHT;
+
+		return Math.sqrt(dx*dx + dy*dy + dz*dz);
+	}
+
+	/**
+	 * Returns the distance to another coordinate only considering the x and y coordinate
+	 * @param other The other coordinate
+	 * @return The distance between this and another coordinate
+	 */
+	public double distance2d(Coord other) {
+		double dx = this.x - other.x;
+		double dy = this.y - other.y;
 
 		return Math.sqrt(dx*dx + dy*dy);
 	}
@@ -77,6 +95,15 @@ public class Coord implements Cloneable, Comparable<Coord> {
 	 */
 	public double getY() {
 		return this.y;
+	}
+
+	public int getLayer() {
+		return layer;
+	}
+
+	public void setLayer(int layer) {
+		assert layer >= 0 : "Layer must be positive.";
+		this.layer = layer;
 	}
 
 	/**
@@ -111,22 +138,23 @@ public class Coord implements Cloneable, Comparable<Coord> {
 			return true;
 		}
 		else {
-			return (x == c.x && y == c.y); // XXX: == for doubles...
+			return (x == c.x && y == c.y && layer == c.layer); // XXX: == for doubles...
 		}
 	}
 
 	@Override
 	public boolean equals(Object o) {
 		if (o == null) return false;
+		if (!(o instanceof Coord)) return false;
 		return equals((Coord) o);
 	}
 
 	/**
 	 * Returns a hash code for this coordinate
-	 * (actually a hash of the String made of the coordinates)
 	 */
+	@Override
 	public int hashCode() {
-		return (x+","+y).hashCode();
+		return Objects.hash(x, y, layer);
 	}
 
 	/**
@@ -149,8 +177,6 @@ public class Coord implements Cloneable, Comparable<Coord> {
 		else if (this.x > other.x) {
 			return 1;
 		}
-		else {
-			return 0;
-		}
+		else return Integer.compare(this.layer, other.layer);
 	}
 }
