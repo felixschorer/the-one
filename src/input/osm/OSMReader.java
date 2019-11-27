@@ -1,6 +1,5 @@
 package input.osm;
 
-import core.BoundingBox;
 import core.Coord;
 import core.SimError;
 import org.w3c.dom.Document;
@@ -33,9 +32,10 @@ public class OSMReader {
     private Map<String, OSMWay> cachedWays;
     private Map<String, OSMRelation> cachedRelations;
 
-    public OSMReader(String osmFileName) {
+    public OSMReader(String osmFileName, double projectionLatitude) {
         entityFactory = new OSMEntityFactory(osmFileName);
         doc = parseXmlDocument(new File(osmFileName));
+        scaleFactor = Math.cos(Math.toRadians(projectionLatitude));
     }
 
     public Collection<OSMNode> getNodes() {
@@ -107,11 +107,6 @@ public class OSMReader {
             for (Element node : toElementList(nodeNodeList)) {
                 double longitude = Double.parseDouble(node.getAttribute("lon"));
                 double latitude = Double.parseDouble(node.getAttribute("lat"));
-
-                if (scaleFactor == null) {
-                    scaleFactor = Math.cos(Math.toRadians(latitude));
-                }
-
                 double x = longitudeToX(longitude, scaleFactor);
                 double y = latitudeToY(latitude, scaleFactor);
                 String id = readId(node);

@@ -14,7 +14,7 @@
   <node id='-120971' action='modify' visible='true' lat='48.2627016271' lon='11.66878666789'>
     <tag k='one:point_of_interest' v='2' />
   </node>
-  <node id='-120993' action='modify' visible='true' lat='48.26258472596' lon='11.66778247843'>
+  <node id='-120993' action='modify' visible='true' lat='48.26260438335' lon='11.66764352261'>
     <tag k='one:attachment_point' v='3' />
     <tag k='one:portal' v='test' />
   </node>
