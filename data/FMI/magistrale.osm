@@ -14,10 +14,6 @@
   <node id='-120971' action='modify' visible='true' lat='48.2627016271' lon='11.66878666789'>
     <tag k='one:point_of_interest' v='2' />
   </node>
-  <node id='-120993' action='modify' visible='true' lat='48.26260438335' lon='11.66764352261'>
-    <tag k='one:attachment_point' v='3' />
-    <tag k='one:portal' v='test' />
-  </node>
   <node id='1204630196' timestamp='2011-03-16T19:33:50Z' uid='6998' user='saerdnaer' visible='true' version='1' changeset='7578766' lat='48.2627127' lon='11.6675437' />
   <node id='1204630203' timestamp='2011-03-16T19:33:50Z' uid='6998' user='saerdnaer' visible='true' version='1' changeset='7578766' lat='48.2623111' lon='11.6686058' />
   <node id='1204630205' timestamp='2011-04-07T08:49:01Z' uid='6998' user='saerdnaer' visible='true' version='2' changeset='7792094' lat='48.2622987' lon='11.6686716' />
