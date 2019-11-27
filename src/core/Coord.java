@@ -11,11 +11,11 @@ import java.util.Objects;
  * transformations
  */
 public class Coord implements Cloneable, Comparable<Coord> {
+	private static final double LAYER_HEIGHT = 3;
+
 	private double x;
 	private double y;
-
-	private double xRenderOffset;
-	private double yRenderOffset;
+	private int layer = 0;
 
 	/**
 	 * Constructor.
@@ -23,12 +23,7 @@ public class Coord implements Cloneable, Comparable<Coord> {
 	 * @param y Initial Y-coordinate
 	 */
 	public Coord(double x, double y) {
-		this(x, y, 0, 0);
-	}
-
-	public Coord(double x, double y, double xRenderOffset, double yRenderOffset) {
 		setLocation(x,y);
-		setDisplayOffset(xRenderOffset, yRenderOffset);
 	}
 
 	/**
@@ -39,11 +34,6 @@ public class Coord implements Cloneable, Comparable<Coord> {
 	public void setLocation(double x, double y) {
 		this.x = x;
 		this.y = y;
-	}
-
-	public void setDisplayOffset(double x, double y) {
-		xRenderOffset = x;
-		yRenderOffset = y;
 	}
 
 	/**
@@ -74,6 +64,19 @@ public class Coord implements Cloneable, Comparable<Coord> {
 	public double distance(Coord other) {
 		double dx = this.x - other.x;
 		double dy = this.y - other.y;
+		double dz = (this.layer - other.layer) * LAYER_HEIGHT;
+
+		return Math.sqrt(dx*dx + dy*dy + dz*dz);
+	}
+
+	/**
+	 * Returns the distance to another coordinate only considering the x and y coordinate
+	 * @param other The other coordinate
+	 * @return The distance between this and another coordinate
+	 */
+	public double distance2d(Coord other) {
+		double dx = this.x - other.x;
+		double dy = this.y - other.y;
 
 		return Math.sqrt(dx*dx + dy*dy);
 	}
@@ -94,12 +97,13 @@ public class Coord implements Cloneable, Comparable<Coord> {
 		return this.y;
 	}
 
-	public double getDisplayX() {
-		return x + xRenderOffset;
+	public int getLayer() {
+		return layer;
 	}
 
-	public double getDisplayY() {
-		return y + yRenderOffset;
+	public void setLayer(int layer) {
+		assert layer >= 0 : "Layer must be positive.";
+		this.layer = layer;
 	}
 
 	/**
@@ -124,20 +128,33 @@ public class Coord implements Cloneable, Comparable<Coord> {
 		return clone;
 	}
 
-	@Override
-	public boolean equals(Object o) {
-		if (this == o) return true;
-		if (o == null || getClass() != o.getClass()) return false;
-		Coord coord = (Coord) o;
-		return Double.compare(coord.x, x) == 0 &&
-				Double.compare(coord.y, y) == 0 &&
-				Double.compare(coord.xRenderOffset, xRenderOffset) == 0 &&
-				Double.compare(coord.yRenderOffset, yRenderOffset) == 0;
+	/**
+	 * Checks if this coordinate's location is equal to other coordinate's
+	 * @param c The other coordinate
+	 * @return True if locations are the same
+	 */
+	public boolean equals(Coord c) {
+		if (c == this) {
+			return true;
+		}
+		else {
+			return (x == c.x && y == c.y && layer == c.layer); // XXX: == for doubles...
+		}
 	}
 
 	@Override
+	public boolean equals(Object o) {
+		if (o == null) return false;
+		if (!(o instanceof Coord)) return false;
+		return equals((Coord) o);
+	}
+
+	/**
+	 * Returns a hash code for this coordinate
+	 */
+	@Override
 	public int hashCode() {
-		return Objects.hash(x, y, xRenderOffset, yRenderOffset);
+		return Objects.hash(x, y, layer);
 	}
 
 	/**
@@ -160,8 +177,6 @@ public class Coord implements Cloneable, Comparable<Coord> {
 		else if (this.x > other.x) {
 			return 1;
 		}
-		else {
-			return 0;
-		}
+		else return Integer.compare(this.layer, other.layer);
 	}
 }

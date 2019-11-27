@@ -20,12 +20,12 @@ public class NodeGridLevel {
         this.pointsOfInterest = pointsOfInterest;
     }
 
-    public void setDisplayOffset(double x, double y) {
-        Collection<MapNode> nodesToOffset = nodes.values();
-        for (MapNode node : nodesToOffset) {
-            node.getLocation().setDisplayOffset(x, y);
+    public void setLayer(int layer) {
+        Collection<MapNode> nodesToTranslate = nodes.values();
+        for (MapNode node : nodesToTranslate) {
+            node.getLocation().setLayer(layer);
         }
-        rehashNodes(nodesToOffset);
+        rehashNodes(nodesToTranslate);
     }
 
     public void translate(double dx, double dy) {

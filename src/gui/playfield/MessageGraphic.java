@@ -27,6 +27,11 @@ public class MessageGraphic extends PlayFieldGraphic {
 
 	@Override
 	public void draw(Graphics2D g2) {
+		if (from.getLocation().getLayer() != PlayFieldGraphic.getLayer()
+				|| to.getLocation().getLayer() != PlayFieldGraphic.getLayer()) {
+			return;
+		}
+
 		g2.setColor(msgColor);
 
 		int fromX = scale(from.getLocation().getX());

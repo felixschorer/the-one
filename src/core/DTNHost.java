@@ -387,17 +387,19 @@ public class DTNHost implements Comparable<DTNHost> {
 		}
 
 		possibleMovement = timeIncrement * speed;
-		distance = this.location.distance(this.destination);
+		distance = this.location.distance2d(this.destination);
 
 		while (possibleMovement >= distance) {
 			// node can move past its next destination
-			this.location.setLocation(this.destination); // snap to destination
+			// snap to destination
+			this.location.setLocation(this.destination);
+			this.location.setLayer(this.destination.getLayer());
 			possibleMovement -= distance;
 			if (!setNextWaypoint()) { // get a new waypoint
 				this.destination = null; // No more waypoints left, therefore the destination must be null
 				return; // no more waypoints left
 			}
-			distance = this.location.distance(this.destination);
+			distance = this.location.distance2d(this.destination);
 		}
 
 		// move towards the point for possibleMovement amount

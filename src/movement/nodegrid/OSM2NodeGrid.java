@@ -44,9 +44,13 @@ public class OSM2NodeGrid {
     }
 
     private void load() {
-        List<NodeGridLevel> levels = settings.getOsmLevelFiles().stream()
-                .map(this::loadLevel)
-                .collect(Collectors.toList());
+        List<String> osmLevelFiles = settings.getOsmLevelFiles();
+        List<NodeGridLevel> levels = new ArrayList<>();
+        for (int levelNumber = 0; levelNumber < osmLevelFiles.size(); levelNumber++) {
+            NodeGridLevel level = loadLevel(osmLevelFiles.get(levelNumber));
+            level.setLayer(levelNumber);
+            levels.add(level);
+        }
 
         connectPortals(levels);
         layoutLevels(levels);
@@ -115,12 +119,6 @@ public class OSM2NodeGrid {
 
         for (NodeGridLevel level : levels) {
             level.translate(-mapBoundingBox.getTopLeft().getX(), -mapBoundingBox.getTopLeft().getY());
-        }
-
-        int yOffset = 0;
-        for (NodeGridLevel level : levels) {
-            level.setDisplayOffset(0, yOffset);
-            yOffset += level.getBoundingBox().getHeight() + 20;
         }
     }
 

@@ -2,9 +2,7 @@ package movement.nodegrid;
 
 import core.Settings;
 
-import java.util.HashSet;
-import java.util.Objects;
-import java.util.Set;
+import java.util.*;
 
 public class NodeGridSettings {
     private static final String NODE_GRID_NS = "NodeGrid";
@@ -12,7 +10,7 @@ public class NodeGridSettings {
     private static final String OSM_LEVEL_FILE = "osmLevel";
 
     private final double rasterInterval;
-    private final Set<String> osmLevelFiles;
+    private final List<String> osmLevelFiles;
 
     public NodeGridSettings() {
         Settings settings = new Settings(NODE_GRID_NS);
@@ -24,13 +22,13 @@ public class NodeGridSettings {
         return rasterInterval;
     }
 
-    public Set<String> getOsmLevelFiles() {
+    public List<String> getOsmLevelFiles() {
         return osmLevelFiles;
     }
 
-    private static Set<String> readPaths(Settings settings, String settingName) {
-        Set<String> includedPolygons = new HashSet<>();
-        for (int current = 1; settings.contains(settingName + current); current++) {
+    private static List<String> readPaths(Settings settings, String settingName) {
+        List<String> includedPolygons = new ArrayList<>();
+        for (int current = 0; settings.contains(settingName + current); current++) {
             includedPolygons.add(settings.getSetting(settingName + current));
         }
         return includedPolygons;
