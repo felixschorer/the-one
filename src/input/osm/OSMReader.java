@@ -35,7 +35,8 @@ public class OSMReader {
     public OSMReader(String osmFileName, double projectionLatitude) {
         entityFactory = new OSMEntityFactory(osmFileName);
         doc = parseXmlDocument(new File(osmFileName));
-        scaleFactor = Math.cos(Math.toRadians(projectionLatitude));
+        double boundedProjectionLatitude = Math.max(-89, Math.min(89, projectionLatitude));
+        scaleFactor = Math.cos(Math.toRadians(boundedProjectionLatitude));
     }
 
     public Collection<OSMNode> getNodes() {
