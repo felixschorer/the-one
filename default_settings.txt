@@ -21,4 +21,3 @@ Group1.movementModel = FMIMovement
 NodeGrid.rasterInterval = 1
 NodeGrid.projectionLatitude = 48.26225591888
 NodeGrid.osmLevel0 = data/FMI/magistrale.osm
-NodeGrid.osmLevel1 = data/FMI/level1.osm
