@@ -339,8 +339,8 @@ public class GUIControls extends JPanel implements ActionListener, ChangeListene
 
 
 	public void stateChanged(ChangeEvent e) {
+        updateLayer();
 		updateZoomScale(true);
-		updateLayer();
 	}
 
 
