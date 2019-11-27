@@ -1,20 +1,21 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <osm version='0.6' generator='JOSM'>
-  <node id='-102424' action='modify' visible='true' lat='48.26242729901' lon='11.66910261942'>
+  <node id='-120961' action='modify' visible='true' lat='48.26242729901' lon='11.66910261942'>
     <tag k='one:point_of_interest' v='1' />
   </node>
-  <node id='-120440' action='modify' visible='true' lat='48.26220033757' lon='11.66886487616'>
+  <node id='-120963' action='modify' visible='true' lat='48.26220033757' lon='11.66886487616'>
     <tag k='one:point_of_interest' v='1' />
   </node>
-  <node id='-120461' action='modify' visible='true' lat='48.26225591888' lon='11.66882369081' />
-  <node id='-120554' action='modify' visible='true' lat='48.26228336859' lon='11.66844338045'>
+  <node id='-120965' action='modify' visible='true' lat='48.26225591888' lon='11.66882369081' />
+  <node id='-120967' action='modify' visible='true' lat='48.26228336859' lon='11.66844338045'>
     <tag k='one:point_of_interest' v='1' />
   </node>
-  <node id='-120556' action='modify' visible='true' lat='48.2623351511' lon='11.66840180621' />
-  <node id='-120753' action='modify' visible='true' lat='48.2627016271' lon='11.66878666789'>
+  <node id='-120969' action='modify' visible='true' lat='48.2623351511' lon='11.66840180621' />
+  <node id='-120971' action='modify' visible='true' lat='48.2627016271' lon='11.66878666789'>
     <tag k='one:point_of_interest' v='2' />
   </node>
   <node id='-120993' action='modify' visible='true' lat='48.26258472596' lon='11.66778247843'>
+    <tag k='one:attachment_point' v='3' />
     <tag k='one:portal' v='test' />
   </node>
   <node id='1204630196' timestamp='2011-03-16T19:33:50Z' uid='6998' user='saerdnaer' visible='true' version='1' changeset='7578766' lat='48.2627127' lon='11.6675437' />
@@ -248,30 +249,30 @@
   <node id='4264507650' timestamp='2016-06-25T14:00:47Z' uid='6998' user='saerdnaer' visible='true' version='1' changeset='40282437' lat='48.2625724' lon='11.6683175'>
     <tag k='door' v='yes' />
   </node>
-  <way id='-120937' action='modify' visible='true'>
-    <nd ref='-102424' />
+  <way id='-121177' action='modify' visible='true'>
+    <nd ref='-120961' />
     <nd ref='1204630487' />
     <tag k='one:edge' v='bidirectional' />
   </way>
-  <way id='-120938' action='modify' visible='true'>
+  <way id='-121178' action='modify' visible='true'>
     <nd ref='1204631319' />
-    <nd ref='-102424' />
+    <nd ref='-120961' />
     <tag k='one:edge' v='bidirectional' />
   </way>
-  <way id='-120940' action='modify' visible='true'>
-    <nd ref='-120440' />
-    <nd ref='-120461' />
+  <way id='-121179' action='modify' visible='true'>
+    <nd ref='-120963' />
+    <nd ref='-120965' />
     <nd ref='1235752297' />
     <tag k='one:edge' v='bidirectional' />
   </way>
-  <way id='-120941' action='modify' visible='true'>
-    <nd ref='-120554' />
-    <nd ref='-120556' />
+  <way id='-121180' action='modify' visible='true'>
+    <nd ref='-120967' />
+    <nd ref='-120969' />
     <nd ref='1235752294' />
     <tag k='one:edge' v='bidirectional' />
   </way>
-  <way id='-120942' action='modify' visible='true'>
-    <nd ref='-120753' />
+  <way id='-121181' action='modify' visible='true'>
+    <nd ref='-120971' />
     <nd ref='1204630238' />
     <tag k='one:edge' v='bidirectional' />
   </way>

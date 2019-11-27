@@ -310,6 +310,11 @@ public class GUIControls extends JPanel implements ActionListener, ChangeListene
 	}
 
 
+	public void setLayer(int layer) {
+		PlayFieldGraphic.setLayer(layer);
+		this.layerSelector.getModel().setValue(layer);
+	}
+
 	public void actionPerformed(ActionEvent e) {
 		if (e.getSource() == this.playButton) {
 			setPaused(!this.paused); // switch pause/play

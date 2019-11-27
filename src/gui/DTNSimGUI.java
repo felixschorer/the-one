@@ -17,6 +17,7 @@ import javax.swing.JOptionPane;
 import javax.swing.JScrollPane;
 import javax.swing.SwingUtilities;
 
+import gui.playfield.PlayFieldGraphic;
 import movement.Path;
 import ui.DTNSimUI;
 import core.Coord;
@@ -273,17 +274,18 @@ public class DTNSimGUI extends DTNSimUI {
      * @param loc The location to center
      */
     public void centerViewAt(Coord loc) {
-	JScrollPane sp = main.getPlayFieldScroll();
-	Coord gLoc = this.field.getGraphicsPosition(loc);
-	int midX, midY;
+		JScrollPane sp = main.getPlayFieldScroll();
+		Coord gLoc = this.field.getGraphicsPosition(loc);
+		int midX, midY;
 
-	updateView(); // update graphics to match the values
+		updateView(); // update graphics to match the values
 
-	midX = (int)gLoc.getX() - sp.getViewport().getWidth()/2;
-	midY = (int)gLoc.getY() - sp.getViewport().getHeight()/2;
+		midX = (int)gLoc.getX() - sp.getViewport().getWidth()/2;
+		midY = (int)gLoc.getY() - sp.getViewport().getHeight()/2;
 
-	sp.getHorizontalScrollBar().setValue(midX);
-	sp.getVerticalScrollBar().setValue(midY);
+		sp.getHorizontalScrollBar().setValue(midX);
+		sp.getVerticalScrollBar().setValue(midY);
+		guiControls.setLayer(loc.getLayer());
     }
 
     /**

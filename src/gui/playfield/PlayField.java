@@ -267,6 +267,7 @@ public class PlayField extends JPanel {
 		Coord c = loc.clone();
 		c.setLocation(PlayFieldGraphic.invScale(c.getX() - PLAYFIELD_OFFSET),
 				PlayFieldGraphic.invScale(c.getY() - PLAYFIELD_OFFSET));
+		c.setLayer(PlayFieldGraphic.getLayer());
 		return c;
 	}
 
@@ -297,7 +298,11 @@ public class PlayField extends JPanel {
 		Coord clickLoc = getWorldPosition(new Coord(x,y));
 
 		for (DTNHost h : w.getHosts()) {
-			dist = h.getLocation().distance(clickLoc);
+			if (h.getLocation().getLayer() != PlayFieldGraphic.getLayer()) {
+				continue;
+			}
+
+			dist = h.getLocation().distance2d(clickLoc);
 
 			if (dist < closestDist) {
 				closest = h;
