@@ -37,7 +37,7 @@ public class MainWindow extends JFrame {
 	public static final String WIN_HEIGHT_S = "height";
 
 	/** Default width for the GUI window */
-	public static final int WIN_DEFAULT_WIDTH = 900;
+	public static final int WIN_DEFAULT_WIDTH = 1100;
 	/** Default height for the GUI window */
 	public static final int WIN_DEFAULT_HEIGHT = 700;
 
