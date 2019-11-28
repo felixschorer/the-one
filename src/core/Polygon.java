@@ -1,22 +1,18 @@
 package core;
 
 public class Polygon {
-    private Coord[] vertices;
+    private final Coord[] vertices;
+    private final Line[] edges;
+    private final BoundingBox boundingBox;
 
     public Polygon(Coord... vertices) {
         this.vertices = vertices;
+        this.edges = computeEdges(vertices);
+        this.boundingBox = BoundingBox.fromPoints(vertices);
     }
 
     public boolean isInside(Coord point) {
         if (vertices.length < 3) {
-            return false;
-        }
-
-        BoundingBox boundingBox = getBoundingBox();
-        if (point.getX() < boundingBox.getTopLeft().getX()
-                || point.getY() < boundingBox.getTopLeft().getY()
-                || boundingBox.getBottomRight().getX() < point.getX()
-                || boundingBox.getBottomRight().getY() < point.getY()) {
             return false;
         }
 
@@ -46,16 +42,18 @@ public class Polygon {
         return vertices;
     }
 
-    public Line[] getEdges() {
+    public Line[] getEdges() { return edges; }
+
+    public BoundingBox getBoundingBox() {
+        return boundingBox;
+    }
+
+    private static Line[] computeEdges(Coord[] vertices) {
         Line[] edges = new Line[vertices.length];
         for (int i = 0; i < vertices.length - 1; i++) {
             edges[i] = new Line(vertices[i], vertices[i + 1]);
         }
         edges[edges.length - 1] = new Line(vertices[0], vertices[vertices.length - 1]);
         return edges;
-    }
-
-    public BoundingBox getBoundingBox() {
-        return BoundingBox.fromPoints(vertices);
     }
 }
