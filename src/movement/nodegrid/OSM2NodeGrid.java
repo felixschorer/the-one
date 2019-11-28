@@ -9,6 +9,7 @@ import movement.map.SimMap;
 
 import java.util.*;
 import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 import java.util.stream.Stream;
 
 public class OSM2NodeGrid {
@@ -45,12 +46,14 @@ public class OSM2NodeGrid {
 
     private void load() {
         List<String> osmLevelFiles = settings.getOsmLevelFiles();
-        List<NodeGridLevel> levels = new ArrayList<>();
-        for (int levelNumber = 0; levelNumber < osmLevelFiles.size(); levelNumber++) {
-            NodeGridLevel level = loadLevel(osmLevelFiles.get(levelNumber));
-            level.setLayer(levelNumber);
-            levels.add(level);
-        }
+        List<NodeGridLevel> levels = IntStream.range(0, osmLevelFiles.size())
+                .parallel()
+                .mapToObj(levelNumber -> {
+                    NodeGridLevel level = loadLevel(osmLevelFiles.get(levelNumber));
+                    level.setLayer(levelNumber);
+                    return level;
+                })
+                .collect(Collectors.toList());
 
         connectPortals(levels);
         layoutLevels(levels);
