@@ -18,7 +18,7 @@ Group1.router = PassiveRouter
 
 Group1.nrofHosts = 100
 Group1.movementModel = FMIMovement
-NodeGrid.rasterInterval = 1
+NodeGrid.rasterInterval = 0.6
 NodeGrid.projectionLatitude = 48.26225591888
 NodeGrid.osmLevel0 = data/FMI/fmi0.osm
 NodeGrid.osmLevel1 = data/FMI/fmi1.osm
