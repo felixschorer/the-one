@@ -1856,17 +1856,6 @@
   <node id='-144778' action='modify' visible='true' lat='48.26228169626' lon='11.66880964602' />
   <node id='-144780' action='modify' visible='true' lat='48.2623379351' lon='11.66873447487' />
   <node id='-144782' action='modify' visible='true' lat='48.2623226839' lon='11.66882682799' />
-  <node id='-144784' action='modify' visible='true' lat='48.26239479457' lon='11.66877074142' />
-  <node id='-144786' action='modify' visible='true' lat='48.26239364414' lon='11.66879727424' />
-  <node id='-144788' action='modify' visible='true' lat='48.26238120703' lon='11.66879688347' />
-  <node id='-144790' action='modify' visible='true' lat='48.26238101187' lon='11.66877005384' />
-  <node id='-144792' action='modify' visible='true' lat='48.26238800249' lon='11.6687667728' />
-  <node id='-144794' action='modify' visible='true' lat='48.26239812628' lon='11.66877823299' />
-  <node id='-144796' action='modify' visible='true' lat='48.26238527871' lon='11.66879958529' />
-  <node id='-144798' action='modify' visible='true' lat='48.26237676976' lon='11.66878653337' />
-  <node id='-144800' action='modify' visible='true' lat='48.26239774543' lon='11.66878999818' />
-  <node id='-144802' action='modify' visible='true' lat='48.26239017325' lon='11.66879951065' />
-  <node id='-144804' action='modify' visible='true' lat='48.26237737334' lon='11.66877713437' />
   <node id='-144806' action='modify' visible='true' lat='48.26259905434' lon='11.66770074876' />
   <node id='-144808' action='modify' visible='true' lat='48.26259788601' lon='11.66771944695' />
   <node id='-144810' action='modify' visible='true' lat='48.26258611694' lon='11.6677158962' />
@@ -3781,20 +3770,6 @@
     <nd ref='-144778' />
     <nd ref='-144776' />
     <nd ref='-144780' />
-  </way>
-  <way id='-145152' action='modify' visible='true'>
-    <nd ref='-144784' />
-    <nd ref='-144794' />
-    <nd ref='-144800' />
-    <nd ref='-144786' />
-    <nd ref='-144802' />
-    <nd ref='-144796' />
-    <nd ref='-144788' />
-    <nd ref='-144798' />
-    <nd ref='-144804' />
-    <nd ref='-144790' />
-    <nd ref='-144792' />
-    <nd ref='-144784' />
   </way>
   <way id='-145153' action='modify' visible='true'>
     <nd ref='-144806' />
