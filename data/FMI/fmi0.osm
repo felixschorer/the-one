@@ -158,9 +158,6 @@
     <tag k='one:point_of_interest' v='4' />
   </node>
   <node id='-143246' action='modify' visible='true' lat='48.26230349223' lon='11.66832274905' />
-  <node id='-143248' action='modify' visible='true' lat='48.26236559223' lon='11.66831364905'>
-    <tag k='one:portal' v='elevator2' />
-  </node>
   <node id='-143250' action='modify' visible='true' lat='48.26235989223' lon='11.66834504905' />
   <node id='-143252' action='modify' visible='true' lat='48.26218965757' lon='11.66729455811'>
     <tag k='one:attachment_point' v='1' />
@@ -881,9 +878,6 @@
   <node id='-143880' action='modify' visible='true' lat='48.26308834057' lon='11.66774656614' />
   <node id='-143882' action='modify' visible='true' lat='48.26265637546' lon='11.66760217081' />
   <node id='-143884' action='modify' visible='true' lat='48.26265299996' lon='11.66762908952' />
-  <node id='-143886' action='modify' visible='true' lat='48.26254271846' lon='11.66855189695'>
-    <tag k='one:portal' v='elevator1' />
-  </node>
   <node id='-143888' action='modify' visible='true' lat='48.26265632864' lon='11.66760254417' />
   <node id='-143890' action='modify' visible='true' lat='48.26265300961' lon='11.66762901256' />
   <node id='-143892' action='modify' visible='true' lat='48.26306245886' lon='11.66718382123'>
@@ -1971,1112 +1965,1112 @@
   <node id='-145590' action='modify' visible='true' lat='48.26257387415' lon='11.66797757591' />
   <node id='-145592' action='modify' visible='true' lat='48.26257286153' lon='11.66796403807' />
   <node id='-145594' action='modify' visible='true' lat='48.26256992491' lon='11.66795050023' />
-  <way id='-144915' action='modify' visible='true'>
+  <way id='-145595' action='modify' visible='true'>
     <nd ref='-143266' />
     <nd ref='-143134' />
     <tag k='one:edge' v='bidirectional' />
   </way>
-  <way id='-144916' action='modify' visible='true'>
+  <way id='-145596' action='modify' visible='true'>
     <nd ref='-143234' />
     <nd ref='-143150' />
     <tag k='one:edge' v='bidirectional' />
   </way>
-  <way id='-144917' action='modify' visible='true'>
+  <way id='-145597' action='modify' visible='true'>
     <nd ref='-143252' />
     <nd ref='-143130' />
     <tag k='one:edge' v='bidirectional' />
   </way>
-  <way id='-144918' action='modify' visible='true'>
+  <way id='-145598' action='modify' visible='true'>
     <nd ref='-143270' />
     <nd ref='-143166' />
     <tag k='one:edge' v='bidirectional' />
   </way>
-  <way id='-144919' action='modify' visible='true'>
+  <way id='-145599' action='modify' visible='true'>
     <nd ref='-143206' />
     <nd ref='-143184' />
     <tag k='one:edge' v='bidirectional' />
   </way>
-  <way id='-144920' action='modify' visible='true'>
+  <way id='-145600' action='modify' visible='true'>
     <nd ref='-143214' />
     <nd ref='-143162' />
     <tag k='one:edge' v='bidirectional' />
   </way>
-  <way id='-144921' action='modify' visible='true'>
+  <way id='-145601' action='modify' visible='true'>
     <nd ref='-143154' />
     <nd ref='-143192' />
     <tag k='one:edge' v='bidirectional' />
   </way>
-  <way id='-144922' action='modify' visible='true'>
+  <way id='-145602' action='modify' visible='true'>
     <nd ref='-143174' />
     <nd ref='-143198' />
     <tag k='one:edge' v='bidirectional' />
   </way>
-  <way id='-144923' action='modify' visible='true'>
+  <way id='-145603' action='modify' visible='true'>
     <nd ref='-143120' />
     <nd ref='-143226' />
     <tag k='one:edge' v='bidirectional' />
   </way>
-  <way id='-144924' action='modify' visible='true'>
+  <way id='-145604' action='modify' visible='true'>
     <nd ref='-143146' />
     <nd ref='-143218' />
     <tag k='one:edge' v='bidirectional' />
   </way>
-  <way id='-144925' action='modify' visible='true'>
+  <way id='-145605' action='modify' visible='true'>
     <nd ref='-143142' />
     <nd ref='-143244' />
     <tag k='one:edge' v='bidirectional' />
   </way>
-  <way id='-144926' action='modify' visible='true'>
+  <way id='-145606' action='modify' visible='true'>
     <nd ref='-143126' />
     <nd ref='-143222' />
     <tag k='one:edge' v='bidirectional' />
   </way>
-  <way id='-144927' action='modify' visible='true'>
+  <way id='-145607' action='modify' visible='true'>
     <nd ref='-143178' />
     <nd ref='-143264' />
     <tag k='one:edge' v='bidirectional' />
   </way>
-  <way id='-144928' action='modify' visible='true'>
+  <way id='-145608' action='modify' visible='true'>
     <nd ref='-143156' />
     <nd ref='-143242' />
     <tag k='one:edge' v='bidirectional' />
   </way>
-  <way id='-144929' action='modify' visible='true'>
+  <way id='-145609' action='modify' visible='true'>
     <nd ref='-143202' />
     <nd ref='-143272' />
     <tag k='one:edge' v='bidirectional' />
   </way>
-  <way id='-144930' action='modify' visible='true'>
+  <way id='-145610' action='modify' visible='true'>
     <nd ref='-143182' />
     <nd ref='-143260' />
     <tag k='one:edge' v='bidirectional' />
   </way>
-  <way id='-144931' action='modify' visible='true'>
+  <way id='-145611' action='modify' visible='true'>
     <nd ref='-143268' />
     <nd ref='-143284' />
     <tag k='one:edge' v='bidirectional' />
   </way>
-  <way id='-144932' action='modify' visible='true'>
+  <way id='-145612' action='modify' visible='true'>
     <nd ref='-143238' />
     <nd ref='-143276' />
     <tag k='one:edge' v='bidirectional' />
   </way>
-  <way id='-144933' action='modify' visible='true'>
+  <way id='-145613' action='modify' visible='true'>
     <nd ref='-143254' />
     <nd ref='-143292' />
     <tag k='one:edge' v='bidirectional' />
   </way>
-  <way id='-144934' action='modify' visible='true'>
+  <way id='-145614' action='modify' visible='true'>
     <nd ref='-143296' />
     <nd ref='-143304' />
     <tag k='one:edge' v='bidirectional' />
   </way>
-  <way id='-144935' action='modify' visible='true'>
+  <way id='-145615' action='modify' visible='true'>
     <nd ref='-143464' />
     <nd ref='-143500' />
     <tag k='one:edge' v='bidirectional' />
   </way>
-  <way id='-144936' action='modify' visible='true'>
+  <way id='-145616' action='modify' visible='true'>
     <nd ref='-143462' />
     <nd ref='-143332' />
     <tag k='one:edge' v='bidirectional' />
   </way>
-  <way id='-144937' action='modify' visible='true'>
+  <way id='-145617' action='modify' visible='true'>
     <nd ref='-143446' />
     <nd ref='-143326' />
     <tag k='one:edge' v='bidirectional' />
   </way>
-  <way id='-144938' action='modify' visible='true'>
+  <way id='-145618' action='modify' visible='true'>
     <nd ref='-143482' />
     <nd ref='-143334' />
     <tag k='one:edge' v='bidirectional' />
   </way>
-  <way id='-144939' action='modify' visible='true'>
+  <way id='-145619' action='modify' visible='true'>
     <nd ref='-143456' />
     <nd ref='-143336' />
     <tag k='one:edge' v='bidirectional' />
   </way>
-  <way id='-144940' action='modify' visible='true'>
+  <way id='-145620' action='modify' visible='true'>
     <nd ref='-143508' />
     <nd ref='-143344' />
     <tag k='one:edge' v='bidirectional' />
   </way>
-  <way id='-144941' action='modify' visible='true'>
+  <way id='-145621' action='modify' visible='true'>
     <nd ref='-143438' />
     <nd ref='-143350' />
     <tag k='one:edge' v='bidirectional' />
   </way>
-  <way id='-144942' action='modify' visible='true'>
+  <way id='-145622' action='modify' visible='true'>
     <nd ref='-143368' />
     <nd ref='-143356' />
     <tag k='one:edge' v='bidirectional' />
   </way>
-  <way id='-144943' action='modify' visible='true'>
+  <way id='-145623' action='modify' visible='true'>
     <nd ref='-143378' />
     <nd ref='-143366' />
     <tag k='one:edge' v='bidirectional' />
   </way>
-  <way id='-144944' action='modify' visible='true'>
+  <way id='-145624' action='modify' visible='true'>
     <nd ref='-143448' />
     <nd ref='-143362' />
     <tag k='one:edge' v='bidirectional' />
   </way>
-  <way id='-144945' action='modify' visible='true'>
+  <way id='-145625' action='modify' visible='true'>
     <nd ref='-143382' />
     <nd ref='-143374' />
     <tag k='one:edge' v='bidirectional' />
   </way>
-  <way id='-144946' action='modify' visible='true'>
+  <way id='-145626' action='modify' visible='true'>
     <nd ref='-143432' />
     <nd ref='-143370' />
     <tag k='one:edge' v='bidirectional' />
   </way>
-  <way id='-144947' action='modify' visible='true'>
+  <way id='-145627' action='modify' visible='true'>
     <nd ref='-143442' />
     <nd ref='-143376' />
     <tag k='one:edge' v='bidirectional' />
   </way>
-  <way id='-144948' action='modify' visible='true'>
+  <way id='-145628' action='modify' visible='true'>
     <nd ref='-143386' />
     <nd ref='-143372' />
     <tag k='one:edge' v='bidirectional' />
   </way>
-  <way id='-144949' action='modify' visible='true'>
+  <way id='-145629' action='modify' visible='true'>
     <nd ref='-143390' />
     <nd ref='-143384' />
     <tag k='one:edge' v='bidirectional' />
   </way>
-  <way id='-144950' action='modify' visible='true'>
+  <way id='-145630' action='modify' visible='true'>
     <nd ref='-143426' />
     <nd ref='-143380' />
     <tag k='one:edge' v='bidirectional' />
   </way>
-  <way id='-144951' action='modify' visible='true'>
+  <way id='-145631' action='modify' visible='true'>
     <nd ref='-143544' />
     <nd ref='-143406' />
     <tag k='one:edge' v='bidirectional' />
   </way>
-  <way id='-144952' action='modify' visible='true'>
+  <way id='-145632' action='modify' visible='true'>
     <nd ref='-143388' />
     <nd ref='-143398' />
     <tag k='one:edge' v='bidirectional' />
   </way>
-  <way id='-144953' action='modify' visible='true'>
+  <way id='-145633' action='modify' visible='true'>
     <nd ref='-143526' />
     <nd ref='-143414' />
     <tag k='one:edge' v='bidirectional' />
   </way>
-  <way id='-144954' action='modify' visible='true'>
+  <way id='-145634' action='modify' visible='true'>
     <nd ref='-143404' />
     <nd ref='-143396' />
     <tag k='one:edge' v='bidirectional' />
   </way>
-  <way id='-144955' action='modify' visible='true'>
+  <way id='-145635' action='modify' visible='true'>
     <nd ref='-143420' />
     <nd ref='-143412' />
     <tag k='one:edge' v='bidirectional' />
   </way>
-  <way id='-144956' action='modify' visible='true'>
+  <way id='-145636' action='modify' visible='true'>
     <nd ref='-143436' />
     <nd ref='-143400' />
     <tag k='one:edge' v='bidirectional' />
   </way>
-  <way id='-144957' action='modify' visible='true'>
+  <way id='-145637' action='modify' visible='true'>
     <nd ref='-143506' />
     <nd ref='-143418' />
     <tag k='one:edge' v='bidirectional' />
   </way>
-  <way id='-144958' action='modify' visible='true'>
+  <way id='-145638' action='modify' visible='true'>
     <nd ref='-143428' />
     <nd ref='-143408' />
     <tag k='one:edge' v='bidirectional' />
   </way>
-  <way id='-144959' action='modify' visible='true'>
+  <way id='-145639' action='modify' visible='true'>
     <nd ref='-143548' />
     <nd ref='-143430' />
     <tag k='one:edge' v='bidirectional' />
   </way>
-  <way id='-144960' action='modify' visible='true'>
+  <way id='-145640' action='modify' visible='true'>
     <nd ref='-143488' />
     <nd ref='-143440' />
     <tag k='one:edge' v='bidirectional' />
   </way>
-  <way id='-144961' action='modify' visible='true'>
+  <way id='-145641' action='modify' visible='true'>
     <nd ref='-143470' />
     <nd ref='-143452' />
     <tag k='one:edge' v='bidirectional' />
   </way>
-  <way id='-144962' action='modify' visible='true'>
+  <way id='-145642' action='modify' visible='true'>
     <nd ref='-143454' />
     <nd ref='-143466' />
     <tag k='one:edge' v='bidirectional' />
   </way>
-  <way id='-144963' action='modify' visible='true'>
+  <way id='-145643' action='modify' visible='true'>
     <nd ref='-143434' />
     <nd ref='-143474' />
     <tag k='one:edge' v='bidirectional' />
   </way>
-  <way id='-144964' action='modify' visible='true'>
+  <way id='-145644' action='modify' visible='true'>
     <nd ref='-143416' />
     <nd ref='-143484' />
     <tag k='one:edge' v='bidirectional' />
   </way>
-  <way id='-144965' action='modify' visible='true'>
+  <way id='-145645' action='modify' visible='true'>
     <nd ref='-143468' />
     <nd ref='-143478' />
     <tag k='one:edge' v='bidirectional' />
   </way>
-  <way id='-144966' action='modify' visible='true'>
+  <way id='-145646' action='modify' visible='true'>
     <nd ref='-143476' />
     <nd ref='-143472' />
     <tag k='one:edge' v='bidirectional' />
   </way>
-  <way id='-144967' action='modify' visible='true'>
+  <way id='-145647' action='modify' visible='true'>
     <nd ref='-143410' />
     <nd ref='-143486' />
     <tag k='one:edge' v='bidirectional' />
   </way>
-  <way id='-144968' action='modify' visible='true'>
+  <way id='-145648' action='modify' visible='true'>
     <nd ref='-143458' />
     <nd ref='-143490' />
     <tag k='one:edge' v='bidirectional' />
   </way>
-  <way id='-144969' action='modify' visible='true'>
+  <way id='-145649' action='modify' visible='true'>
     <nd ref='-143450' />
     <nd ref='-143492' />
     <tag k='one:edge' v='bidirectional' />
   </way>
-  <way id='-144970' action='modify' visible='true'>
+  <way id='-145650' action='modify' visible='true'>
     <nd ref='-143402' />
     <nd ref='-143494' />
     <tag k='one:edge' v='bidirectional' />
   </way>
-  <way id='-144971' action='modify' visible='true'>
+  <way id='-145651' action='modify' visible='true'>
     <nd ref='-143422' />
     <nd ref='-143502' />
     <tag k='one:edge' v='bidirectional' />
   </way>
-  <way id='-144972' action='modify' visible='true'>
+  <way id='-145652' action='modify' visible='true'>
     <nd ref='-143424' />
     <nd ref='-143512' />
     <tag k='one:edge' v='bidirectional' />
   </way>
-  <way id='-144973' action='modify' visible='true'>
+  <way id='-145653' action='modify' visible='true'>
     <nd ref='-143444' />
     <nd ref='-143522' />
     <tag k='one:edge' v='bidirectional' />
   </way>
-  <way id='-144974' action='modify' visible='true'>
+  <way id='-145654' action='modify' visible='true'>
     <nd ref='-143460' />
     <nd ref='-143532' />
     <tag k='one:edge' v='bidirectional' />
   </way>
-  <way id='-144975' action='modify' visible='true'>
+  <way id='-145655' action='modify' visible='true'>
     <nd ref='-143480' />
     <nd ref='-143540' />
     <tag k='one:edge' v='bidirectional' />
   </way>
-  <way id='-144976' action='modify' visible='true'>
+  <way id='-145656' action='modify' visible='true'>
     <nd ref='-143496' />
     <nd ref='-143550' />
     <tag k='one:edge' v='bidirectional' />
   </way>
-  <way id='-144977' action='modify' visible='true'>
+  <way id='-145657' action='modify' visible='true'>
     <nd ref='-143536' />
     <nd ref='-143556' />
     <tag k='one:edge' v='bidirectional' />
   </way>
-  <way id='-144978' action='modify' visible='true'>
+  <way id='-145658' action='modify' visible='true'>
     <nd ref='-143518' />
     <nd ref='-143562' />
     <tag k='one:edge' v='bidirectional' />
   </way>
-  <way id='-144979' action='modify' visible='true'>
+  <way id='-145659' action='modify' visible='true'>
     <nd ref='-143570' />
     <nd ref='-143578' />
     <tag k='one:edge' v='bidirectional' />
   </way>
-  <way id='-144980' action='modify' visible='true'>
+  <way id='-145660' action='modify' visible='true'>
     <nd ref='-143200' />
     <nd ref='-143612' />
     <tag k='one:edge' v='bidirectional' />
   </way>
-  <way id='-144981' action='modify' visible='true'>
+  <way id='-145661' action='modify' visible='true'>
     <nd ref='-143102' />
     <nd ref='-143614' />
     <tag k='one:edge' v='bidirectional' />
   </way>
-  <way id='-144982' action='modify' visible='true'>
+  <way id='-145662' action='modify' visible='true'>
     <nd ref='-144500' />
     <nd ref='-143616' />
     <tag k='one:edge' v='bidirectional' />
   </way>
-  <way id='-144983' action='modify' visible='true'>
+  <way id='-145663' action='modify' visible='true'>
     <nd ref='-144472' />
     <nd ref='-143616' />
     <tag k='one:edge' v='bidirectional' />
   </way>
-  <way id='-144984' action='modify' visible='true'>
+  <way id='-145664' action='modify' visible='true'>
     <nd ref='-144450' />
     <nd ref='-143618' />
     <tag k='one:edge' v='bidirectional' />
   </way>
-  <way id='-144985' action='modify' visible='true'>
+  <way id='-145665' action='modify' visible='true'>
     <nd ref='-143072' />
     <nd ref='-143620' />
     <tag k='one:edge' v='bidirectional' />
   </way>
-  <way id='-144986' action='modify' visible='true'>
+  <way id='-145666' action='modify' visible='true'>
     <nd ref='-143736' />
     <nd ref='-143628' />
     <tag k='one:edge' v='bidirectional' />
   </way>
-  <way id='-144987' action='modify' visible='true'>
+  <way id='-145667' action='modify' visible='true'>
     <nd ref='-143722' />
     <nd ref='-143632' />
     <tag k='one:edge' v='bidirectional' />
   </way>
-  <way id='-144988' action='modify' visible='true'>
+  <way id='-145668' action='modify' visible='true'>
     <nd ref='-143704' />
     <nd ref='-143636' />
     <tag k='one:edge' v='bidirectional' />
   </way>
-  <way id='-144989' action='modify' visible='true'>
+  <way id='-145669' action='modify' visible='true'>
     <nd ref='-143742' />
     <nd ref='-143646' />
     <tag k='one:edge' v='bidirectional' />
   </way>
-  <way id='-144990' action='modify' visible='true'>
+  <way id='-145670' action='modify' visible='true'>
     <nd ref='-143792' />
     <nd ref='-143810' />
     <tag k='one:edge' v='bidirectional' />
   </way>
-  <way id='-144991' action='modify' visible='true'>
+  <way id='-145671' action='modify' visible='true'>
     <nd ref='-143688' />
     <nd ref='-143654' />
     <tag k='one:edge' v='bidirectional' />
   </way>
-  <way id='-144992' action='modify' visible='true'>
+  <way id='-145672' action='modify' visible='true'>
     <nd ref='-143790' />
     <nd ref='-143644' />
     <tag k='one:edge' v='bidirectional' />
   </way>
-  <way id='-144993' action='modify' visible='true'>
+  <way id='-145673' action='modify' visible='true'>
     <nd ref='-143778' />
     <nd ref='-143642' />
     <tag k='one:edge' v='bidirectional' />
   </way>
-  <way id='-144994' action='modify' visible='true'>
+  <way id='-145674' action='modify' visible='true'>
     <nd ref='-143676' />
     <nd ref='-143660' />
     <tag k='one:edge' v='bidirectional' />
   </way>
-  <way id='-144995' action='modify' visible='true'>
+  <way id='-145675' action='modify' visible='true'>
     <nd ref='-143802' />
     <nd ref='-143648' />
     <tag k='one:edge' v='bidirectional' />
   </way>
-  <way id='-144996' action='modify' visible='true'>
+  <way id='-145676' action='modify' visible='true'>
     <nd ref='-143664' />
     <nd ref='-143670' />
     <tag k='one:edge' v='bidirectional' />
   </way>
-  <way id='-144997' action='modify' visible='true'>
+  <way id='-145677' action='modify' visible='true'>
     <nd ref='-143786' />
     <nd ref='-143652' />
     <tag k='one:edge' v='bidirectional' />
   </way>
-  <way id='-144998' action='modify' visible='true'>
+  <way id='-145678' action='modify' visible='true'>
     <nd ref='-143650' />
     <nd ref='-143678' />
     <tag k='one:edge' v='bidirectional' />
   </way>
-  <way id='-144999' action='modify' visible='true'>
+  <way id='-145679' action='modify' visible='true'>
     <nd ref='-143814' />
     <nd ref='-143658' />
     <tag k='one:edge' v='bidirectional' />
   </way>
-  <way id='-145000' action='modify' visible='true'>
+  <way id='-145680' action='modify' visible='true'>
     <nd ref='-143774' />
     <nd ref='-143662' />
     <tag k='one:edge' v='bidirectional' />
   </way>
-  <way id='-145001' action='modify' visible='true'>
+  <way id='-145681' action='modify' visible='true'>
     <nd ref='-143634' />
     <nd ref='-143682' />
     <tag k='one:edge' v='bidirectional' />
   </way>
-  <way id='-145002' action='modify' visible='true'>
+  <way id='-145682' action='modify' visible='true'>
     <nd ref='-143686' />
     <nd ref='-143666' />
     <tag k='one:edge' v='bidirectional' />
   </way>
-  <way id='-145003' action='modify' visible='true'>
+  <way id='-145683' action='modify' visible='true'>
     <nd ref='-143706' />
     <nd ref='-143674' />
     <tag k='one:edge' v='bidirectional' />
   </way>
-  <way id='-145004' action='modify' visible='true'>
+  <way id='-145684' action='modify' visible='true'>
     <nd ref='-143780' />
     <nd ref='-143672' />
     <tag k='one:edge' v='bidirectional' />
   </way>
-  <way id='-145005' action='modify' visible='true'>
+  <way id='-145685' action='modify' visible='true'>
     <nd ref='-143630' />
     <nd ref='-143684' />
     <tag k='one:edge' v='bidirectional' />
   </way>
-  <way id='-145006' action='modify' visible='true'>
+  <way id='-145686' action='modify' visible='true'>
     <nd ref='-143626' />
     <nd ref='-143694' />
     <tag k='one:edge' v='bidirectional' />
   </way>
-  <way id='-145007' action='modify' visible='true'>
+  <way id='-145687' action='modify' visible='true'>
     <nd ref='-143710' />
     <nd ref='-143696' />
     <tag k='one:edge' v='bidirectional' />
   </way>
-  <way id='-145008' action='modify' visible='true'>
+  <way id='-145688' action='modify' visible='true'>
     <nd ref='-143768' />
     <nd ref='-143690' />
     <tag k='one:edge' v='bidirectional' />
   </way>
-  <way id='-145009' action='modify' visible='true'>
+  <way id='-145689' action='modify' visible='true'>
     <nd ref='-143638' />
     <nd ref='-143700' />
     <tag k='one:edge' v='bidirectional' />
   </way>
-  <way id='-145010' action='modify' visible='true'>
+  <way id='-145690' action='modify' visible='true'>
     <nd ref='-143640' />
     <nd ref='-143712' />
     <tag k='one:edge' v='bidirectional' />
   </way>
-  <way id='-145011' action='modify' visible='true'>
+  <way id='-145691' action='modify' visible='true'>
     <nd ref='-143776' />
     <nd ref='-143702' />
     <tag k='one:edge' v='bidirectional' />
   </way>
-  <way id='-145012' action='modify' visible='true'>
+  <way id='-145692' action='modify' visible='true'>
     <nd ref='-143720' />
     <nd ref='-143692' />
     <tag k='one:edge' v='bidirectional' />
   </way>
-  <way id='-145013' action='modify' visible='true'>
+  <way id='-145693' action='modify' visible='true'>
     <nd ref='-143656' />
     <nd ref='-143716' />
     <tag k='one:edge' v='bidirectional' />
   </way>
-  <way id='-145014' action='modify' visible='true'>
+  <way id='-145694' action='modify' visible='true'>
     <nd ref='-143668' />
     <nd ref='-143726' />
     <tag k='one:edge' v='bidirectional' />
   </way>
-  <way id='-145015' action='modify' visible='true'>
+  <way id='-145695' action='modify' visible='true'>
     <nd ref='-143728' />
     <nd ref='-143718' />
     <tag k='one:edge' v='bidirectional' />
   </way>
-  <way id='-145016' action='modify' visible='true'>
+  <way id='-145696' action='modify' visible='true'>
     <nd ref='-143680' />
     <nd ref='-143732' />
     <tag k='one:edge' v='bidirectional' />
   </way>
-  <way id='-145017' action='modify' visible='true'>
+  <way id='-145697' action='modify' visible='true'>
     <nd ref='-143764' />
     <nd ref='-143708' />
     <tag k='one:edge' v='bidirectional' />
   </way>
-  <way id='-145018' action='modify' visible='true'>
+  <way id='-145698' action='modify' visible='true'>
     <nd ref='-143698' />
     <nd ref='-143746' />
     <tag k='one:edge' v='bidirectional' />
   </way>
-  <way id='-145019' action='modify' visible='true'>
+  <way id='-145699' action='modify' visible='true'>
     <nd ref='-143724' />
     <nd ref='-143738' />
     <tag k='one:edge' v='bidirectional' />
   </way>
-  <way id='-145020' action='modify' visible='true'>
+  <way id='-145700' action='modify' visible='true'>
     <nd ref='-143730' />
     <nd ref='-143750' />
     <tag k='one:edge' v='bidirectional' />
   </way>
-  <way id='-145021' action='modify' visible='true'>
+  <way id='-145701' action='modify' visible='true'>
     <nd ref='-143744' />
     <nd ref='-143734' />
     <tag k='one:edge' v='bidirectional' />
   </way>
-  <way id='-145022' action='modify' visible='true'>
+  <way id='-145702' action='modify' visible='true'>
     <nd ref='-143714' />
     <nd ref='-143754' />
     <tag k='one:edge' v='bidirectional' />
   </way>
-  <way id='-145023' action='modify' visible='true'>
+  <way id='-145703' action='modify' visible='true'>
     <nd ref='-143760' />
     <nd ref='-143752' />
     <tag k='one:edge' v='bidirectional' />
   </way>
-  <way id='-145024' action='modify' visible='true'>
+  <way id='-145704' action='modify' visible='true'>
     <nd ref='-143772' />
     <nd ref='-143740' />
     <tag k='one:edge' v='bidirectional' />
   </way>
-  <way id='-145025' action='modify' visible='true'>
+  <way id='-145705' action='modify' visible='true'>
     <nd ref='-143766' />
     <nd ref='-143748' />
     <tag k='one:edge' v='bidirectional' />
   </way>
-  <way id='-145026' action='modify' visible='true'>
+  <way id='-145706' action='modify' visible='true'>
     <nd ref='-143758' />
     <nd ref='-143762' />
     <tag k='one:edge' v='bidirectional' />
   </way>
-  <way id='-145027' action='modify' visible='true'>
+  <way id='-145707' action='modify' visible='true'>
     <nd ref='-143794' />
     <nd ref='-143800' />
     <tag k='one:edge' v='bidirectional' />
   </way>
-  <way id='-145028' action='modify' visible='true'>
+  <way id='-145708' action='modify' visible='true'>
     <nd ref='-143798' />
     <nd ref='-143796' />
     <tag k='one:edge' v='bidirectional' />
   </way>
-  <way id='-145029' action='modify' visible='true'>
+  <way id='-145709' action='modify' visible='true'>
     <nd ref='-143788' />
     <nd ref='-143804' />
     <tag k='one:edge' v='bidirectional' />
   </way>
-  <way id='-145030' action='modify' visible='true'>
+  <way id='-145710' action='modify' visible='true'>
     <nd ref='-143782' />
     <nd ref='-143806' />
     <tag k='one:edge' v='bidirectional' />
   </way>
-  <way id='-145031' action='modify' visible='true'>
+  <way id='-145711' action='modify' visible='true'>
     <nd ref='-143972' />
     <nd ref='-143990' />
     <tag k='one:edge' v='bidirectional' />
   </way>
-  <way id='-145032' action='modify' visible='true'>
+  <way id='-145712' action='modify' visible='true'>
     <nd ref='-143970' />
     <nd ref='-143894' />
     <tag k='one:edge' v='bidirectional' />
   </way>
-  <way id='-145033' action='modify' visible='true'>
+  <way id='-145713' action='modify' visible='true'>
     <nd ref='-143960' />
     <nd ref='-143892' />
     <tag k='one:edge' v='bidirectional' />
   </way>
-  <way id='-145034' action='modify' visible='true'>
+  <way id='-145714' action='modify' visible='true'>
     <nd ref='-143982' />
     <nd ref='-143896' />
     <tag k='one:edge' v='bidirectional' />
   </way>
-  <way id='-145035' action='modify' visible='true'>
+  <way id='-145715' action='modify' visible='true'>
     <nd ref='-143966' />
     <nd ref='-143898' />
     <tag k='one:edge' v='bidirectional' />
   </way>
-  <way id='-145036' action='modify' visible='true'>
+  <way id='-145716' action='modify' visible='true'>
     <nd ref='-143994' />
     <nd ref='-143900' />
     <tag k='one:edge' v='bidirectional' />
   </way>
-  <way id='-145037' action='modify' visible='true'>
+  <way id='-145717' action='modify' visible='true'>
     <nd ref='-143956' />
     <nd ref='-143902' />
     <tag k='one:edge' v='bidirectional' />
   </way>
-  <way id='-145038' action='modify' visible='true'>
+  <way id='-145718' action='modify' visible='true'>
     <nd ref='-143910' />
     <nd ref='-143904' />
     <tag k='one:edge' v='bidirectional' />
   </way>
-  <way id='-145039' action='modify' visible='true'>
+  <way id='-145719' action='modify' visible='true'>
     <nd ref='-143920' />
     <nd ref='-143908' />
     <tag k='one:edge' v='bidirectional' />
   </way>
-  <way id='-145040' action='modify' visible='true'>
+  <way id='-145720' action='modify' visible='true'>
     <nd ref='-143962' />
     <nd ref='-143906' />
     <tag k='one:edge' v='bidirectional' />
   </way>
-  <way id='-145041' action='modify' visible='true'>
+  <way id='-145721' action='modify' visible='true'>
     <nd ref='-143924' />
     <nd ref='-143916' />
     <tag k='one:edge' v='bidirectional' />
   </way>
-  <way id='-145042' action='modify' visible='true'>
+  <way id='-145722' action='modify' visible='true'>
     <nd ref='-143952' />
     <nd ref='-143912' />
     <tag k='one:edge' v='bidirectional' />
   </way>
-  <way id='-145043' action='modify' visible='true'>
+  <way id='-145723' action='modify' visible='true'>
     <nd ref='-143958' />
     <nd ref='-143918' />
     <tag k='one:edge' v='bidirectional' />
   </way>
-  <way id='-145044' action='modify' visible='true'>
+  <way id='-145724' action='modify' visible='true'>
     <nd ref='-143928' />
     <nd ref='-143914' />
     <tag k='one:edge' v='bidirectional' />
   </way>
-  <way id='-145045' action='modify' visible='true'>
+  <way id='-145725' action='modify' visible='true'>
     <nd ref='-143932' />
     <nd ref='-143926' />
     <tag k='one:edge' v='bidirectional' />
   </way>
-  <way id='-145046' action='modify' visible='true'>
+  <way id='-145726' action='modify' visible='true'>
     <nd ref='-143948' />
     <nd ref='-143922' />
     <tag k='one:edge' v='bidirectional' />
   </way>
-  <way id='-145047' action='modify' visible='true'>
+  <way id='-145727' action='modify' visible='true'>
     <nd ref='-143930' />
     <nd ref='-143936' />
     <tag k='one:edge' v='bidirectional' />
   </way>
-  <way id='-145048' action='modify' visible='true'>
+  <way id='-145728' action='modify' visible='true'>
     <nd ref='-143940' />
     <nd ref='-143934' />
     <tag k='one:edge' v='bidirectional' />
   </way>
-  <way id='-145049' action='modify' visible='true'>
+  <way id='-145729' action='modify' visible='true'>
     <nd ref='-143946' />
     <nd ref='-143944' />
     <tag k='one:edge' v='bidirectional' />
   </way>
-  <way id='-145050' action='modify' visible='true'>
+  <way id='-145730' action='modify' visible='true'>
     <nd ref='-143954' />
     <nd ref='-143938' />
     <tag k='one:edge' v='bidirectional' />
   </way>
-  <way id='-145051' action='modify' visible='true'>
+  <way id='-145731' action='modify' visible='true'>
     <nd ref='-143950' />
     <nd ref='-143942' />
     <tag k='one:edge' v='bidirectional' />
   </way>
-  <way id='-145052' action='modify' visible='true'>
+  <way id='-145732' action='modify' visible='true'>
     <nd ref='-143974' />
     <nd ref='-143980' />
     <tag k='one:edge' v='bidirectional' />
   </way>
-  <way id='-145053' action='modify' visible='true'>
+  <way id='-145733' action='modify' visible='true'>
     <nd ref='-143978' />
     <nd ref='-143976' />
     <tag k='one:edge' v='bidirectional' />
   </way>
-  <way id='-145054' action='modify' visible='true'>
+  <way id='-145734' action='modify' visible='true'>
     <nd ref='-143968' />
     <nd ref='-143984' />
     <tag k='one:edge' v='bidirectional' />
   </way>
-  <way id='-145055' action='modify' visible='true'>
+  <way id='-145735' action='modify' visible='true'>
     <nd ref='-143964' />
     <nd ref='-143986' />
     <tag k='one:edge' v='bidirectional' />
   </way>
-  <way id='-145056' action='modify' visible='true'>
+  <way id='-145736' action='modify' visible='true'>
     <nd ref='-144064' />
     <nd ref='-144066' />
     <tag k='one:edge' v='bidirectional' />
   </way>
-  <way id='-145057' action='modify' visible='true'>
+  <way id='-145737' action='modify' visible='true'>
     <nd ref='-144068' />
     <nd ref='-144070' />
     <tag k='one:edge' v='bidirectional' />
   </way>
-  <way id='-145058' action='modify' visible='true'>
+  <way id='-145738' action='modify' visible='true'>
     <nd ref='-143346' />
     <nd ref='-144072' />
     <tag k='one:edge' v='bidirectional' />
   </way>
-  <way id='-145059' action='modify' visible='true'>
+  <way id='-145739' action='modify' visible='true'>
     <nd ref='-143360' />
     <nd ref='-144074' />
     <tag k='one:edge' v='bidirectional' />
   </way>
-  <way id='-145060' action='modify' visible='true'>
+  <way id='-145740' action='modify' visible='true'>
     <nd ref='-143314' />
     <nd ref='-144082' />
     <tag k='one:edge' v='bidirectional' />
   </way>
-  <way id='-145061' action='modify' visible='true'>
+  <way id='-145741' action='modify' visible='true'>
     <nd ref='-144164' />
     <nd ref='-144182' />
     <tag k='one:edge' v='bidirectional' />
   </way>
-  <way id='-145062' action='modify' visible='true'>
+  <way id='-145742' action='modify' visible='true'>
     <nd ref='-144162' />
     <nd ref='-144086' />
     <tag k='one:edge' v='bidirectional' />
   </way>
-  <way id='-145063' action='modify' visible='true'>
+  <way id='-145743' action='modify' visible='true'>
     <nd ref='-144152' />
     <nd ref='-144084' />
     <tag k='one:edge' v='bidirectional' />
   </way>
-  <way id='-145064' action='modify' visible='true'>
+  <way id='-145744' action='modify' visible='true'>
     <nd ref='-144174' />
     <nd ref='-144088' />
     <tag k='one:edge' v='bidirectional' />
   </way>
-  <way id='-145065' action='modify' visible='true'>
+  <way id='-145745' action='modify' visible='true'>
     <nd ref='-144158' />
     <nd ref='-144090' />
     <tag k='one:edge' v='bidirectional' />
   </way>
-  <way id='-145066' action='modify' visible='true'>
+  <way id='-145746' action='modify' visible='true'>
     <nd ref='-144186' />
     <nd ref='-144092' />
     <tag k='one:edge' v='bidirectional' />
   </way>
-  <way id='-145067' action='modify' visible='true'>
+  <way id='-145747' action='modify' visible='true'>
     <nd ref='-144148' />
     <nd ref='-144094' />
     <tag k='one:edge' v='bidirectional' />
   </way>
-  <way id='-145068' action='modify' visible='true'>
+  <way id='-145748' action='modify' visible='true'>
     <nd ref='-144102' />
     <nd ref='-144096' />
     <tag k='one:edge' v='bidirectional' />
   </way>
-  <way id='-145069' action='modify' visible='true'>
+  <way id='-145749' action='modify' visible='true'>
     <nd ref='-144112' />
     <nd ref='-144100' />
     <tag k='one:edge' v='bidirectional' />
   </way>
-  <way id='-145070' action='modify' visible='true'>
+  <way id='-145750' action='modify' visible='true'>
     <nd ref='-144154' />
     <nd ref='-144098' />
     <tag k='one:edge' v='bidirectional' />
   </way>
-  <way id='-145071' action='modify' visible='true'>
+  <way id='-145751' action='modify' visible='true'>
     <nd ref='-144116' />
     <nd ref='-144108' />
     <tag k='one:edge' v='bidirectional' />
   </way>
-  <way id='-145072' action='modify' visible='true'>
+  <way id='-145752' action='modify' visible='true'>
     <nd ref='-144144' />
     <nd ref='-144104' />
     <tag k='one:edge' v='bidirectional' />
   </way>
-  <way id='-145073' action='modify' visible='true'>
+  <way id='-145753' action='modify' visible='true'>
     <nd ref='-144150' />
     <nd ref='-144110' />
     <tag k='one:edge' v='bidirectional' />
   </way>
-  <way id='-145074' action='modify' visible='true'>
+  <way id='-145754' action='modify' visible='true'>
     <nd ref='-144120' />
     <nd ref='-144106' />
     <tag k='one:edge' v='bidirectional' />
   </way>
-  <way id='-145075' action='modify' visible='true'>
+  <way id='-145755' action='modify' visible='true'>
     <nd ref='-144124' />
     <nd ref='-144118' />
     <tag k='one:edge' v='bidirectional' />
   </way>
-  <way id='-145076' action='modify' visible='true'>
+  <way id='-145756' action='modify' visible='true'>
     <nd ref='-144140' />
     <nd ref='-144114' />
     <tag k='one:edge' v='bidirectional' />
   </way>
-  <way id='-145077' action='modify' visible='true'>
+  <way id='-145757' action='modify' visible='true'>
     <nd ref='-144122' />
     <nd ref='-144128' />
     <tag k='one:edge' v='bidirectional' />
   </way>
-  <way id='-145078' action='modify' visible='true'>
+  <way id='-145758' action='modify' visible='true'>
     <nd ref='-144132' />
     <nd ref='-144126' />
     <tag k='one:edge' v='bidirectional' />
   </way>
-  <way id='-145079' action='modify' visible='true'>
+  <way id='-145759' action='modify' visible='true'>
     <nd ref='-144138' />
     <nd ref='-144136' />
     <tag k='one:edge' v='bidirectional' />
   </way>
-  <way id='-145080' action='modify' visible='true'>
+  <way id='-145760' action='modify' visible='true'>
     <nd ref='-144146' />
     <nd ref='-144130' />
     <tag k='one:edge' v='bidirectional' />
   </way>
-  <way id='-145081' action='modify' visible='true'>
+  <way id='-145761' action='modify' visible='true'>
     <nd ref='-144142' />
     <nd ref='-144134' />
     <tag k='one:edge' v='bidirectional' />
   </way>
-  <way id='-145082' action='modify' visible='true'>
+  <way id='-145762' action='modify' visible='true'>
     <nd ref='-144166' />
     <nd ref='-144172' />
     <tag k='one:edge' v='bidirectional' />
   </way>
-  <way id='-145083' action='modify' visible='true'>
+  <way id='-145763' action='modify' visible='true'>
     <nd ref='-144170' />
     <nd ref='-144168' />
     <tag k='one:edge' v='bidirectional' />
   </way>
-  <way id='-145084' action='modify' visible='true'>
+  <way id='-145764' action='modify' visible='true'>
     <nd ref='-144160' />
     <nd ref='-144176' />
     <tag k='one:edge' v='bidirectional' />
   </way>
-  <way id='-145085' action='modify' visible='true'>
+  <way id='-145765' action='modify' visible='true'>
     <nd ref='-144156' />
     <nd ref='-144178' />
     <tag k='one:edge' v='bidirectional' />
   </way>
-  <way id='-145086' action='modify' visible='true'>
+  <way id='-145766' action='modify' visible='true'>
     <nd ref='-144270' />
     <nd ref='-144274' />
     <tag k='one:edge' v='bidirectional' />
   </way>
-  <way id='-145087' action='modify' visible='true'>
+  <way id='-145767' action='modify' visible='true'>
     <nd ref='-144268' />
     <nd ref='-144276' />
     <tag k='one:edge' v='bidirectional' />
   </way>
-  <way id='-145088' action='modify' visible='true'>
+  <way id='-145768' action='modify' visible='true'>
     <nd ref='-144272' />
     <nd ref='-144278' />
     <tag k='one:edge' v='bidirectional' />
   </way>
-  <way id='-145089' action='modify' visible='true'>
+  <way id='-145769' action='modify' visible='true'>
     <nd ref='-144266' />
     <nd ref='-144280' />
     <tag k='one:edge' v='bidirectional' />
   </way>
-  <way id='-145090' action='modify' visible='true'>
+  <way id='-145770' action='modify' visible='true'>
     <nd ref='-144264' />
     <nd ref='-144282' />
     <tag k='one:edge' v='bidirectional' />
   </way>
-  <way id='-145091' action='modify' visible='true'>
+  <way id='-145771' action='modify' visible='true'>
     <nd ref='-144354' />
     <nd ref='-144290' />
     <tag k='one:edge' v='bidirectional' />
   </way>
-  <way id='-145092' action='modify' visible='true'>
+  <way id='-145772' action='modify' visible='true'>
     <nd ref='-144346' />
     <nd ref='-144294' />
     <tag k='one:edge' v='bidirectional' />
   </way>
-  <way id='-145093' action='modify' visible='true'>
+  <way id='-145773' action='modify' visible='true'>
     <nd ref='-144338' />
     <nd ref='-144298' />
     <tag k='one:edge' v='bidirectional' />
   </way>
-  <way id='-145094' action='modify' visible='true'>
+  <way id='-145774' action='modify' visible='true'>
     <nd ref='-144356' />
     <nd ref='-144304' />
     <tag k='one:edge' v='bidirectional' />
   </way>
-  <way id='-145095' action='modify' visible='true'>
+  <way id='-145775' action='modify' visible='true'>
     <nd ref='-144330' />
     <nd ref='-144308' />
     <tag k='one:edge' v='bidirectional' />
   </way>
-  <way id='-145096' action='modify' visible='true'>
+  <way id='-145776' action='modify' visible='true'>
     <nd ref='-144320' />
     <nd ref='-144312' />
     <tag k='one:edge' v='bidirectional' />
   </way>
-  <way id='-145097' action='modify' visible='true'>
+  <way id='-145777' action='modify' visible='true'>
     <nd ref='-144314' />
     <nd ref='-144318' />
     <tag k='one:edge' v='bidirectional' />
   </way>
-  <way id='-145098' action='modify' visible='true'>
+  <way id='-145778' action='modify' visible='true'>
     <nd ref='-144306' />
     <nd ref='-144322' />
     <tag k='one:edge' v='bidirectional' />
   </way>
-  <way id='-145099' action='modify' visible='true'>
+  <way id='-145779' action='modify' visible='true'>
     <nd ref='-144296' />
     <nd ref='-144326' />
     <tag k='one:edge' v='bidirectional' />
   </way>
-  <way id='-145100' action='modify' visible='true'>
+  <way id='-145780' action='modify' visible='true'>
     <nd ref='-144292' />
     <nd ref='-144328' />
     <tag k='one:edge' v='bidirectional' />
   </way>
-  <way id='-145101' action='modify' visible='true'>
+  <way id='-145781' action='modify' visible='true'>
     <nd ref='-144288' />
     <nd ref='-144332' />
     <tag k='one:edge' v='bidirectional' />
   </way>
-  <way id='-145102' action='modify' visible='true'>
+  <way id='-145782' action='modify' visible='true'>
     <nd ref='-144300' />
     <nd ref='-144336' />
     <tag k='one:edge' v='bidirectional' />
   </way>
-  <way id='-145103' action='modify' visible='true'>
+  <way id='-145783' action='modify' visible='true'>
     <nd ref='-144302' />
     <nd ref='-144340' />
     <tag k='one:edge' v='bidirectional' />
   </way>
-  <way id='-145104' action='modify' visible='true'>
+  <way id='-145784' action='modify' visible='true'>
     <nd ref='-144310' />
     <nd ref='-144344' />
     <tag k='one:edge' v='bidirectional' />
   </way>
-  <way id='-145105' action='modify' visible='true'>
+  <way id='-145785' action='modify' visible='true'>
     <nd ref='-144316' />
     <nd ref='-144348' />
     <tag k='one:edge' v='bidirectional' />
   </way>
-  <way id='-145106' action='modify' visible='true'>
+  <way id='-145786' action='modify' visible='true'>
     <nd ref='-144324' />
     <nd ref='-144352' />
     <tag k='one:edge' v='bidirectional' />
   </way>
-  <way id='-145107' action='modify' visible='true'>
+  <way id='-145787' action='modify' visible='true'>
     <nd ref='-144334' />
     <nd ref='-144358' />
     <tag k='one:edge' v='bidirectional' />
   </way>
-  <way id='-145108' action='modify' visible='true'>
+  <way id='-145788' action='modify' visible='true'>
     <nd ref='-144350' />
     <nd ref='-144360' />
     <tag k='one:edge' v='bidirectional' />
   </way>
-  <way id='-145109' action='modify' visible='true'>
+  <way id='-145789' action='modify' visible='true'>
     <nd ref='-144342' />
     <nd ref='-144362' />
     <tag k='one:edge' v='bidirectional' />
   </way>
-  <way id='-145110' action='modify' visible='true'>
+  <way id='-145790' action='modify' visible='true'>
     <nd ref='-144366' />
     <nd ref='-144368' />
     <tag k='one:edge' v='bidirectional' />
   </way>
-  <way id='-145111' action='modify' visible='true'>
+  <way id='-145791' action='modify' visible='true'>
     <nd ref='-144538' />
     <nd ref='-144616' />
     <tag k='one:edge' v='bidirectional' />
   </way>
-  <way id='-145112' action='modify' visible='true'>
+  <way id='-145792' action='modify' visible='true'>
     <nd ref='-144522' />
     <nd ref='-144618' />
     <tag k='one:edge' v='bidirectional' />
   </way>
-  <way id='-145113' action='modify' visible='true'>
+  <way id='-145793' action='modify' visible='true'>
     <nd ref='-144542' />
     <nd ref='-144628' />
     <tag k='one:edge' v='bidirectional' />
   </way>
-  <way id='-145114' action='modify' visible='true'>
+  <way id='-145794' action='modify' visible='true'>
     <nd ref='-144506' />
     <nd ref='-144630' />
     <tag k='one:edge' v='bidirectional' />
   </way>
-  <way id='-145115' action='modify' visible='true'>
+  <way id='-145795' action='modify' visible='true'>
     <nd ref='-144528' />
     <nd ref='-144622' />
     <tag k='one:edge' v='bidirectional' />
   </way>
-  <way id='-145116' action='modify' visible='true'>
+  <way id='-145796' action='modify' visible='true'>
     <nd ref='-144514' />
     <nd ref='-144626' />
     <tag k='one:edge' v='bidirectional' />
   </way>
-  <way id='-145117' action='modify' visible='true'>
+  <way id='-145797' action='modify' visible='true'>
     <nd ref='-144646' />
     <nd ref='-144638' />
     <tag k='one:edge' v='bidirectional' />
   </way>
-  <way id='-145118' action='modify' visible='true'>
+  <way id='-145798' action='modify' visible='true'>
     <nd ref='-144558' />
     <nd ref='-144642' />
     <tag k='one:edge' v='bidirectional' />
   </way>
-  <way id='-145119' action='modify' visible='true'>
+  <way id='-145799' action='modify' visible='true'>
     <nd ref='-144664' />
     <nd ref='-144632' />
     <tag k='one:edge' v='bidirectional' />
   </way>
-  <way id='-145120' action='modify' visible='true'>
+  <way id='-145800' action='modify' visible='true'>
     <nd ref='-144552' />
     <nd ref='-144636' />
     <tag k='one:edge' v='bidirectional' />
   </way>
-  <way id='-145121' action='modify' visible='true'>
+  <way id='-145801' action='modify' visible='true'>
     <nd ref='-144546' />
     <nd ref='-144650' />
     <tag k='one:edge' v='bidirectional' />
   </way>
-  <way id='-145122' action='modify' visible='true'>
+  <way id='-145802' action='modify' visible='true'>
     <nd ref='-144640' />
     <nd ref='-144644' />
     <tag k='one:edge' v='bidirectional' />
   </way>
-  <way id='-145123' action='modify' visible='true'>
+  <way id='-145803' action='modify' visible='true'>
     <nd ref='-144550' />
     <nd ref='-144656' />
     <tag k='one:edge' v='bidirectional' />
   </way>
-  <way id='-145124' action='modify' visible='true'>
+  <way id='-145804' action='modify' visible='true'>
     <nd ref='-144624' />
     <nd ref='-144652' />
     <tag k='one:edge' v='bidirectional' />
   </way>
-  <way id='-145125' action='modify' visible='true'>
+  <way id='-145805' action='modify' visible='true'>
     <nd ref='-144556' />
     <nd ref='-144666' />
     <tag k='one:edge' v='bidirectional' />
   </way>
-  <way id='-145126' action='modify' visible='true'>
+  <way id='-145806' action='modify' visible='true'>
     <nd ref='-144614' />
     <nd ref='-144660' />
     <tag k='one:edge' v='bidirectional' />
   </way>
-  <way id='-145127' action='modify' visible='true'>
+  <way id='-145807' action='modify' visible='true'>
     <nd ref='-144562' />
     <nd ref='-144670' />
     <tag k='one:edge' v='bidirectional' />
   </way>
-  <way id='-145128' action='modify' visible='true'>
+  <way id='-145808' action='modify' visible='true'>
     <nd ref='-144606' />
     <nd ref='-144502' />
     <tag k='one:edge' v='bidirectional' />
   </way>
-  <way id='-145129' action='modify' visible='true'>
+  <way id='-145809' action='modify' visible='true'>
     <nd ref='-144610' />
     <nd ref='-144504' />
     <tag k='one:edge' v='bidirectional' />
   </way>
-  <way id='-145130' action='modify' visible='true'>
+  <way id='-145810' action='modify' visible='true'>
     <nd ref='-144574' />
     <nd ref='-144516' />
     <tag k='one:edge' v='bidirectional' />
   </way>
-  <way id='-145131' action='modify' visible='true'>
+  <way id='-145811' action='modify' visible='true'>
     <nd ref='-144566' />
     <nd ref='-144510' />
     <tag k='one:edge' v='bidirectional' />
   </way>
-  <way id='-145132' action='modify' visible='true'>
+  <way id='-145812' action='modify' visible='true'>
     <nd ref='-144570' />
     <nd ref='-144508' />
     <tag k='one:edge' v='bidirectional' />
   </way>
-  <way id='-145133' action='modify' visible='true'>
+  <way id='-145813' action='modify' visible='true'>
     <nd ref='-144586' />
     <nd ref='-144524' />
     <tag k='one:edge' v='bidirectional' />
   </way>
-  <way id='-145134' action='modify' visible='true'>
+  <way id='-145814' action='modify' visible='true'>
     <nd ref='-144602' />
     <nd ref='-144518' />
     <tag k='one:edge' v='bidirectional' />
   </way>
-  <way id='-145135' action='modify' visible='true'>
+  <way id='-145815' action='modify' visible='true'>
     <nd ref='-144592' />
     <nd ref='-144530' />
     <tag k='one:edge' v='bidirectional' />
   </way>
-  <way id='-145136' action='modify' visible='true'>
+  <way id='-145816' action='modify' visible='true'>
     <nd ref='-143256' />
     <nd ref='-144264' />
     <nd ref='-144266' />
@@ -3521,7 +3515,6 @@
     <nd ref='-144584' />
     <nd ref='-144672' />
     <nd ref='-143770' />
-    <nd ref='-143886' />
     <nd ref='-144444' />
     <nd ref='-144442' />
     <nd ref='-144448' />
@@ -3668,110 +3661,109 @@
     <nd ref='-143246' />
     <nd ref='-143240' />
     <nd ref='-143250' />
-    <nd ref='-143248' />
     <nd ref='-143256' />
   </way>
-  <way id='-145137' action='modify' visible='true'>
+  <way id='-145817' action='modify' visible='true'>
     <nd ref='-144676' />
     <nd ref='-144678' />
     <nd ref='-144680' />
     <nd ref='-144682' />
     <nd ref='-144676' />
   </way>
-  <way id='-145138' action='modify' visible='true'>
+  <way id='-145818' action='modify' visible='true'>
     <nd ref='-144684' />
     <nd ref='-144686' />
     <nd ref='-144688' />
     <nd ref='-144690' />
     <nd ref='-144684' />
   </way>
-  <way id='-145139' action='modify' visible='true'>
+  <way id='-145819' action='modify' visible='true'>
     <nd ref='-144692' />
     <nd ref='-144694' />
     <nd ref='-144696' />
     <nd ref='-144698' />
     <nd ref='-144692' />
   </way>
-  <way id='-145140' action='modify' visible='true'>
+  <way id='-145820' action='modify' visible='true'>
     <nd ref='-144700' />
     <nd ref='-144702' />
     <nd ref='-144704' />
     <nd ref='-144706' />
     <nd ref='-144700' />
   </way>
-  <way id='-145141' action='modify' visible='true'>
+  <way id='-145821' action='modify' visible='true'>
     <nd ref='-144708' />
     <nd ref='-144710' />
     <nd ref='-144712' />
     <nd ref='-144714' />
     <nd ref='-144708' />
   </way>
-  <way id='-145142' action='modify' visible='true'>
+  <way id='-145822' action='modify' visible='true'>
     <nd ref='-144716' />
     <nd ref='-144718' />
     <nd ref='-144720' />
     <nd ref='-144722' />
     <nd ref='-144716' />
   </way>
-  <way id='-145143' action='modify' visible='true'>
+  <way id='-145823' action='modify' visible='true'>
     <nd ref='-144724' />
     <nd ref='-144726' />
     <nd ref='-144728' />
     <nd ref='-144730' />
     <nd ref='-144724' />
   </way>
-  <way id='-145144' action='modify' visible='true'>
+  <way id='-145824' action='modify' visible='true'>
     <nd ref='-144732' />
     <nd ref='-144734' />
     <nd ref='-144736' />
     <nd ref='-144738' />
     <nd ref='-144732' />
   </way>
-  <way id='-145145' action='modify' visible='true'>
+  <way id='-145825' action='modify' visible='true'>
     <nd ref='-144740' />
     <nd ref='-144742' />
     <nd ref='-144744' />
     <nd ref='-144746' />
     <nd ref='-144740' />
   </way>
-  <way id='-145146' action='modify' visible='true'>
+  <way id='-145826' action='modify' visible='true'>
     <nd ref='-144748' />
     <nd ref='-144750' />
     <nd ref='-144752' />
     <nd ref='-144754' />
     <nd ref='-144748' />
   </way>
-  <way id='-145147' action='modify' visible='true'>
+  <way id='-145827' action='modify' visible='true'>
     <nd ref='-144760' />
     <nd ref='-144762' />
     <nd ref='-144758' />
     <nd ref='-144756' />
     <nd ref='-144760' />
   </way>
-  <way id='-145148' action='modify' visible='true'>
+  <way id='-145828' action='modify' visible='true'>
     <nd ref='-144764' />
     <nd ref='-143258' />
   </way>
-  <way id='-145149' action='modify' visible='true'>
+  <way id='-145829' action='modify' visible='true'>
     <nd ref='-144764' />
     <nd ref='-144766' />
     <tag k='one:edge' v='bidirectional' />
   </way>
-  <way id='-145150' action='modify' visible='true'>
+  <way id='-145830' action='modify' visible='true'>
     <nd ref='-144772' />
     <nd ref='-144774' />
     <nd ref='-144770' />
     <nd ref='-144768' />
     <nd ref='-144772' />
   </way>
-  <way id='-145151' action='modify' visible='true'>
+  <way id='-145831' action='modify' visible='true'>
     <nd ref='-144780' />
     <nd ref='-144782' />
     <nd ref='-144778' />
     <nd ref='-144776' />
     <nd ref='-144780' />
   </way>
-  <way id='-145153' action='modify' visible='true'>
+  <way id='-145832' action='modify' visible='true'>
     <nd ref='-144806' />
     <nd ref='-144814' />
     <nd ref='-144816' />
@@ -3786,7 +3778,7 @@
     <nd ref='-144818' />
     <nd ref='-144806' />
   </way>
-  <way id='-145154' action='modify' visible='true'>
+  <way id='-145833' action='modify' visible='true'>
     <nd ref='-144830' />
     <nd ref='-144832' />
     <nd ref='-144834' />
@@ -3802,343 +3794,343 @@
     <nd ref='-145594' />
     <nd ref='-144830' />
   </way>
-  <way id='-145156' action='modify' visible='true'>
+  <way id='-145834' action='modify' visible='true'>
     <nd ref='-144856' />
     <nd ref='-144858' />
     <nd ref='-144860' />
     <nd ref='-144862' />
     <nd ref='-144856' />
   </way>
-  <way id='-145157' action='modify' visible='true'>
+  <way id='-145835' action='modify' visible='true'>
     <nd ref='-144694' />
     <nd ref='-144864' />
     <tag k='one:edge' v='bidirectional' />
   </way>
-  <way id='-145158' action='modify' visible='true'>
+  <way id='-145836' action='modify' visible='true'>
     <nd ref='-144696' />
     <nd ref='-144864' />
     <tag k='one:edge' v='bidirectional' />
   </way>
-  <way id='-145159' action='modify' visible='true'>
+  <way id='-145837' action='modify' visible='true'>
     <nd ref='-144698' />
     <nd ref='-144864' />
     <tag k='one:edge' v='bidirectional' />
   </way>
-  <way id='-145160' action='modify' visible='true'>
+  <way id='-145838' action='modify' visible='true'>
     <nd ref='-144692' />
     <nd ref='-144864' />
     <tag k='one:edge' v='bidirectional' />
   </way>
-  <way id='-145161' action='modify' visible='true'>
+  <way id='-145839' action='modify' visible='true'>
     <nd ref='-144700' />
     <nd ref='-144866' />
     <tag k='one:edge' v='bidirectional' />
   </way>
-  <way id='-145162' action='modify' visible='true'>
+  <way id='-145840' action='modify' visible='true'>
     <nd ref='-144702' />
     <nd ref='-144866' />
     <tag k='one:edge' v='bidirectional' />
   </way>
-  <way id='-145163' action='modify' visible='true'>
+  <way id='-145841' action='modify' visible='true'>
     <nd ref='-144706' />
     <nd ref='-144866' />
     <tag k='one:edge' v='bidirectional' />
   </way>
-  <way id='-145164' action='modify' visible='true'>
+  <way id='-145842' action='modify' visible='true'>
     <nd ref='-144704' />
     <nd ref='-144866' />
     <tag k='one:edge' v='bidirectional' />
   </way>
-  <way id='-145165' action='modify' visible='true'>
+  <way id='-145843' action='modify' visible='true'>
     <nd ref='-144708' />
     <nd ref='-144868' />
     <tag k='one:edge' v='bidirectional' />
   </way>
-  <way id='-145166' action='modify' visible='true'>
+  <way id='-145844' action='modify' visible='true'>
     <nd ref='-144714' />
     <nd ref='-144868' />
     <tag k='one:edge' v='bidirectional' />
   </way>
-  <way id='-145167' action='modify' visible='true'>
+  <way id='-145845' action='modify' visible='true'>
     <nd ref='-144710' />
     <nd ref='-144868' />
     <tag k='one:edge' v='bidirectional' />
   </way>
-  <way id='-145168' action='modify' visible='true'>
+  <way id='-145846' action='modify' visible='true'>
     <nd ref='-144712' />
     <nd ref='-144868' />
     <tag k='one:edge' v='bidirectional' />
   </way>
-  <way id='-145169' action='modify' visible='true'>
+  <way id='-145847' action='modify' visible='true'>
     <nd ref='-144748' />
     <nd ref='-144870' />
     <tag k='one:edge' v='bidirectional' />
   </way>
-  <way id='-145170' action='modify' visible='true'>
+  <way id='-145848' action='modify' visible='true'>
     <nd ref='-144754' />
     <nd ref='-144870' />
     <tag k='one:edge' v='bidirectional' />
   </way>
-  <way id='-145171' action='modify' visible='true'>
+  <way id='-145849' action='modify' visible='true'>
     <nd ref='-144750' />
     <nd ref='-144870' />
     <tag k='one:edge' v='bidirectional' />
   </way>
-  <way id='-145172' action='modify' visible='true'>
+  <way id='-145850' action='modify' visible='true'>
     <nd ref='-144752' />
     <nd ref='-144870' />
     <tag k='one:edge' v='bidirectional' />
   </way>
-  <way id='-145173' action='modify' visible='true'>
+  <way id='-145851' action='modify' visible='true'>
     <nd ref='-144760' />
     <nd ref='-144872' />
     <tag k='one:edge' v='bidirectional' />
   </way>
-  <way id='-145174' action='modify' visible='true'>
+  <way id='-145852' action='modify' visible='true'>
     <nd ref='-144756' />
     <nd ref='-144872' />
     <tag k='one:edge' v='bidirectional' />
   </way>
-  <way id='-145175' action='modify' visible='true'>
+  <way id='-145853' action='modify' visible='true'>
     <nd ref='-144762' />
     <nd ref='-144872' />
     <tag k='one:edge' v='bidirectional' />
   </way>
-  <way id='-145176' action='modify' visible='true'>
+  <way id='-145854' action='modify' visible='true'>
     <nd ref='-144758' />
     <nd ref='-144872' />
     <tag k='one:edge' v='bidirectional' />
   </way>
-  <way id='-145177' action='modify' visible='true'>
+  <way id='-145855' action='modify' visible='true'>
     <nd ref='-144772' />
     <nd ref='-144874' />
     <tag k='one:edge' v='bidirectional' />
   </way>
-  <way id='-145178' action='modify' visible='true'>
+  <way id='-145856' action='modify' visible='true'>
     <nd ref='-144774' />
     <nd ref='-144874' />
     <tag k='one:edge' v='bidirectional' />
   </way>
-  <way id='-145179' action='modify' visible='true'>
+  <way id='-145857' action='modify' visible='true'>
     <nd ref='-144768' />
     <nd ref='-144874' />
     <tag k='one:edge' v='bidirectional' />
   </way>
-  <way id='-145180' action='modify' visible='true'>
+  <way id='-145858' action='modify' visible='true'>
     <nd ref='-144770' />
     <nd ref='-144874' />
     <tag k='one:edge' v='bidirectional' />
   </way>
-  <way id='-145181' action='modify' visible='true'>
+  <way id='-145859' action='modify' visible='true'>
     <nd ref='-144856' />
     <nd ref='-144876' />
     <tag k='one:edge' v='bidirectional' />
   </way>
-  <way id='-145182' action='modify' visible='true'>
+  <way id='-145860' action='modify' visible='true'>
     <nd ref='-144858' />
     <nd ref='-144876' />
     <tag k='one:edge' v='bidirectional' />
   </way>
-  <way id='-145183' action='modify' visible='true'>
+  <way id='-145861' action='modify' visible='true'>
     <nd ref='-144862' />
     <nd ref='-144876' />
     <tag k='one:edge' v='bidirectional' />
   </way>
-  <way id='-145184' action='modify' visible='true'>
+  <way id='-145862' action='modify' visible='true'>
     <nd ref='-144860' />
     <nd ref='-144876' />
     <tag k='one:edge' v='bidirectional' />
   </way>
-  <way id='-145185' action='modify' visible='true'>
+  <way id='-145863' action='modify' visible='true'>
     <nd ref='-144732' />
     <nd ref='-144878' />
     <tag k='one:edge' v='bidirectional' />
   </way>
-  <way id='-145186' action='modify' visible='true'>
+  <way id='-145864' action='modify' visible='true'>
     <nd ref='-144734' />
     <nd ref='-144878' />
     <tag k='one:edge' v='bidirectional' />
   </way>
-  <way id='-145187' action='modify' visible='true'>
+  <way id='-145865' action='modify' visible='true'>
     <nd ref='-144738' />
     <nd ref='-144878' />
     <tag k='one:edge' v='bidirectional' />
   </way>
-  <way id='-145188' action='modify' visible='true'>
+  <way id='-145866' action='modify' visible='true'>
     <nd ref='-144736' />
     <nd ref='-144878' />
     <tag k='one:edge' v='bidirectional' />
   </way>
-  <way id='-145189' action='modify' visible='true'>
+  <way id='-145867' action='modify' visible='true'>
     <nd ref='-144740' />
     <nd ref='-144880' />
     <tag k='one:edge' v='bidirectional' />
   </way>
-  <way id='-145190' action='modify' visible='true'>
+  <way id='-145868' action='modify' visible='true'>
     <nd ref='-144742' />
     <nd ref='-144880' />
     <tag k='one:edge' v='bidirectional' />
   </way>
-  <way id='-145191' action='modify' visible='true'>
+  <way id='-145869' action='modify' visible='true'>
     <nd ref='-144746' />
     <nd ref='-144880' />
     <tag k='one:edge' v='bidirectional' />
   </way>
-  <way id='-145192' action='modify' visible='true'>
+  <way id='-145870' action='modify' visible='true'>
     <nd ref='-144744' />
     <nd ref='-144880' />
     <tag k='one:edge' v='bidirectional' />
   </way>
-  <way id='-145193' action='modify' visible='true'>
+  <way id='-145871' action='modify' visible='true'>
     <nd ref='-144724' />
     <nd ref='-144882' />
     <tag k='one:edge' v='bidirectional' />
   </way>
-  <way id='-145194' action='modify' visible='true'>
+  <way id='-145872' action='modify' visible='true'>
     <nd ref='-144726' />
     <nd ref='-144882' />
     <tag k='one:edge' v='bidirectional' />
   </way>
-  <way id='-145195' action='modify' visible='true'>
+  <way id='-145873' action='modify' visible='true'>
     <nd ref='-144730' />
     <nd ref='-144882' />
     <tag k='one:edge' v='bidirectional' />
   </way>
-  <way id='-145196' action='modify' visible='true'>
+  <way id='-145874' action='modify' visible='true'>
     <nd ref='-144728' />
     <nd ref='-144882' />
     <tag k='one:edge' v='bidirectional' />
   </way>
-  <way id='-145197' action='modify' visible='true'>
+  <way id='-145875' action='modify' visible='true'>
     <nd ref='-144716' />
     <nd ref='-144884' />
     <tag k='one:edge' v='bidirectional' />
   </way>
-  <way id='-145198' action='modify' visible='true'>
+  <way id='-145876' action='modify' visible='true'>
     <nd ref='-144718' />
     <nd ref='-144884' />
     <tag k='one:edge' v='bidirectional' />
   </way>
-  <way id='-145199' action='modify' visible='true'>
+  <way id='-145877' action='modify' visible='true'>
     <nd ref='-144722' />
     <nd ref='-144884' />
     <tag k='one:edge' v='bidirectional' />
   </way>
-  <way id='-145200' action='modify' visible='true'>
+  <way id='-145878' action='modify' visible='true'>
     <nd ref='-144720' />
     <nd ref='-144884' />
     <tag k='one:edge' v='bidirectional' />
   </way>
-  <way id='-145201' action='modify' visible='true'>
+  <way id='-145879' action='modify' visible='true'>
     <nd ref='-144676' />
     <nd ref='-144886' />
     <tag k='one:edge' v='bidirectional' />
   </way>
-  <way id='-145202' action='modify' visible='true'>
+  <way id='-145880' action='modify' visible='true'>
     <nd ref='-144678' />
     <nd ref='-144886' />
     <tag k='one:edge' v='bidirectional' />
   </way>
-  <way id='-145203' action='modify' visible='true'>
+  <way id='-145881' action='modify' visible='true'>
     <nd ref='-144682' />
     <nd ref='-144886' />
     <tag k='one:edge' v='bidirectional' />
   </way>
-  <way id='-145204' action='modify' visible='true'>
+  <way id='-145882' action='modify' visible='true'>
     <nd ref='-144680' />
     <nd ref='-144886' />
     <tag k='one:edge' v='bidirectional' />
   </way>
-  <way id='-145205' action='modify' visible='true'>
+  <way id='-145883' action='modify' visible='true'>
     <nd ref='-144684' />
     <nd ref='-144888' />
     <tag k='one:edge' v='bidirectional' />
   </way>
-  <way id='-145206' action='modify' visible='true'>
+  <way id='-145884' action='modify' visible='true'>
     <nd ref='-144690' />
     <nd ref='-144888' />
     <tag k='one:edge' v='bidirectional' />
   </way>
-  <way id='-145207' action='modify' visible='true'>
+  <way id='-145885' action='modify' visible='true'>
     <nd ref='-144686' />
     <nd ref='-144888' />
     <tag k='one:edge' v='bidirectional' />
   </way>
-  <way id='-145208' action='modify' visible='true'>
+  <way id='-145886' action='modify' visible='true'>
     <nd ref='-144688' />
     <nd ref='-144888' />
     <tag k='one:edge' v='bidirectional' />
   </way>
-  <way id='-145209' action='modify' visible='true'>
+  <way id='-145887' action='modify' visible='true'>
     <nd ref='-144890' />
     <nd ref='-144766' />
     <tag k='one:edge' v='bidirectional' />
   </way>
-  <way id='-145210' action='modify' visible='true'>
+  <way id='-145888' action='modify' visible='true'>
     <nd ref='-144436' />
     <nd ref='-144892' />
     <tag k='one:edge' v='bidirectional' />
   </way>
-  <way id='-145211' action='modify' visible='true'>
+  <way id='-145889' action='modify' visible='true'>
     <nd ref='-144440' />
     <nd ref='-144892' />
     <tag k='one:edge' v='bidirectional' />
   </way>
-  <way id='-145212' action='modify' visible='true'>
+  <way id='-145890' action='modify' visible='true'>
     <nd ref='-144894' />
     <nd ref='-144896' />
     <tag k='one:edge' v='bidirectional' />
   </way>
-  <way id='-145213' action='modify' visible='true'>
+  <way id='-145891' action='modify' visible='true'>
     <nd ref='-144898' />
     <nd ref='-144900' />
     <tag k='one:edge' v='bidirectional' />
   </way>
-  <way id='-145214' action='modify' visible='true'>
+  <way id='-145892' action='modify' visible='true'>
     <nd ref='-144902' />
     <nd ref='-144904' />
     <tag k='one:edge' v='bidirectional' />
   </way>
-  <way id='-145215' action='modify' visible='true'>
+  <way id='-145893' action='modify' visible='true'>
     <nd ref='-144910' />
     <nd ref='-144906' />
   </way>
-  <way id='-145216' action='modify' visible='true'>
+  <way id='-145894' action='modify' visible='true'>
     <nd ref='-144912' />
     <nd ref='-144906' />
   </way>
-  <way id='-145217' action='modify' visible='true'>
+  <way id='-145895' action='modify' visible='true'>
     <nd ref='-144910' />
     <nd ref='-144912' />
     <nd ref='-144908' />
     <nd ref='-144914' />
     <nd ref='-144910' />
   </way>
-  <way id='-145218' action='modify' visible='true'>
+  <way id='-145896' action='modify' visible='true'>
     <nd ref='-144914' />
     <nd ref='-144906' />
   </way>
-  <way id='-145219' action='modify' visible='true'>
+  <way id='-145897' action='modify' visible='true'>
     <nd ref='-144908' />
     <nd ref='-144906' />
   </way>
-  <relation id='-145226' action='modify' visible='true'>
-    <member type='way' ref='-145140' role='inner' />
-    <member type='way' ref='-145136' role='outer' />
-    <member type='way' ref='-145139' role='inner' />
-    <member type='way' ref='-145138' role='inner' />
-    <member type='way' ref='-145137' role='inner' />
-    <member type='way' ref='-145153' role='inner' />
-    <member type='way' ref='-145141' role='inner' />
-    <member type='way' ref='-145147' role='inner' />
-    <member type='way' ref='-145146' role='inner' />
-    <member type='way' ref='-145150' role='inner' />
-    <member type='way' ref='-145143' role='inner' />
-    <member type='way' ref='-145144' role='inner' />
-    <member type='way' ref='-145142' role='inner' />
-    <member type='way' ref='-145145' role='inner' />
-    <member type='way' ref='-145151' role='inner' />
-    <member type='way' ref='-145154' role='inner' />
+  <relation id='-145898' action='modify' visible='true'>
+    <member type='way' ref='-145820' role='inner' />
+    <member type='way' ref='-145816' role='outer' />
+    <member type='way' ref='-145819' role='inner' />
+    <member type='way' ref='-145818' role='inner' />
+    <member type='way' ref='-145817' role='inner' />
+    <member type='way' ref='-145832' role='inner' />
+    <member type='way' ref='-145821' role='inner' />
+    <member type='way' ref='-145827' role='inner' />
+    <member type='way' ref='-145826' role='inner' />
+    <member type='way' ref='-145830' role='inner' />
+    <member type='way' ref='-145823' role='inner' />
+    <member type='way' ref='-145824' role='inner' />
+    <member type='way' ref='-145822' role='inner' />
+    <member type='way' ref='-145825' role='inner' />
+    <member type='way' ref='-145831' role='inner' />
+    <member type='way' ref='-145833' role='inner' />
     <tag k='indoor' v='corridor' />
     <tag k='level' v='3' />
     <tag k='ref' v='03.05.015' />
