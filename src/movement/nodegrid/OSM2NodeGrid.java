@@ -10,7 +10,6 @@ import movement.map.SimMap;
 import java.util.*;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
-import java.util.stream.Stream;
 
 public class OSM2NodeGrid {
     private static final String ATTACHMENT_POINT = "one:attachment_point";
@@ -25,6 +24,7 @@ public class OSM2NodeGrid {
     private final NodeGridSettings settings;
 
     private Set<MapNode> pointsOfInterest;
+    private Map<Integer, List<MapNode>> portals;
     private SimMap simMap;
 
     public OSM2NodeGrid(NodeGridSettings settings) {
@@ -34,6 +34,10 @@ public class OSM2NodeGrid {
 
     public Set<MapNode> getPointsOfInterest() {
         return pointsOfInterest;
+    }
+
+    public Map<Integer, List<MapNode>> getPortals() {
+        return portals;
     }
 
     public SimMap getSimMap() {
@@ -58,11 +62,20 @@ public class OSM2NodeGrid {
         connectPortals(levels);
         layoutLevels(levels);
 
+        portals = new HashMap<>();
         pointsOfInterest = new HashSet<>();
         Map<Coord, MapNode> nodes = new HashMap<>();
         for (NodeGridLevel level : levels) {
             nodes.putAll(level.getNodes());
             pointsOfInterest.addAll(level.getPointsOfInterest());
+
+            for (MapNode portal : level.getPortals().values()) {
+                int layer = portal.getLocation().getLayer();
+                if (!portals.containsKey(layer)) {
+                    portals.put(layer, new ArrayList<>());
+                }
+                portals.get(layer).add(portal);
+            }
         }
         simMap = new SimMap(nodes);
     }

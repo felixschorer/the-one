@@ -8,10 +8,7 @@ import movement.map.MapNode;
 import movement.map.SimMap;
 import movement.nodegrid.NodeGridSettings;
 import movement.nodegrid.OSM2NodeGrid;
-import movement.pathfinding.AStarPathFinder;
-import movement.pathfinding.Heuristic;
-import movement.pathfinding.PathFinder;
-import movement.pathfinding.RandomizedDistanceHeuristic;
+import movement.pathfinding.*;
 import movement.fmi.Lecture;
 import movement.fmi.Schedule;
 
@@ -48,7 +45,8 @@ public class FMIMovement extends MovementModel implements RenderableMovement {
         pointsOfInterest = osm2NodeGridCache.getPointsOfInterest();
 
         Heuristic heuristic = new RandomizedDistanceHeuristic(rng::nextGaussian, 2);
-        pathFinder = new AStarPathFinder(heuristic);
+        Heuristic levelAwareHeuristic = new LevelAwareHeuristic(osm2NodeGridCache.getPortals(), heuristic);
+        pathFinder = new AStarPathFinder(levelAwareHeuristic);
 
         lectures = generateLectures();
     }
@@ -59,7 +57,7 @@ public class FMIMovement extends MovementModel implements RenderableMovement {
                 .filter(poi -> poi.isType(NodeType.LECTURE_HALL.getType()))
                 .collect(Collectors.toCollection(ArrayList::new));
         int offset = 300;
-        int startTimesByRoom[] = Arrays.stream(new int[lectureHalls.size()]).map(start -> offset).toArray();
+        int[] startTimesByRoom = Arrays.stream(new int[lectureHalls.size()]).map(start -> offset).toArray();
 
         for (int i = 0; i < lectureHalls.size(); i++) {
             // only add lecture if room has not been occupied for 10h already
