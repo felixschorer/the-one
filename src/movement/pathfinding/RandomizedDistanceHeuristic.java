@@ -18,8 +18,8 @@ public class RandomizedDistanceHeuristic implements Heuristic {
     }
 
     @Override
-    public double compute(MapNode mapNode, MapNode mapNode2) {
+    public double compute(MapNode from, MapNode to) {
         double costReduction = Math.abs(magnitude * randomSupplier.get());
-        return Math.max(0, mapNode.getLocation().distance(mapNode2.getLocation()) - costReduction);
+        return Math.max(0, from.getLocation().distance(to.getLocation()) - costReduction);
     }
 }

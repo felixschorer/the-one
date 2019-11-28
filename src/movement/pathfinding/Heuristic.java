@@ -10,5 +10,5 @@ import movement.map.MapNode;
  */
 @FunctionalInterface
 public interface Heuristic {
-    double compute(MapNode form, MapNode to);
+    double compute(MapNode from, MapNode to);
 }
