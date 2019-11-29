@@ -7,12 +7,12 @@ package movement;
 import java.util.List;
 import java.util.Random;
 
-import movement.pathfinding.DijkstraPathFinder;
+import movement.pathfinder.DijkstraPathFinder;
 import movement.map.MapNode;
 import movement.map.SimMap;
 import core.Coord;
 import core.Settings;
-import movement.pathfinding.PathFinder;
+import movement.pathfinder.PathFinder;
 
 /**
  *

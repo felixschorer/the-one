@@ -7,12 +7,12 @@ package movement;
 import java.util.List;
 
 import core.SettingsError;
-import movement.pathfinding.DijkstraPathFinder;
+import movement.pathfinder.DijkstraPathFinder;
 import movement.map.MapNode;
 import movement.map.MapRoute;
 import core.Coord;
 import core.Settings;
-import movement.pathfinding.PathFinder;
+import movement.pathfinder.PathFinder;
 
 /**
  * Map based movement model that uses predetermined paths within the map area.

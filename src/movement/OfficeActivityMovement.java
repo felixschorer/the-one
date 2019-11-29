@@ -10,10 +10,10 @@ import java.io.File;
 import java.util.LinkedList;
 import java.util.List;
 
-import movement.pathfinding.PathFinder;
+import movement.pathfinder.PathFinder;
 import util.ParetoRNG;
 
-import movement.pathfinding.DijkstraPathFinder;
+import movement.pathfinder.DijkstraPathFinder;
 import movement.map.MapNode;
 import movement.map.SimMap;
 import core.Coord;

@@ -1,4 +1,4 @@
-package movement.pathfinding;
+package movement.pathfinder;
 
 import movement.map.MapNode;
 
@@ -9,7 +9,7 @@ public class LevelAwareHeuristic implements Heuristic {
     private final Map<Integer, List<MapNode>> portals;
     private final Heuristic heuristic;
 
-    public LevelAwareHeuristic(Map<Integer, List<MapNode>> portals, Heuristic heuristic) {
+    public LevelAwareHeuristic(Heuristic heuristic, Map<Integer, List<MapNode>> portals) {
         this.portals = portals;
         this.heuristic = heuristic;
     }

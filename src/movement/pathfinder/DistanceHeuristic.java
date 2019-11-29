@@ -1,4 +1,4 @@
-package movement.pathfinding;
+package movement.pathfinder;
 
 import movement.map.MapNode;
 
