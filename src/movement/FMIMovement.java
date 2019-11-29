@@ -15,13 +15,7 @@ import movement.fmi.Schedule;
 import java.util.*;
 import java.util.stream.Collectors;
 
-public class FMIMovement extends MovementModel implements RenderableMovement {
-    private static OSM2NodeGrid osm2NodeGridCache = null;
-
-    private Set<MapNode> pointsOfInterest;
-
-    private SimMap nodeGrid;
-
+public class FMIMovement extends NodeGridBasedMovement {
     private PathFinder pathFinder;
 
     private MapNode currentNode;
@@ -36,17 +30,8 @@ public class FMIMovement extends MovementModel implements RenderableMovement {
     public FMIMovement(Settings settings) {
         super(settings);
 
-        // cache map in case of multiple host groups
-        NodeGridSettings nodeGridSettings = new NodeGridSettings();
-        if (osm2NodeGridCache == null || !nodeGridSettings.equals(osm2NodeGridCache.getSettings())) {
-            osm2NodeGridCache = new OSM2NodeGrid(nodeGridSettings);
-        }
-
-        nodeGrid = osm2NodeGridCache.getSimMap();
-        pointsOfInterest = osm2NodeGridCache.getPointsOfInterest();
-
         Heuristic heuristic = new RandomizedDistanceHeuristic(rng::nextGaussian, 2);
-        Heuristic levelAwareHeuristic = new LevelAwareHeuristic(osm2NodeGridCache.getPortals(), heuristic);
+        Heuristic levelAwareHeuristic = new LevelAwareHeuristic(getPortals(), heuristic);
         pathFinder = new AStarPathFinder(levelAwareHeuristic);
 
         fixedEvents = generateFixedEvents();
@@ -54,7 +39,7 @@ public class FMIMovement extends MovementModel implements RenderableMovement {
     }
 
     private ArrayList<MapNode> getOtherAreas() {
-        return pointsOfInterest.stream()
+        return getPointsOfInterest().stream()
                 .filter(poi -> {
                     boolean isCollectionArea = poi.isType(NodeType.COLLECTION_AREA.getType());
                     boolean isStudyPlace = poi.isType(NodeType.STUDY_PLACE.getType());
@@ -67,7 +52,7 @@ public class FMIMovement extends MovementModel implements RenderableMovement {
 
     private ArrayList<Lecture> generateFixedEvents() {
         fixedEvents = new ArrayList<>();
-        ArrayList<MapNode> fixedEvents = pointsOfInterest.stream()
+        ArrayList<MapNode> fixedEvents = getPointsOfInterest().stream()
                 .filter(poi -> {
                     boolean isLectureHall = poi.isType(NodeType.LECTURE_HALL.getType());
                     boolean isExerciseRoom = poi.isType(NodeType.EXERCISE_ROOM.getType());
@@ -92,17 +77,10 @@ public class FMIMovement extends MovementModel implements RenderableMovement {
 
     public FMIMovement(FMIMovement other) {
         super(other);
-        nodeGrid = other.nodeGrid;
-        pointsOfInterest = other.pointsOfInterest;
         pathFinder = other.pathFinder;
         otherAreas = other.otherAreas;
 
         schedule = new Schedule(other.fixedEvents, otherAreas, rng);
-    }
-
-    @Override
-    public SimMap getMap() {
-        return nodeGrid;
     }
 
     @Override
@@ -142,7 +120,7 @@ public class FMIMovement extends MovementModel implements RenderableMovement {
     @Override
     public Coord getInitialLocation() {
         nextEvent = schedule.getNextEvent();
-        currentNode = pickRandomNode(nodeGrid.getNodes());
+        currentNode = pickRandomNode(getMap().getNodes());
         return currentNode.getLocation().clone();
     }
 
