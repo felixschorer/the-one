@@ -111,7 +111,7 @@ public class Coord implements Cloneable, Comparable<Coord> {
 	 * @return a text representation of the coordinate
 	 */
 	public String toString() {
-		return String.format("(%.2f,%.2f)",x,y);
+		return String.format("(%.2f,%.2f,%d)", x, y, layer);
 	}
 
 	/**

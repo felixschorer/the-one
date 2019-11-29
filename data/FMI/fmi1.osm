@@ -3221,30 +3221,37 @@
   <way id='-147579' action='modify' visible='true'>
     <nd ref='-147232' />
     <nd ref='-147234' />
+    <tag k='one:edge' v='bidirectional' />
   </way>
   <way id='-147580' action='modify' visible='true'>
     <nd ref='-147236' />
     <nd ref='-147238' />
+    <tag k='one:edge' v='bidirectional' />
   </way>
   <way id='-147581' action='modify' visible='true'>
     <nd ref='-147240' />
     <nd ref='-147242' />
+    <tag k='one:edge' v='bidirectional' />
   </way>
   <way id='-147582' action='modify' visible='true'>
     <nd ref='-147244' />
     <nd ref='-147246' />
+    <tag k='one:edge' v='bidirectional' />
   </way>
   <way id='-147583' action='modify' visible='true'>
     <nd ref='-147248' />
     <nd ref='-147250' />
+    <tag k='one:edge' v='bidirectional' />
   </way>
   <way id='-147584' action='modify' visible='true'>
     <nd ref='-147252' />
     <nd ref='-147254' />
+    <tag k='one:edge' v='bidirectional' />
   </way>
   <way id='-147585' action='modify' visible='true'>
     <nd ref='-147256' />
     <nd ref='-147258' />
+    <tag k='one:edge' v='bidirectional' />
   </way>
   <way id='-147586' action='modify' visible='true'>
     <nd ref='-146210' />
