@@ -30,7 +30,7 @@ public class FMIMovement extends MovementModel implements RenderableMovement {
 
     private Schedule schedule;
 
-    private ArrayList<Lecture> lectures;
+    private ArrayList<Lecture> fixedEvents;
 
     public FMIMovement(Settings settings) {
         super(settings);
@@ -48,27 +48,31 @@ public class FMIMovement extends MovementModel implements RenderableMovement {
         Heuristic levelAwareHeuristic = new LevelAwareHeuristic(osm2NodeGridCache.getPortals(), heuristic);
         pathFinder = new AStarPathFinder(levelAwareHeuristic);
 
-        lectures = generateLectures();
+        fixedEvents = generateFixedEvents();
     }
 
-    private ArrayList<Lecture> generateLectures() {
-        lectures = new ArrayList<>();
-        ArrayList<MapNode> lectureHalls = pointsOfInterest.stream()
-                .filter(poi -> poi.isType(NodeType.LECTURE_HALL.getType()))
+    private ArrayList<Lecture> generateFixedEvents() {
+        fixedEvents = new ArrayList<>();
+        ArrayList<MapNode> fixedEvents = pointsOfInterest.stream()
+                .filter(poi -> {
+                    boolean isLectureHall = poi.isType(NodeType.LECTURE_HALL.getType());
+                    boolean isExerciseRoom = poi.isType(NodeType.EXERCISE_ROOM.getType());
+                    return isLectureHall || isExerciseRoom;
+                })
                 .collect(Collectors.toCollection(ArrayList::new));
         int offset = 300;
-        int[] startTimesByRoom = Arrays.stream(new int[lectureHalls.size()]).map(start -> offset).toArray();
+        int[] startTimesByRoom = Arrays.stream(new int[fixedEvents.size()]).map(start -> offset).toArray();
 
-        for (int i = 0; i < lectureHalls.size(); i++) {
+        for (int i = 0; i < fixedEvents.size(); i++) {
             // only add lecture if room has not been occupied for 10h already
             while (startTimesByRoom[i] < 60 * 60 * 10) {
-                Lecture lecture = new Lecture(lectureHalls.get(i), startTimesByRoom[i], rng);
-                lectures.add(lecture);
+                Lecture lecture = new Lecture(fixedEvents.get(i), startTimesByRoom[i], rng);
+                this.fixedEvents.add(lecture);
                 startTimesByRoom[i] += lecture.getTotalDuration();
             }
         }
 
-        return lectures;
+        return this.fixedEvents;
     }
 
     public FMIMovement(FMIMovement other) {
@@ -79,7 +83,7 @@ public class FMIMovement extends MovementModel implements RenderableMovement {
         ArrayList<MapNode> collectionAreas = pointsOfInterest.stream()
                 .filter(poi -> poi.isType(NodeType.COLLECTION_AREA.getType()))
                 .collect(Collectors.toCollection(ArrayList::new));
-        schedule = new Schedule(other.lectures, collectionAreas, rng);
+        schedule = new Schedule(other.fixedEvents, collectionAreas, rng);
     }
 
     @Override
