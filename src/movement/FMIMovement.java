@@ -30,7 +30,8 @@ public class FMIMovement extends NodeGridBasedMovement {
         Heuristic heuristic = new RandomizedDistanceHeuristic(rng::nextGaussian, 2);
         Heuristic levelAwareHeuristic = new LevelAwareHeuristic(heuristic, getPortals());
         Heuristic discouragingHeuristic = new DiscouragingHeuristic(levelAwareHeuristic,
-                NodeType.LECTURE_HALL.getType(), NodeType.EXERCISE_ROOM.getType(), NodeType.CAFE.getType());
+                NodeType.LECTURE_HALL.getType(), NodeType.EXERCISE_ROOM.getType(),
+                NodeType.CAFE.getType(), NodeType.STUDY_PLACE.getType());
         pathFinder = new AStarPathFinder(discouragingHeuristic);
 
         fixedEvents = generateFixedEvents();
