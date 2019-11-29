@@ -31,6 +31,7 @@ public class FMIMovement extends MovementModel implements RenderableMovement {
     private Schedule schedule;
 
     private ArrayList<Lecture> fixedEvents;
+    private ArrayList<MapNode> otherAreas;
 
     public FMIMovement(Settings settings) {
         super(settings);
@@ -49,6 +50,19 @@ public class FMIMovement extends MovementModel implements RenderableMovement {
         pathFinder = new AStarPathFinder(levelAwareHeuristic);
 
         fixedEvents = generateFixedEvents();
+        otherAreas = getOtherAreas();
+    }
+
+    private ArrayList<MapNode> getOtherAreas() {
+        return pointsOfInterest.stream()
+                .filter(poi -> {
+                    boolean isCollectionArea = poi.isType(NodeType.COLLECTION_AREA.getType());
+                    boolean isStudyPlace = poi.isType(NodeType.STUDY_PLACE.getType());
+                    boolean isCafe = poi.isType(NodeType.CAFE.getType());
+
+                    return isCollectionArea || isStudyPlace || isCafe;
+                })
+                .collect(Collectors.toCollection(ArrayList::new));
     }
 
     private ArrayList<Lecture> generateFixedEvents() {
@@ -57,6 +71,7 @@ public class FMIMovement extends MovementModel implements RenderableMovement {
                 .filter(poi -> {
                     boolean isLectureHall = poi.isType(NodeType.LECTURE_HALL.getType());
                     boolean isExerciseRoom = poi.isType(NodeType.EXERCISE_ROOM.getType());
+
                     return isLectureHall || isExerciseRoom;
                 })
                 .collect(Collectors.toCollection(ArrayList::new));
@@ -80,10 +95,9 @@ public class FMIMovement extends MovementModel implements RenderableMovement {
         nodeGrid = other.nodeGrid;
         pointsOfInterest = other.pointsOfInterest;
         pathFinder = other.pathFinder;
-        ArrayList<MapNode> collectionAreas = pointsOfInterest.stream()
-                .filter(poi -> poi.isType(NodeType.COLLECTION_AREA.getType()))
-                .collect(Collectors.toCollection(ArrayList::new));
-        schedule = new Schedule(other.fixedEvents, collectionAreas, rng);
+        otherAreas = other.otherAreas;
+
+        schedule = new Schedule(other.fixedEvents, otherAreas, rng);
     }
 
     @Override
