@@ -6,11 +6,11 @@ package movement;
 
 import java.util.List;
 
-import movement.pathfinding.DijkstraPathFinder;
+import movement.pathfinder.DijkstraPathFinder;
 import movement.map.MapNode;
 import core.Coord;
 import core.Settings;
-import movement.pathfinding.PathFinder;
+import movement.pathfinder.PathFinder;
 
 /**
  * The CarMovement class representing the car movement submodel

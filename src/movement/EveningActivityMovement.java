@@ -10,12 +10,12 @@ import java.io.File;
 import java.util.LinkedList;
 import java.util.List;
 
-import movement.pathfinding.DijkstraPathFinder;
+import movement.pathfinder.DijkstraPathFinder;
 import movement.map.MapNode;
 import movement.map.SimMap;
 import core.Coord;
 import core.Settings;
-import movement.pathfinding.PathFinder;
+import movement.pathfinder.PathFinder;
 
 /**
  * A Class to model movement when people are out shopping or doing other

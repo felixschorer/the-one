@@ -5,10 +5,7 @@ import core.Settings;
 import movement.fmi.Event;
 import movement.fmi.NodeType;
 import movement.map.MapNode;
-import movement.map.SimMap;
-import movement.nodegrid.NodeGridSettings;
-import movement.nodegrid.OSM2NodeGrid;
-import movement.pathfinding.*;
+import movement.pathfinder.*;
 import movement.fmi.Lecture;
 import movement.fmi.Schedule;
 
@@ -31,8 +28,10 @@ public class FMIMovement extends NodeGridBasedMovement {
         super(settings);
 
         Heuristic heuristic = new RandomizedDistanceHeuristic(rng::nextGaussian, 2);
-        Heuristic levelAwareHeuristic = new LevelAwareHeuristic(getPortals(), heuristic);
-        pathFinder = new AStarPathFinder(levelAwareHeuristic);
+        Heuristic levelAwareHeuristic = new LevelAwareHeuristic(heuristic, getPortals());
+        Heuristic discouragingHeuristic = new DiscouragingHeuristic(levelAwareHeuristic,
+                NodeType.LECTURE_HALL.getType(), NodeType.EXERCISE_ROOM.getType(), NodeType.CAFE.getType());
+        pathFinder = new AStarPathFinder(discouragingHeuristic);
 
         fixedEvents = generateFixedEvents();
         otherAreas = getOtherAreas();
