@@ -31,10 +31,6 @@ public class MapNode implements Comparable<MapNode> {
 	 * Constructor. Creates a map node to a location.
 	 * @param location The location of the node.
 	 */
-	public MapNode(Coord location) {
-		this(location, new int[0]);
-	}
-
 	public MapNode(Coord location, int... types) {
 		this.location = location;
 		this.neighbors = new Vector<MapNode>();

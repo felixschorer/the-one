@@ -213,7 +213,7 @@ public class OSM2NodeGrid {
             }
 
             int[] types = parseTypes(tags.get(POINT_OF_INTEREST));
-            nodes.add(new MapNode(node.getLocation(), types));
+            nodes.add(new OSMMapNode(node.getId(), node.getLocation(), types));
         }
         return nodes;
     }
@@ -227,7 +227,7 @@ public class OSM2NodeGrid {
             }
 
             String portalId = tags.get(PORTAL);
-            portals.put(portalId, new MapNode(node.getLocation()));
+            portals.put(portalId, new OSMMapNode(node.getId(), node.getLocation()));
         }
         return portals;
     }
