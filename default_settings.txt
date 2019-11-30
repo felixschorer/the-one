@@ -18,9 +18,8 @@ Group1.router = PassiveRouter
 
 Group1.nrofHosts = 1000
 Group1.movementModel = UniversityMovement
-Group1.universityNrofLecturesMean = 2
-Group1.universityNrofLecturesStdDeviation = 2
-Group1.universityNrofLecturesStdDeviation = 2
+Group1.universityNrofLectures = 2
+
 
 NodeGridMovementModel.rasterInterval = 0.6
 NodeGridMovementModel.projectionLatitude = 48.26225591888
@@ -29,27 +28,38 @@ NodeGridMovementModel.osmLevel1 = data/FMI/fmi1.osm
 NodeGridMovementModel.osmLevel2 = data/FMI/fmi2.osm
 NodeGridMovementModel.osmLevel3 = data/FMI/fmi3.osm
 
-University.lectureLength = 90
-University.firstLecturesStart = 08:30
-University.lastLecturesStart = 18:30
-University.exerciseRoomOccupationPercentage = 0.5
 
-University.exerciseRoomSmallCapacity = 30
-University.exerciseRoomMediumCapacity = 30
-University.exerciseRoomLargeCapacity = 50
+UniversityRoomBooking.firstLecturesStart = 08:30
+UniversityRoomBooking.lastLecturesStart = 18:30
 
-University.lectureHallSmallCapacity = 100
-University.lectureHallMediumCapacity = 250
-University.lectureHallLargeCapacity = 600
+# lecture length in minutes
+UniversityRoomBooking.lectureLength = 90
 
-University.studyPlaceSmallCapacity = 25
-University.studyPlaceMediumCapacity = 50
-University.studyPlaceLargeCapacity = 200
+# time between lectures in minutes
+UniversityRoomBooking.exerciseRoom_small_timeBetweenBookings = 1440
+UniversityRoomBooking.exerciseRoom_medium_timeBetweenBookings = 1440
+UniversityRoomBooking.exerciseRoom_large_timeBetweenBookings = 300
+UniversityRoomBooking.lectureHall_small_timeBetweenBookings = 60
+UniversityRoomBooking.lectureHall_medium_timeBetweenBookings = 30
+UniversityRoomBooking.lectureHall_large_timeBetweenBookings = 30
 
-University.transportSmallCapacity = 100
-University.transportMediumCapacity = 500
-University.transportLargeCapacity = 5000
 
-University.cafeSmallCapacity = 25
-University.cafeMediumCapacity = 50
-University.cafeLargeCapacity = 1000
+University.exerciseRoom_small_capacity = 30
+University.exerciseRoom_medium_capacity = 30
+University.exerciseRoom_large_capacity = 50
+
+University.lectureHall_small_capacity = 100
+University.lectureHall_medium_capacity = 250
+University.lectureHall_large_capacity = 600
+
+University.studyPlace_small_capacity = 25
+University.studyPlace_medium_capacity = 50
+University.studyPlace_large_capacity = 200
+
+University.transport_small_capacity = 100
+University.transport_medium_capacity = 500
+University.transport_large_capacity = 5000
+
+University.cafe_small_capacity = 25
+University.cafe_medium_capacity = 50
+University.cafe_large_capacity = 1000
