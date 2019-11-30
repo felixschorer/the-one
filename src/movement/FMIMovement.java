@@ -129,7 +129,13 @@ public class FMIMovement extends NodeGridBasedMovement {
     @Override
     public Coord getInitialLocation() {
         nextEvent = schedule.getNextEvent();
-        currentNode = pickRandomNode(getMap().getNodes());
+
+        ArrayList<NodeType> areaTypes = new ArrayList<>(
+                Arrays.asList(NodeType.COLLECTION_AREA));
+        ArrayList<MapNode> collectionAreas = filterPointsOfInterest(areaTypes);
+        int randomLocationIndex = rng.nextInt(collectionAreas.size());
+//        currentNode = pickRandomNode(getMap().getNodes());
+        currentNode = collectionAreas.get(randomLocationIndex);
         return currentNode.getLocation().clone();
     }
 
