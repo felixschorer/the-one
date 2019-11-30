@@ -3,20 +3,19 @@ package movement;
 import core.Coord;
 import core.Settings;
 import movement.nodegrid.NodeGridMovementModel;
-import movement.university.UniversityRoomBookingSettings;
-import movement.university.UniversityRoomBookings;
+import movement.university.UniversitySettings;
+import movement.university.UniversityScheduleGenerator;
 
 
 public class UniversityMovement extends NodeGridMovementModel {
-    private static UniversityRoomBookings roomBookings = null;
+    private static UniversityScheduleGenerator roomBookings = null;
 
     public UniversityMovement(Settings settings) {
         super(settings);
-        UniversityRoomBookingSettings universityRoomBookingSettings = new UniversityRoomBookingSettings();
-        if (roomBookings == null || !roomBookings.getSettings().equals(universityRoomBookingSettings)) {
-            roomBookings = new UniversityRoomBookings(rng, universityRoomBookingSettings, getPointsOfInterest());
+        UniversitySettings universitySettings = new UniversitySettings();
+        if (roomBookings == null || !roomBookings.getSettings().equals(universitySettings)) {
+            roomBookings = new UniversityScheduleGenerator(rng, universitySettings, getPointsOfInterest());
         }
-
     }
 
     public UniversityMovement(NodeGridMovementModel mm) {

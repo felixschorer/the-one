@@ -36,12 +36,12 @@ UniversityRoomBooking.lastLecturesStart = 18:30
 UniversityRoomBooking.lectureLength = 90
 
 # time between lectures in minutes
-UniversityRoomBooking.exerciseRoom_small_timeBetweenBookings = 1440
-UniversityRoomBooking.exerciseRoom_medium_timeBetweenBookings = 1440
-UniversityRoomBooking.exerciseRoom_large_timeBetweenBookings = 300
-UniversityRoomBooking.lectureHall_small_timeBetweenBookings = 60
-UniversityRoomBooking.lectureHall_medium_timeBetweenBookings = 30
-UniversityRoomBooking.lectureHall_large_timeBetweenBookings = 30
+University.exerciseRoom_small_timeBetweenBookings = 1440
+University.exerciseRoom_medium_timeBetweenBookings = 1440
+University.exerciseRoom_large_timeBetweenBookings = 300
+University.lectureHall_small_timeBetweenBookings = 30
+University.lectureHall_medium_timeBetweenBookings = 30
+University.lectureHall_large_timeBetweenBookings = 30
 
 
 University.exerciseRoom_small_capacity = 30

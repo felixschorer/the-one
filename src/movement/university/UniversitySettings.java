@@ -13,12 +13,13 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
 
-public class UniversityRoomBookingSettings {
-    private static final String UNIVERSITY_NS = "UniversityRoomBooking";
+public class UniversitySettings {
+    private static final String UNIVERSITY_NS = "University";
     private static final String LECTURE_LENGTH = "lectureLength";
     private static final String FIRST_LECTURES_START = "firstLecturesStart";
     private static final String LAST_LECTURES_START = "lastLecturesStart";
     private static final String TIME_BETWEEN_BOOKINGS = "timeBetweenBookings";
+    private static final String CAPACITY = "capacity";
 
     private static final String TIME_FORMAT = "HH:mm";
 
@@ -26,13 +27,15 @@ public class UniversityRoomBookingSettings {
     private final int firstLecturesStart;
     private final int lastLecturesStart;
     private final Map<PointOfInterest, Map<Size, Integer>> timeBetweenBookings;
+    private final Map<PointOfInterest, Map<Size, Integer>> capacities;
 
-    public UniversityRoomBookingSettings() {
+    public UniversitySettings() {
         Settings settings = new Settings(UNIVERSITY_NS);
         lectureLength = settings.getInt(LECTURE_LENGTH, 90) * 60;
         firstLecturesStart = readTimeToSeconds(settings, FIRST_LECTURES_START, "08:30");
         lastLecturesStart = readTimeToSeconds(settings, LAST_LECTURES_START, "18:30");
         timeBetweenBookings = readTimeBetweenBookings(settings);
+        capacities = readCapacities(settings);
     }
 
     public int getLectureLength() {
@@ -51,6 +54,10 @@ public class UniversityRoomBookingSettings {
         return timeBetweenBookings;
     }
 
+    public Map<PointOfInterest, Map<Size, Integer>> getCapacities() {
+        return capacities;
+    }
+
     private static Map<PointOfInterest, Map<Size, Integer>> readTimeBetweenBookings(Settings settings) {
         Map<PointOfInterest, Map<Size, Integer>> timeBetweenBookings = new HashMap<>();
         for (PointOfInterest pointOfInterest : PointOfInterest.values()) {
@@ -62,6 +69,19 @@ public class UniversityRoomBookingSettings {
             }
         }
         return timeBetweenBookings;
+    }
+
+    private static Map<PointOfInterest, Map<Size, Integer>> readCapacities(Settings settings) {
+        Map<PointOfInterest, Map<Size, Integer>> capacities = new HashMap<>();
+        for (PointOfInterest pointOfInterest : PointOfInterest.values()) {
+            capacities.put(pointOfInterest, new HashMap<>());
+            for (Size size : Size.values()) {
+                String settingsName = buildPOISettingsName(pointOfInterest, size, CAPACITY);
+                int capacity = settings.getInt(settingsName, 0);
+                capacities.get(pointOfInterest).put(size, capacity);
+            }
+        }
+        return capacities;
     }
 
     private static int readTimeToSeconds(Settings settings, String settingsName, String defaultValue) {
@@ -88,15 +108,16 @@ public class UniversityRoomBookingSettings {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        UniversityRoomBookingSettings that = (UniversityRoomBookingSettings) o;
+        UniversitySettings that = (UniversitySettings) o;
         return getLectureLength() == that.getLectureLength() &&
                 getFirstLecturesStart() == that.getFirstLecturesStart() &&
                 getLastLecturesStart() == that.getLastLecturesStart() &&
-                getTimeBetweenBookings().equals(that.getTimeBetweenBookings());
+                getTimeBetweenBookings().equals(that.getTimeBetweenBookings()) &&
+                getCapacities().equals(that.getCapacities());
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(getLectureLength(), getFirstLecturesStart(), getLastLecturesStart(), getTimeBetweenBookings());
+        return Objects.hash(getLectureLength(), getFirstLecturesStart(), getLastLecturesStart(), getTimeBetweenBookings(), getCapacities());
     }
 }
