@@ -11,7 +11,7 @@ public class Schedule {
     private int SWITCHING_PLACE_TIME = 60 * 15;
     private int MAX_TIME_AT_UNIVERSITY = 60 * 60 * 10;
 
-    public Schedule(ArrayList<Lecture> fixedEvents, ArrayList<MapNode> otherAreas, Random rng) {
+    public Schedule(ArrayList<Lecture> fixedEvents, ArrayList<MapNode> otherPois, Random rng) {
         LinkedList<Event> lectureSchedule = new LinkedList<>();
         LinkedList<Event> otherSchedule = new LinkedList<>();
 
@@ -39,8 +39,8 @@ public class Schedule {
             int currentAvailableTime = lecture1.getRealEnd() + SWITCHING_PLACE_TIME;
 
             if (lecture2.getRealStart() - currentAvailableTime > 0) {
-                int collectionAreaIndex = rng.nextInt(otherAreas.size());
-                Event otherEvent = new Event(otherAreas.get(collectionAreaIndex), currentAvailableTime);
+                int collectionAreaIndex = rng.nextInt(otherPois.size());
+                Event otherEvent = new Event(otherPois.get(collectionAreaIndex), currentAvailableTime);
                 otherSchedule.add(otherEvent);
             }
         }
