@@ -21,13 +21,13 @@ public class OSM2NodeGrid {
 
     private static final String PORTAL = "one:portal";
 
-    private final NodeGridSettings settings;
+    private final NodeGridMovementModelSettings settings;
 
     private Set<MapNode> pointsOfInterest;
     private Map<Integer, List<MapNode>> portals;
     private SimMap simMap;
 
-    public OSM2NodeGrid(NodeGridSettings settings) {
+    public OSM2NodeGrid(NodeGridMovementModelSettings settings) {
         this.settings = settings;
         load();
     }
@@ -44,7 +44,7 @@ public class OSM2NodeGrid {
         return simMap;
     }
 
-    public NodeGridSettings getSettings() {
+    public NodeGridMovementModelSettings getSettings() {
         return settings;
     }
 

@@ -3,8 +3,9 @@ package movement;
 import core.Coord;
 import core.Settings;
 import movement.fmi.Event;
-import movement.fmi.NodeType;
+import movement.fmi.PointOfInterest;
 import movement.map.MapNode;
+import movement.nodegrid.NodeGridMovementModel;
 import movement.pathfinder.*;
 import movement.fmi.Lecture;
 import movement.fmi.Schedule;
@@ -12,7 +13,7 @@ import movement.fmi.Schedule;
 import java.util.*;
 import java.util.stream.Collectors;
 
-public class FMIMovement extends NodeGridBasedMovement {
+public class FMIMovement extends NodeGridMovementModel {
     private PathFinder pathFinder;
 
     private MapNode currentNode;
@@ -32,8 +33,8 @@ public class FMIMovement extends NodeGridBasedMovement {
         Heuristic heuristic = new RandomizedDistanceHeuristic(rng::nextGaussian, 2);
         Heuristic levelAwareHeuristic = new LevelAwareHeuristic(heuristic, getPortals());
         Heuristic discouragingHeuristic = new DiscouragingHeuristic(levelAwareHeuristic,
-                NodeType.LECTURE_HALL.getType(), NodeType.EXERCISE_ROOM.getType(),
-                NodeType.CAFE.getType(), NodeType.STUDY_PLACE.getType());
+                PointOfInterest.LECTURE_HALL.getType(), PointOfInterest.EXERCISE_ROOM.getType(),
+                PointOfInterest.CAFE.getType(), PointOfInterest.STUDY_PLACE.getType());
         pathFinder = new AStarPathFinder(discouragingHeuristic);
 
         fixedEvents = generateFixedEvents();
@@ -41,14 +42,14 @@ public class FMIMovement extends NodeGridBasedMovement {
     }
 
     private ArrayList<MapNode> getOtherPois() {
-        ArrayList<NodeType> areaTypes = new ArrayList<>(
-                Arrays.asList(NodeType.COLLECTION_AREA, NodeType.STUDY_PLACE, NodeType.CAFE));
+        ArrayList<PointOfInterest> areaTypes = new ArrayList<>(
+                Arrays.asList(PointOfInterest.TRANSPORT, PointOfInterest.STUDY_PLACE, PointOfInterest.CAFE));
         return filterPointsOfInterest(areaTypes);
     }
 
     private ArrayList<Lecture> generateFixedEvents() {
-        ArrayList<NodeType> areaTypes = new ArrayList<>(
-                Arrays.asList(NodeType.LECTURE_HALL, NodeType.EXERCISE_ROOM));
+        ArrayList<PointOfInterest> areaTypes = new ArrayList<>(
+                Arrays.asList(PointOfInterest.LECTURE_HALL, PointOfInterest.EXERCISE_ROOM));
         ArrayList<MapNode> pois = filterPointsOfInterest(areaTypes);
 
         fixedEvents = new ArrayList<>();
@@ -67,10 +68,10 @@ public class FMIMovement extends NodeGridBasedMovement {
         return this.fixedEvents;
     }
 
-    private ArrayList<MapNode> filterPointsOfInterest(ArrayList<NodeType> types) {
+    private ArrayList<MapNode> filterPointsOfInterest(ArrayList<PointOfInterest> types) {
         return getPointsOfInterest().stream()
                 .filter(poi -> {
-                    for (NodeType type : types) {
+                    for (PointOfInterest type : types) {
                         if (poi.isType(type.getType())) {
                             return true;
                         }
@@ -130,8 +131,8 @@ public class FMIMovement extends NodeGridBasedMovement {
     public Coord getInitialLocation() {
         nextEvent = schedule.getNextEvent();
 
-        ArrayList<NodeType> areaTypes = new ArrayList<>(
-                Arrays.asList(NodeType.COLLECTION_AREA));
+        ArrayList<PointOfInterest> areaTypes = new ArrayList<>(
+                Arrays.asList(PointOfInterest.TRANSPORT));
         ArrayList<MapNode> collectionAreas = filterPointsOfInterest(areaTypes);
         int randomLocationIndex = rng.nextInt(collectionAreas.size());
 //        currentNode = pickRandomNode(getMap().getNodes());
