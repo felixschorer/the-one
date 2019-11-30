@@ -24,13 +24,16 @@ public class FMIMovement extends NodeGridBasedMovement {
     private ArrayList<Lecture> fixedEvents;
     private ArrayList<MapNode> otherPois;
 
+    private boolean isStuck = false;
+
     public FMIMovement(Settings settings) {
         super(settings);
 
         Heuristic heuristic = new RandomizedDistanceHeuristic(rng::nextGaussian, 2);
         Heuristic levelAwareHeuristic = new LevelAwareHeuristic(heuristic, getPortals());
         Heuristic discouragingHeuristic = new DiscouragingHeuristic(levelAwareHeuristic,
-                NodeType.LECTURE_HALL.getType(), NodeType.EXERCISE_ROOM.getType(), NodeType.CAFE.getType());
+                NodeType.LECTURE_HALL.getType(), NodeType.EXERCISE_ROOM.getType(),
+                NodeType.CAFE.getType(), NodeType.STUDY_PLACE.getType());
         pathFinder = new AStarPathFinder(discouragingHeuristic);
 
         fixedEvents = generateFixedEvents();
@@ -95,6 +98,9 @@ public class FMIMovement extends NodeGridBasedMovement {
 
         if (shortestPath.size() > 0) {
             currentNode = to;
+        } else if (from != to) {
+            isStuck = true;
+            System.out.println(String.format("Could not find path from %s to %s", from, to));
         }
 
         Path path = new Path();
@@ -111,7 +117,7 @@ public class FMIMovement extends NodeGridBasedMovement {
 
     @Override
     public boolean isActive() {
-        return true;
+        return !isStuck;
     }
 
     @Override
