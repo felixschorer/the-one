@@ -22,7 +22,7 @@ public class FMIMovement extends NodeGridBasedMovement {
     private Schedule schedule;
 
     private ArrayList<Lecture> fixedEvents;
-    private ArrayList<MapNode> otherAreas;
+    private ArrayList<MapNode> otherPois;
 
     public FMIMovement(Settings settings) {
         super(settings);
@@ -34,38 +34,28 @@ public class FMIMovement extends NodeGridBasedMovement {
         pathFinder = new AStarPathFinder(discouragingHeuristic);
 
         fixedEvents = generateFixedEvents();
-        otherAreas = getOtherAreas();
+        otherPois = getOtherPois();
     }
 
-    private ArrayList<MapNode> getOtherAreas() {
-        return getPointsOfInterest().stream()
-                .filter(poi -> {
-                    boolean isCollectionArea = poi.isType(NodeType.COLLECTION_AREA.getType());
-                    boolean isStudyPlace = poi.isType(NodeType.STUDY_PLACE.getType());
-                    boolean isCafe = poi.isType(NodeType.CAFE.getType());
-
-                    return isCollectionArea || isStudyPlace || isCafe;
-                })
-                .collect(Collectors.toCollection(ArrayList::new));
+    private ArrayList<MapNode> getOtherPois() {
+        ArrayList<NodeType> areaTypes = new ArrayList<>(
+                Arrays.asList(NodeType.COLLECTION_AREA, NodeType.STUDY_PLACE, NodeType.CAFE));
+        return filterPointsOfInterest(areaTypes);
     }
 
     private ArrayList<Lecture> generateFixedEvents() {
+        ArrayList<NodeType> areaTypes = new ArrayList<>(
+                Arrays.asList(NodeType.LECTURE_HALL, NodeType.EXERCISE_ROOM));
+        ArrayList<MapNode> pois = filterPointsOfInterest(areaTypes);
+
         fixedEvents = new ArrayList<>();
-        ArrayList<MapNode> fixedEvents = getPointsOfInterest().stream()
-                .filter(poi -> {
-                    boolean isLectureHall = poi.isType(NodeType.LECTURE_HALL.getType());
-                    boolean isExerciseRoom = poi.isType(NodeType.EXERCISE_ROOM.getType());
-
-                    return isLectureHall || isExerciseRoom;
-                })
-                .collect(Collectors.toCollection(ArrayList::new));
         int offset = 300;
-        int[] startTimesByRoom = Arrays.stream(new int[fixedEvents.size()]).map(start -> offset).toArray();
+        int[] startTimesByRoom = Arrays.stream(new int[pois.size()]).map(start -> offset).toArray();
 
-        for (int i = 0; i < fixedEvents.size(); i++) {
+        for (int i = 0; i < pois.size(); i++) {
             // only add lecture if room has not been occupied for 10h already
             while (startTimesByRoom[i] < 60 * 60 * 10) {
-                Lecture lecture = new Lecture(fixedEvents.get(i), startTimesByRoom[i], rng);
+                Lecture lecture = new Lecture(pois.get(i), startTimesByRoom[i], rng);
                 this.fixedEvents.add(lecture);
                 startTimesByRoom[i] += lecture.getTotalDuration();
             }
@@ -74,12 +64,26 @@ public class FMIMovement extends NodeGridBasedMovement {
         return this.fixedEvents;
     }
 
+    private ArrayList<MapNode> filterPointsOfInterest(ArrayList<NodeType> types) {
+        return getPointsOfInterest().stream()
+                .filter(poi -> {
+                    for (NodeType type : types) {
+                        if (poi.isType(type.getType())) {
+                            return true;
+                        }
+                    }
+                    return false;
+                })
+                .collect(Collectors.toCollection(ArrayList::new));
+    }
+
     public FMIMovement(FMIMovement other) {
         super(other);
         pathFinder = other.pathFinder;
-        otherAreas = other.otherAreas;
+        otherPois = other.otherPois;
+        fixedEvents = other.fixedEvents;
 
-        schedule = new Schedule(other.fixedEvents, otherAreas, rng);
+        schedule = new Schedule(fixedEvents, otherPois, rng);
     }
 
     @Override
