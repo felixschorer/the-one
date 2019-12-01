@@ -1,4 +1,4 @@
-package movement.nodegrid;
+package movement.map;
 
 import core.Coord;
 import movement.map.MapNode;

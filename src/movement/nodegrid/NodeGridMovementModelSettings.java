@@ -4,8 +4,8 @@ import core.Settings;
 
 import java.util.*;
 
-public class NodeGridSettings {
-    private static final String NODE_GRID_NS = "NodeGrid";
+public class NodeGridMovementModelSettings {
+    private static final String NODE_GRID_NS = "NodeGridMovementModel";
     private static final String RASTER_INTERVAL = "rasterInterval";
     private static final String OSM_LEVEL_FILE = "osmLevel";
     private static final String PROJECTION_LATITUDE = "projectionLatitude";
@@ -14,7 +14,7 @@ public class NodeGridSettings {
     private final double projectionLatitude;
     private final List<String> osmLevelFiles;
 
-    public NodeGridSettings() {
+    public NodeGridMovementModelSettings() {
         Settings settings = new Settings(NODE_GRID_NS);
         rasterInterval = settings.getDouble(RASTER_INTERVAL, 1);
         projectionLatitude = settings.getDouble(PROJECTION_LATITUDE, 0);
@@ -45,7 +45,7 @@ public class NodeGridSettings {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        NodeGridSettings that = (NodeGridSettings) o;
+        NodeGridMovementModelSettings that = (NodeGridMovementModelSettings) o;
         return Double.compare(that.getRasterInterval(), getRasterInterval()) == 0 &&
                 Double.compare(that.getProjectionLatitude(), getProjectionLatitude()) == 0 &&
                 getOsmLevelFiles().equals(that.getOsmLevelFiles());

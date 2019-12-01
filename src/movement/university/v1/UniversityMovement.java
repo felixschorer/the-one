@@ -1,18 +1,18 @@
-package movement;
+package movement.university.v1;
 
 import core.Coord;
 import core.Settings;
-import movement.fmi.Event;
-import movement.fmi.NodeType;
+import movement.MovementModel;
+import movement.Path;
+import movement.university.NodeType;
 import movement.map.MapNode;
+import movement.nodegrid.NodeGridMovementModel;
 import movement.pathfinder.*;
-import movement.fmi.Lecture;
-import movement.fmi.Schedule;
 
 import java.util.*;
 import java.util.stream.Collectors;
 
-public class FMIMovement extends NodeGridBasedMovement {
+public class UniversityMovement extends NodeGridMovementModel {
     private PathFinder pathFinder;
 
     private MapNode currentNode;
@@ -26,7 +26,7 @@ public class FMIMovement extends NodeGridBasedMovement {
 
     private boolean isStuck = false;
 
-    public FMIMovement(Settings settings) {
+    public UniversityMovement(Settings settings) {
         super(settings);
 
         Heuristic heuristic = new RandomizedDistanceHeuristic(rng::nextGaussian, 2);
@@ -42,7 +42,7 @@ public class FMIMovement extends NodeGridBasedMovement {
 
     private ArrayList<MapNode> getOtherPois() {
         ArrayList<NodeType> areaTypes = new ArrayList<>(
-                Arrays.asList(NodeType.COLLECTION_AREA, NodeType.STUDY_PLACE, NodeType.CAFE));
+                Arrays.asList(NodeType.TRANSPORT, NodeType.STUDY_PLACE, NodeType.CAFE));
         return filterPointsOfInterest(areaTypes);
     }
 
@@ -80,7 +80,7 @@ public class FMIMovement extends NodeGridBasedMovement {
                 .collect(Collectors.toCollection(ArrayList::new));
     }
 
-    public FMIMovement(FMIMovement other) {
+    public UniversityMovement(UniversityMovement other) {
         super(other);
         pathFinder = other.pathFinder;
         otherPois = other.otherPois;
@@ -131,7 +131,7 @@ public class FMIMovement extends NodeGridBasedMovement {
         nextEvent = schedule.getNextEvent();
 
         ArrayList<NodeType> areaTypes = new ArrayList<>(
-                Arrays.asList(NodeType.COLLECTION_AREA));
+                Arrays.asList(NodeType.TRANSPORT));
         ArrayList<MapNode> collectionAreas = filterPointsOfInterest(areaTypes);
         int randomLocationIndex = rng.nextInt(collectionAreas.size());
 //        currentNode = pickRandomNode(getMap().getNodes());
@@ -141,7 +141,7 @@ public class FMIMovement extends NodeGridBasedMovement {
 
     @Override
     public MovementModel replicate() {
-        return new FMIMovement(this);
+        return new UniversityMovement(this);
     }
 
     private double estimateTravelTime(MapNode from, MapNode to, double averageSpeed) {
