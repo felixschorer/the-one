@@ -1,22 +1,25 @@
 package movement.fmi;
 
-public enum  NodeType {
-    TRANSPORT(0),
-    LECTURE_HALL(1),
-    EXERCISE_ROOM(2),
-    STUDY_PLACE(3),
-    CAFE(4),
-    SMALL(5),
-    MEDIUM(6),
-    LARGE(7);
+public enum NodeType {
+    TRANSPORT(OSMMapping.TRANSPORT, "transport"),
+    LECTURE_HALL(OSMMapping.LECTURE_HALL, "lectureHall"),
+    EXERCISE_ROOM(OSMMapping.EXERCISE_ROOM, "exerciseRoom"),
+    STUDY_PLACE(OSMMapping.STUDY_PLACE, "studyPlace"),
+    CAFE(OSMMapping.CAFE, "cafe");
 
-    private final int type;
+    private final OSMMapping type;
+    private final String settingsName;
 
-    NodeType(int type) {
+    NodeType(OSMMapping type, String settingsName) {
         this.type = type;
+        this.settingsName = settingsName;
     }
 
     public int getType() {
-        return type;
+        return type.getType();
+    }
+
+    public String getSettingsName() {
+        return settingsName;
     }
 }

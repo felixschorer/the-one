@@ -29,25 +29,36 @@ NodeGridMovementModel.osmLevel2 = data/FMI/fmi2.osm
 NodeGridMovementModel.osmLevel3 = data/FMI/fmi3.osm
 
 
-UniversityRoomBooking.firstLecturesStart = 08:30
-UniversityRoomBooking.lastLecturesStart = 18:30
+University.firstLecturesStart = 08:30
+University.lastLecturesStart = 18:30
 
 # lecture length in minutes
-UniversityRoomBooking.lectureLength = 90
+University.lectureLength = 90
 
-# time between lectures in minutes
+# factor for estimating the walking distance between two points by multiplying the euclidean distance
+University.distanceEstimationMagicFactor = 1.5
+
+# --- average time between lectures in minutes ---
 University.exerciseRoom_small_timeBetweenBookings = 1440
 University.exerciseRoom_medium_timeBetweenBookings = 1440
 University.exerciseRoom_large_timeBetweenBookings = 300
+
 University.lectureHall_small_timeBetweenBookings = 30
 University.lectureHall_medium_timeBetweenBookings = 30
 University.lectureHall_large_timeBetweenBookings = 30
+# ------------------------------------------------
 
+# --------- average stay time in minutes ---------
+University.studyPlace_small_stayTime = 15
+University.studyPlace_medium_stayTime = 30
+University.studyPlace_large_stayTime= 60
 
-University.exerciseRoom_small_capacity = 30
-University.exerciseRoom_medium_capacity = 30
-University.exerciseRoom_large_capacity = 50
+University.cafe_small_stayTime = 15
+University.cafe_medium_stayTime = 30
+University.cafe_large_stayTime = 30
+# ------------------------------------------------
 
+# --------- point of interest capacities ---------
 University.lectureHall_small_capacity = 100
 University.lectureHall_medium_capacity = 250
 University.lectureHall_large_capacity = 600
@@ -63,3 +74,4 @@ University.transport_large_capacity = 5000
 University.cafe_small_capacity = 25
 University.cafe_medium_capacity = 50
 University.cafe_large_capacity = 1000
+# ------------------------------------------------
