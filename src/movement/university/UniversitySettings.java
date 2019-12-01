@@ -19,7 +19,7 @@ public class UniversitySettings {
     private static final String LECTURE_LENGTH = "lectureLength";
     private static final String FIRST_LECTURES_START = "firstLecturesStart";
     private static final String LAST_LECTURES_START = "lastLecturesStart";
-    private static final String DISTANCE_ESTIMATION_MAGIC_FACTOR = "distanceEstimationMagicFactor";
+    private static final String TRAVEL_TIME_ESTIMATION_MAGIC_FACTOR = "travelTimeEstimationMagicFactor";
     private static final String TIME_BETWEEN_BOOKINGS = "timeBetweenBookings";
     private static final String STAY_TIME = "stayTime";
     private static final String CAPACITY = "capacity";
@@ -29,7 +29,7 @@ public class UniversitySettings {
     private final int lectureLength;
     private final int firstLecturesStart;
     private final int lastLecturesStart;
-    private final double distanceEstimationMagicFactor;
+    private final double travelTimeEstimationMagicFactor;
     private final Map<NodeType, Map<Size, Integer>> timeBetweenBookings;
     private final Map<NodeType, Map<Size, Integer>> stayTimes;
     private final Map<NodeType, Map<Size, Integer>> capacities;
@@ -39,7 +39,7 @@ public class UniversitySettings {
         lectureLength = settings.getInt(LECTURE_LENGTH, 90) * 60;
         firstLecturesStart = readTimeToSeconds(settings, FIRST_LECTURES_START, "08:30");
         lastLecturesStart = readTimeToSeconds(settings, LAST_LECTURES_START, "18:30");
-        distanceEstimationMagicFactor = settings.getDouble(DISTANCE_ESTIMATION_MAGIC_FACTOR, 1.0);
+        travelTimeEstimationMagicFactor = settings.getDouble(TRAVEL_TIME_ESTIMATION_MAGIC_FACTOR, 1.0);
         timeBetweenBookings = readTimeIntervals(settings, TIME_BETWEEN_BOOKINGS, 180);
         stayTimes = readTimeIntervals(settings, STAY_TIME, 30);
         capacities = readCapacities(settings);
@@ -55,6 +55,10 @@ public class UniversitySettings {
 
     public int getLastLecturesStart() {
         return lastLecturesStart;
+    }
+
+    public double getTravelTimeEstimationMagicFactor() {
+        return travelTimeEstimationMagicFactor;
     }
 
     public Map<NodeType, Map<Size, Integer>> getTimeBetweenBookings() {
@@ -124,7 +128,7 @@ public class UniversitySettings {
         return getLectureLength() == that.getLectureLength() &&
                 getFirstLecturesStart() == that.getFirstLecturesStart() &&
                 getLastLecturesStart() == that.getLastLecturesStart() &&
-                Double.compare(that.distanceEstimationMagicFactor, distanceEstimationMagicFactor) == 0 &&
+                Double.compare(that.travelTimeEstimationMagicFactor, travelTimeEstimationMagicFactor) == 0 &&
                 getTimeBetweenBookings().equals(that.getTimeBetweenBookings()) &&
                 getStayTimes().equals(that.getStayTimes()) &&
                 getCapacities().equals(that.getCapacities());
@@ -133,6 +137,6 @@ public class UniversitySettings {
     @Override
     public int hashCode() {
         return Objects.hash(getLectureLength(), getFirstLecturesStart(), getLastLecturesStart(),
-                distanceEstimationMagicFactor, getTimeBetweenBookings(), getStayTimes(), getCapacities());
+                travelTimeEstimationMagicFactor, getTimeBetweenBookings(), getStayTimes(), getCapacities());
     }
 }

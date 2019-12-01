@@ -1,5 +1,5 @@
 Scenario.name = MyScenario
-Scenario.endTime = 60000
+Scenario.endTime = 86400
 Scenario.updateInterval = 0.1
 Scenario.simulateConnections = false
 MovementModel.worldSize = 1000,1000
@@ -36,7 +36,7 @@ University.lastLecturesStart = 18:30
 University.lectureLength = 90
 
 # factor for estimating the walking distance between two points by multiplying the euclidean distance
-University.distanceEstimationMagicFactor = 1.5
+University.travelTimeEstimationMagicFactor = 1.5
 
 # --- average time between lectures in minutes ---
 University.exerciseRoom_small_timeBetweenBookings = 1440

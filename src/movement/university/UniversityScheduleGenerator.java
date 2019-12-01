@@ -45,7 +45,79 @@ public class UniversityScheduleGenerator {
     }
 
     private Schedule planDay(MapNode initialMapNode, List<Lecture> lectures) {
-        return null; // TODO
+        List<MovementTrigger> triggers = new ArrayList<>();
+        Lecture previousLecture = null;
+        for (Lecture lecture : lectures) {
+            MapNode currentNode = previousLecture == null ? initialMapNode : previousLecture.getRoom();
+            int startWalkingAt = lecture.getStartingTime() - estimateTravelTime(currentNode, lecture.getRoom());
+            int currentTime = previousLecture == null ? startWalkingAt : previousLecture.getEndTime();
+            // come form transport
+            if (previousLecture == null) {
+                triggers.add(new MovementTrigger(startWalkingAt, lecture.getRoom()));
+            }
+            // already at university
+            else {
+                // lecture overlap
+                if (currentTime > startWalkingAt) {
+                   if (currentTime - startWalkingAt > settings.getLectureLength() / 2) {
+                       // missing over 50% of the lecture, skip lecture
+                       continue;
+                   } else {
+                       // come in late
+                       triggers.add(new MovementTrigger(currentTime, lecture.getRoom()));
+                   }
+                }
+                // free time to fill
+                else {
+                    final int minimumStayingTime = 5 * 60;
+                    while (true) {
+                        int spareTime = lecture.getStartingTime() - currentTime;
+                        List<PointOfInterest> possibleActivities = new ArrayList<>();
+                        for (PointOfInterest activity : activities) {
+                            int travelTimeTo = estimateTravelTime(currentNode, activity.getMapNode());
+                            int travelTimeFrom = estimateTravelTime(activity.getMapNode(), lecture.getRoom());
+                            int timeSpent = travelTimeFrom + travelTimeTo + minimumStayingTime;
+                            if (timeSpent <= spareTime) {
+                                possibleActivities.add(activity);
+                            }
+                        }
+                        if (possibleActivities.size() == 0) {
+                            break;
+                        }
+                        Optional<PointOfInterest> pickedActivity;
+                        do {
+                            pickedActivity = pickWeightedItems(possibleActivities, PointOfInterest.property(settings.getCapacities()));
+                        } while (pickedActivity.isEmpty());
+                        currentNode = pickedActivity.get().getMapNode();
+                        triggers.add(new MovementTrigger(currentTime, currentNode));
+                        currentTime += minimumStayingTime;
+                        startWalkingAt = lecture.getStartingTime() - estimateTravelTime(currentNode, lecture.getRoom());
+
+                        // convert seconds into probability of geometric distribution
+                        int stayTime = pickedActivity.get().getProperty(settings.getStayTimes());
+                        double expectedValue = Math.min(1, stayTime / (double) minimumStayingTime);
+                        // probability for leaving in a given slot
+                        double probability = 1 / expectedValue;
+                        while (rng.nextDouble() >= probability && currentTime < startWalkingAt) {
+                            currentTime += minimumStayingTime;
+                        }
+                    }
+                    triggers.add(new MovementTrigger(currentTime, lecture.getRoom()));
+                }
+            }
+            previousLecture = lecture;
+        }
+        // go back to transport
+        if (previousLecture != null) {
+            triggers.add(new MovementTrigger(previousLecture.getEndTime(), initialMapNode));
+        }
+        return new Schedule(initialMapNode, triggers);
+    }
+
+    private int estimateTravelTime(MapNode from, MapNode to) {
+        double distance = from.getLocation().distance(to.getLocation());
+        double speed = 1.0;  // meters per second
+        return  (int) (speed * distance * settings.getTravelTimeEstimationMagicFactor());
     }
 
     private List<Lecture> pickLectures(double numberOfLectures) {
@@ -69,9 +141,10 @@ public class UniversityScheduleGenerator {
             int capacity = room.getProperty(settings.getCapacities());
 
             // lecture can only start at intervals of 15 minutes
-            // convert minutes between booking into probability of geometric distribution
+            // convert seconds between booking into probability of geometric distribution
             double minimumInterval = 15.0 * 60.0;
-            double expectedValue = timeBetweenBookings / minimumInterval;
+            double expectedValue = timeBetweenBookings / minimumInterval + 1;
+            // probability for having a lecture in the a given slot
             double probability = 1 / expectedValue;
 
             int offsetSeconds = settings.getFirstLecturesStart();
