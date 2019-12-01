@@ -5,13 +5,7 @@ import core.DTNHost;
 import core.Settings;
 import core.SettingsError;
 import core.SimScenario;
-import movement.FMIMovement;
-import report.HeatMap.HeatChart;
 
-import javax.imageio.ImageIO;
-import java.awt.image.BufferedImage;
-import java.io.File;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -131,12 +125,9 @@ extends SamplingReport {
 	protected void sample(final List<DTNHost> hosts) {
 		final int[][] sample
 				= new int[this.horizontalCount][this.verticalCount];
-		//List<Coord> point_of_interests= (FMIMovement)hosts.get(0).movement.
+
 		for (final DTNHost host : hosts) {
 			final Coord location = host.getLocation();
-			//if(host.getLocation()==){
-
-
 			final int xBucket = (int) (location.getX() / this.divisionWidth);
 			final int yBucket = (int) (location.getY() / this.divisionHeight);
 			sample[xBucket][yBucket]++;
@@ -176,33 +167,11 @@ extends SamplingReport {
 		if (this.gnuplot) {
 			this.outputGnuplotSuffix(this.samples.size());
 		}
-		for(int i=0; i<5;i++){
-			SetMzx2Zero(averages);
-		}
-		HeatChart output =new HeatChart(averages);
-		BufferedImage image = (BufferedImage) output.getChartImage();
-		try {
-			ImageIO.write(image, "jpg", new File("D:\\学习\\CMB\\ONE\\out\\play2.jpg"));
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-		super.done();
 
+		super.done();
 	}
 	//========================================================================//
-	private static void SetMzx2Zero(double[][] tiles){
-		int maxX=0;
-		int maxY=0;
-		for(int i=0; i< tiles.length; i++){
-			for(int t=0; t< tiles[i].length;t++){
-				if(tiles[maxX][maxY]<tiles[i][t]){
-					maxX=i;
-					maxY=t;
-				}
-			}
-		}
-		tiles[maxX][maxY]=0;
-	}
+
 
 	//========================================================================//
 	// Private
