@@ -1,6 +1,5 @@
-package movement.fmi;
+package movement.university.v1;
 
-import core.Coord;
 import movement.map.MapNode;
 
 import java.util.Random;

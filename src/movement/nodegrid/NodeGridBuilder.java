@@ -4,7 +4,7 @@ import core.BoundingBox;
 import core.Coord;
 import core.Polygon;
 import movement.map.MapNode;
-import movement.map.SimMap;
+import movement.map.MapNodeDistanceComparator;
 
 import java.util.*;
 import java.util.stream.Collectors;

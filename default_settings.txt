@@ -1,5 +1,5 @@
 Scenario.name = MyScenario
-Scenario.endTime = 60000
+Scenario.endTime = 86400
 Scenario.updateInterval = 0.1
 Scenario.simulateConnections = false
 MovementModel.worldSize = 1000,1000
@@ -16,14 +16,68 @@ myInterface.transmitRange = 0
 myInterface.transmitSpeed = 0
 Group1.router = PassiveRouter
 
-Group1.nrofHosts = 100
-Group1.movementModel = FMIMovement
-NodeGrid.rasterInterval = 0.6
-NodeGrid.projectionLatitude = 48.26225591888
-NodeGrid.osmLevel0 = data/FMI/fmi0.osm
-NodeGrid.osmLevel1 = data/FMI/fmi1.osm
-NodeGrid.osmLevel2 = data/FMI/fmi2.osm
-NodeGrid.osmLevel3 = data/FMI/fmi3.osm
+
+Group1.nrofHosts = 1000
+Group1.movementModel = university.v2.UniversityMovement
+Group1.universityMeanLecturesPerStudent = 3
+Group1.universityPathRandomness = 3
+
+
+NodeGridMovementModel.rasterInterval = 0.6
+NodeGridMovementModel.projectionLatitude = 48.26225591888
+NodeGridMovementModel.osmLevel0 = data/FMI/fmi0.osm
+NodeGridMovementModel.osmLevel1 = data/FMI/fmi1.osm
+NodeGridMovementModel.osmLevel2 = data/FMI/fmi2.osm
+NodeGridMovementModel.osmLevel3 = data/FMI/fmi3.osm
+
+
+University.firstLecturesStart = 08:30
+University.lastLecturesStart = 18:30
+
+# lecture length in minutes
+University.lectureLength = 90
+
+# factor for estimating the walking distance between two points by multiplying the euclidean distance
+University.travelTimeEstimationMagicFactor = 1.5
+
+# --- average time between lectures in minutes ---
+University.exerciseRoom_small_timeBetweenBookings = 1440
+University.exerciseRoom_medium_timeBetweenBookings = 1440
+University.exerciseRoom_large_timeBetweenBookings = 300
+
+University.lectureHall_small_timeBetweenBookings = 30
+University.lectureHall_medium_timeBetweenBookings = 30
+University.lectureHall_large_timeBetweenBookings = 30
+# ------------------------------------------------
+
+# --------- average stay time in minutes ---------
+University.studyPlace_small_stayTime = 15
+University.studyPlace_medium_stayTime = 30
+University.studyPlace_large_stayTime= 60
+
+University.cafe_small_stayTime = 15
+University.cafe_medium_stayTime = 30
+University.cafe_large_stayTime = 30
+# ------------------------------------------------
+
+# --------- point of interest capacities ---------
+University.lectureHall_small_capacity = 100
+University.lectureHall_medium_capacity = 250
+University.lectureHall_large_capacity = 600
+
+University.studyPlace_small_capacity = 25
+University.studyPlace_medium_capacity = 50
+University.studyPlace_large_capacity = 200
+
+University.transport_small_capacity = 100
+University.transport_medium_capacity = 500
+University.transport_large_capacity = 5000
+
+University.cafe_small_capacity = 25
+University.cafe_medium_capacity = 50
+University.cafe_large_capacity = 1000
+# ------------------------------------------------
+
 
 
 ## Reports - all report names have to be valid report classes
