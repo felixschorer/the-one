@@ -21,7 +21,7 @@ public class UniversityMovement extends NodeGridMovementModel {
     private Schedule schedule;
     private MapNode currentNode;
     private PathFinder pathFinder;
-    private int numberOfLectures;
+    private double numberOfLectures;
     private boolean isStuck = false;
 
     public UniversityMovement(Settings settings) {
@@ -32,14 +32,14 @@ public class UniversityMovement extends NodeGridMovementModel {
         }
         scheduleGenerator = scheduleGeneratorCache;
 
-        numberOfLectures = settings.getInt(MEAN_LECTURES_PER_STUDENT, 2);
+        numberOfLectures = settings.getDouble(MEAN_LECTURES_PER_STUDENT, 2);
 
         double pathRandomness = settings.getDouble(PATH_RANDOMNESS, 2);
         Heuristic heuristic = new RandomizedDistanceHeuristic(rng::nextGaussian, pathRandomness);
         Heuristic levelAwareHeuristic = new LevelAwareHeuristic(heuristic, getPortals());
         Heuristic discouragingHeuristic = new DiscouragingHeuristic(levelAwareHeuristic,
                 NodeType.LECTURE_HALL.getType(), NodeType.EXERCISE_ROOM.getType(),
-                NodeType.CAFE.getType(), NodeType.STUDY_PLACE.getType());
+                NodeType.STUDY_PLACE.getType());
 
         pathFinder = new AStarPathFinder(discouragingHeuristic);
     }

@@ -33,7 +33,7 @@ public class UniversityMovement extends NodeGridMovementModel {
         Heuristic levelAwareHeuristic = new LevelAwareHeuristic(heuristic, getPortals());
         Heuristic discouragingHeuristic = new DiscouragingHeuristic(levelAwareHeuristic,
                 NodeType.LECTURE_HALL.getType(), NodeType.EXERCISE_ROOM.getType(),
-                NodeType.CAFE.getType(), NodeType.STUDY_PLACE.getType());
+                NodeType.STUDY_PLACE.getType());
         pathFinder = new AStarPathFinder(discouragingHeuristic);
 
         fixedEvents = generateFixedEvents();
@@ -42,7 +42,7 @@ public class UniversityMovement extends NodeGridMovementModel {
 
     private ArrayList<MapNode> getOtherPois() {
         ArrayList<NodeType> areaTypes = new ArrayList<>(
-                Arrays.asList(NodeType.TRANSPORT, NodeType.STUDY_PLACE, NodeType.CAFE));
+                Arrays.asList(NodeType.COLLECTION_AREA, NodeType.STUDY_PLACE));
         return filterPointsOfInterest(areaTypes);
     }
 
@@ -131,7 +131,7 @@ public class UniversityMovement extends NodeGridMovementModel {
         nextEvent = schedule.getNextEvent();
 
         ArrayList<NodeType> areaTypes = new ArrayList<>(
-                Arrays.asList(NodeType.TRANSPORT));
+                Arrays.asList(NodeType.COLLECTION_AREA));
         ArrayList<MapNode> collectionAreas = filterPointsOfInterest(areaTypes);
         int randomLocationIndex = rng.nextInt(collectionAreas.size());
 //        currentNode = pickRandomNode(getMap().getNodes());
