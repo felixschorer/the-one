@@ -2,7 +2,7 @@ Scenario.name = MyScenario
 Scenario.endTime = 60000
 Scenario.updateInterval = 0.1
 Scenario.simulateConnections = false
-MovementModel.worldSize = 1000,1000
+MovementModel.worldSize = 300,300
 Report.nrofReports = 0
 Events.nrof = 0
 
@@ -16,7 +16,7 @@ myInterface.transmitRange = 0
 myInterface.transmitSpeed = 0
 Group1.router = PassiveRouter
 
-Group1.nrofHosts = 100
+Group1.nrofHosts = 500
 Group1.movementModel = FMIMovement
 NodeGrid.rasterInterval = 0.6
 NodeGrid.projectionLatitude = 48.26225591888
@@ -24,3 +24,18 @@ NodeGrid.osmLevel0 = data/FMI/fmi0.osm
 NodeGrid.osmLevel1 = data/FMI/fmi1.osm
 NodeGrid.osmLevel2 = data/FMI/fmi2.osm
 NodeGrid.osmLevel3 = data/FMI/fmi3.osm
+
+# how many reports to load
+Report.nrofReports = 1
+# length of the warm up period (simulated seconds)
+Report.warmup = 0
+# default directory of reports (can be overridden per Report with output setting)
+Report.reportDir = reports/
+# Report classes to load
+Report.report1 = NodeDensityReport
+# class settings
+NodeDensityReport.xCount = 100
+NodeDensityReport.yCount = 100
+NodeDensityReport.outputGnuplot = true
+NodeDensityReport.gnuplotFileExtension = "png"
+NodeDensityReport.onlyAverage = true

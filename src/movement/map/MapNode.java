@@ -26,7 +26,7 @@ public class MapNode implements Comparable<MapNode> {
 	private Vector<MapNode> neighbors;
 	// bit mask of map node's types or 0 if no type's are defined
 	private int type = 0;
-
+	public int visitCounter=0;
 	/**
 	 * Constructor. Creates a map node to a location.
 	 * @param location The location of the node.

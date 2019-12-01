@@ -106,6 +106,7 @@ public class FMIMovement extends NodeGridBasedMovement {
         Path path = new Path();
         for (MapNode hop : shortestPath) {
             path.addWaypoint(hop.getLocation(), 1);
+            hop.visitCounter++;
         }
 
         if (schedule.hasNextEvent()) {
