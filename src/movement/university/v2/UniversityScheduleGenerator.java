@@ -8,6 +8,9 @@ import java.util.function.Function;
 import java.util.stream.Collectors;
 
 public class UniversityScheduleGenerator {
+    private static final int MINIMUM_STAY_TIME = 5 * 60;
+    private static final int MINIMUM_TIME_BETWEEN_BOOKINGS = 15 * 60;
+
     private final Random rng;
     private final UniversitySettings settings;
     private final List<List<Lecture>> lectureBuckets;
@@ -63,14 +66,13 @@ public class UniversityScheduleGenerator {
                 }
                 // free time to fill
                 else {
-                    final int minimumStayingTime = 5 * 60;
                     while (true) {
                         int spareTime = lecture.getStartingTime() - currentTime;
                         List<PointOfInterest> possibleActivities = new ArrayList<>();
                         for (PointOfInterest activity : activities) {
                             int travelTimeTo = estimateTravelTime(currentNode, activity.getMapNode());
                             int travelTimeFrom = estimateTravelTime(activity.getMapNode(), lecture.getRoom());
-                            int timeSpent = travelTimeFrom + travelTimeTo + minimumStayingTime;
+                            int timeSpent = travelTimeFrom + travelTimeTo + MINIMUM_STAY_TIME;
                             if (timeSpent <= spareTime) {
                                 possibleActivities.add(activity);
                             }
@@ -84,16 +86,16 @@ public class UniversityScheduleGenerator {
                         } while (pickedActivity.isEmpty());
                         currentNode = pickedActivity.get().getMapNode();
                         triggers.add(new MovementTrigger(currentTime, currentNode));
-                        currentTime += minimumStayingTime;
+                        currentTime += MINIMUM_STAY_TIME;
                         startWalkingAt = lecture.getStartingTime() - estimateTravelTime(currentNode, lecture.getRoom());
 
                         // convert seconds into probability of geometric distribution
                         int stayTime = pickedActivity.get().getProperty(settings.getStayTimes());
-                        double expectedValue = Math.min(1, stayTime / (double) minimumStayingTime);
+                        double expectedValue = Math.min(1, stayTime / (double) MINIMUM_STAY_TIME);
                         // probability for leaving in a given slot
                         double probability = 1 / expectedValue;
                         while (rng.nextDouble() >= probability && currentTime < startWalkingAt) {
-                            currentTime += minimumStayingTime;
+                            currentTime += MINIMUM_STAY_TIME;
                         }
                     }
                     triggers.add(new MovementTrigger(currentTime, lecture.getRoom()));
@@ -111,7 +113,7 @@ public class UniversityScheduleGenerator {
     private int estimateTravelTime(MapNode from, MapNode to) {
         double distance = from.getLocation().distance(to.getLocation());
         double speed = 1.0;  // meters per second
-        return  (int) (speed * distance * settings.getTravelTimeEstimationMagicFactor());
+        return  (int) (speed * distance * (rng.nextGaussian() + settings.getTravelTimeEstimationMagicFactor()));
     }
 
     private List<Lecture> pickLectures(double numberOfLectures) {
@@ -134,10 +136,8 @@ public class UniversityScheduleGenerator {
             int timeBetweenBookings = room.getProperty(settings.getTimeBetweenBookings());
             int capacity = room.getProperty(settings.getCapacities());
 
-            // lecture can only start at intervals of 15 minutes
             // convert seconds between booking into probability of geometric distribution
-            double minimumInterval = 15.0 * 60.0;
-            double expectedValue = timeBetweenBookings / minimumInterval + 1;
+            double expectedValue = timeBetweenBookings / (double) MINIMUM_TIME_BETWEEN_BOOKINGS + 1;
             // probability for having a lecture in the a given slot
             double probability = 1 / expectedValue;
 
@@ -153,7 +153,7 @@ public class UniversityScheduleGenerator {
                     bucket.add(new Lecture(offsetSeconds, settings.getLectureLength(), capacity, room.getMapNode()));
                     offsetSeconds += settings.getLectureLength();
                 } else {
-                    offsetSeconds += minimumInterval;
+                    offsetSeconds += MINIMUM_TIME_BETWEEN_BOOKINGS;
                 }
             }
         }
