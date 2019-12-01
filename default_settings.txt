@@ -1,28 +1,23 @@
+# ======================================================================
+# GENERAL
+# ======================================================================
 Scenario.name = MyScenario
+Scenario.nrofHostGroups = 1
 Scenario.endTime = 86400
 Scenario.updateInterval = 0.5
 Scenario.simulateConnections = false
 MovementModel.worldSize = 1000,1000
-Report.nrofReports = 0
 Events.nrof = 0
-
-Scenario.nrofHostGroups = 1
 
 Group1.groupID = x
 Group1.nrofInterfaces = 1
 Group1.interface1 = myInterface
-myInterface.type = SimpleBroadcastInterface
-myInterface.transmitRange = 0
-myInterface.transmitSpeed = 0
 Group1.router = PassiveRouter
 
-
+# number of students
 Group1.nrofHosts = 1000
-Group1.movementModel = university.v2.UniversityMovement
-Group1.universityMeanLecturesPerStudent = 2.5
-Group1.universityPathRandomness = 3
 
-
+# university map data
 NodeGridMovementModel.rasterInterval = 1
 NodeGridMovementModel.projectionLatitude = 48.26225591888
 NodeGridMovementModel.osmLevel0 = data/FMI/fmi0.osm
@@ -30,6 +25,20 @@ NodeGridMovementModel.osmLevel1 = data/FMI/fmi1.osm
 NodeGridMovementModel.osmLevel2 = data/FMI/fmi2.osm
 NodeGridMovementModel.osmLevel3 = data/FMI/fmi3.osm
 
+myInterface.type = SimpleBroadcastInterface
+myInterface.transmitRange = 0
+myInterface.transmitSpeed = 0
+
+# ======================================================================
+# SCHEDULE AGLORITHM: CHANGE TO V1 TO SELECT SIMPLER AGLORITHM
+# ======================================================================
+Group1.movementModel = university.v2.UniversityMovement
+
+# ======================================================================
+# SCHEDULE AGLORITHM: DETAILS (ONLY APPLIES IF V2 IS SELECTED)
+# ======================================================================
+Group1.universityMeanLecturesPerStudent = 2.5
+Group1.universityPathRandomness = 3
 
 University.firstLecturesStart = 08:30
 University.lastLecturesStart = 18:30
@@ -40,7 +49,7 @@ University.lectureLength = 90
 # factor for estimating the walking distance between two points by multiplying the euclidean distance
 University.travelTimeEstimationMagicFactor = 1.5
 
-# --- average time between lectures in minutes ---
+# average time between lectures in minutes
 University.exerciseRoom_small_timeBetweenBookings = 2880
 University.exerciseRoom_medium_timeBetweenBookings = 2880
 University.exerciseRoom_large_timeBetweenBookings = 200
@@ -48,9 +57,8 @@ University.exerciseRoom_large_timeBetweenBookings = 200
 University.lectureHall_small_timeBetweenBookings = 30
 University.lectureHall_medium_timeBetweenBookings = 30
 University.lectureHall_large_timeBetweenBookings = 30
-# ------------------------------------------------
 
-# --------- average stay time in minutes ---------
+# average stay time in minutes
 University.studyPlace_small_stayTime = 30
 University.studyPlace_medium_stayTime = 60
 University.studyPlace_large_stayTime = 90
@@ -58,9 +66,8 @@ University.studyPlace_large_stayTime = 90
 University.collectionArea_small_stayTime = 15
 University.collectionArea_medium_stayTime = 60
 University.collectionArea_large_stayTime = 120
-# ------------------------------------------------
 
-# --------- point of interest capacities ---------
+# point of interest capacities
 University.lectureHall_small_capacity = 100
 University.lectureHall_medium_capacity = 250
 University.lectureHall_large_capacity = 600
@@ -76,12 +83,10 @@ University.studyPlace_large_capacity = 200
 University.collectionArea_small_capacity = 15
 University.collectionArea_medium_capacity = 100
 University.collectionArea_large_capacity = 500
-# ------------------------------------------------
 
-
-
-## Reports - all report names have to be valid report classes
-
+# ======================================================================
+# REPORTS
+# ======================================================================
 # how many reports to load
 Report.nrofReports = 1
 # length of the warm up period (simulated seconds)
