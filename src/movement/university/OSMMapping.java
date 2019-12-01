@@ -1,4 +1,4 @@
-package movement.fmi;
+package movement.university;
 
 public enum OSMMapping {
     TRANSPORT(0),

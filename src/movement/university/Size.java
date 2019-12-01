@@ -1,4 +1,4 @@
-package movement.fmi;
+package movement.university;
 
 public enum Size {
     SMALL(OSMMapping.SMALL, "small"),

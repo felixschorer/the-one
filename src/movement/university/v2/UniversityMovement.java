@@ -1,25 +1,26 @@
-package movement;
+package movement.university.v2;
 
 import core.Coord;
 import core.Settings;
-import movement.fmi.NodeType;
+import movement.MovementModel;
+import movement.Path;
+import movement.university.NodeType;
 import movement.map.MapNode;
 import movement.nodegrid.NodeGridMovementModel;
 import movement.pathfinder.*;
-import movement.university.UniversitySettings;
-import movement.university.UniversityScheduleGenerator;
 
 import java.util.List;
 
-
-
 public class UniversityMovement extends NodeGridMovementModel {
+    private static final String UNIVERSITY_NROF_LECTURES = "universityNrofLectures";
+
     private static UniversityScheduleGenerator scheduleGeneratorCache = null;
 
     private UniversityScheduleGenerator scheduleGenerator;
-    private UniversityScheduleGenerator.Schedule schedule;
+    private Schedule schedule;
     private MapNode currentNode;
     private PathFinder pathFinder;
+    private int numberOfLectures;
     private boolean isStuck = false;
 
     public UniversityMovement(Settings settings) {
@@ -29,6 +30,8 @@ public class UniversityMovement extends NodeGridMovementModel {
             scheduleGeneratorCache = new UniversityScheduleGenerator(rng, universitySettings, getPointsOfInterest());
         }
         scheduleGenerator = scheduleGeneratorCache;
+
+        numberOfLectures = settings.getInt(UNIVERSITY_NROF_LECTURES, 2);
 
         Heuristic heuristic = new RandomizedDistanceHeuristic(rng::nextGaussian, 2);
         Heuristic levelAwareHeuristic = new LevelAwareHeuristic(heuristic, getPortals());
@@ -41,7 +44,7 @@ public class UniversityMovement extends NodeGridMovementModel {
     public UniversityMovement(UniversityMovement mm) {
         super(mm);
         pathFinder = mm.pathFinder;
-        schedule = mm.scheduleGenerator.generateSchedule(2).orElseThrow();
+        schedule = mm.scheduleGenerator.generateSchedule(mm.numberOfLectures).orElseThrow();
     }
 
     @Override

@@ -1,4 +1,4 @@
-package movement.fmi;
+package movement.university;
 
 public enum NodeType {
     TRANSPORT(OSMMapping.TRANSPORT, "transport"),

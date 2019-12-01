@@ -1,4 +1,4 @@
-package movement.fmi;
+package movement.university.v1;
 
 import movement.map.MapNode;
 

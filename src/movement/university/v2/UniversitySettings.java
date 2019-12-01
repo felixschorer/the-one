@@ -1,9 +1,9 @@
-package movement.university;
+package movement.university.v2;
 
 import core.Settings;
 import core.SimError;
-import movement.fmi.Size;
-import movement.fmi.NodeType;
+import movement.university.Size;
+import movement.university.NodeType;
 
 import java.text.DateFormat;
 import java.text.ParseException;

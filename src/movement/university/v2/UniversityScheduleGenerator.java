@@ -1,7 +1,6 @@
-package movement.university;
+package movement.university.v2;
 
-import movement.fmi.NodeType;
-import movement.fmi.Size;
+import movement.university.NodeType;
 import movement.map.MapNode;
 
 import java.util.*;
@@ -9,11 +8,6 @@ import java.util.function.Function;
 import java.util.stream.Collectors;
 
 public class UniversityScheduleGenerator {
-    private static final NodeType[] relevantTypes = new NodeType[] {
-            NodeType.EXERCISE_ROOM,
-            NodeType.LECTURE_HALL
-    };
-
     private final Random rng;
     private final UniversitySettings settings;
     private final List<List<Lecture>> lectureBuckets;
@@ -197,130 +191,4 @@ public class UniversityScheduleGenerator {
                 .collect(Collectors.toList());
     }
 
-    public static class Schedule {
-        private final MapNode initialMapNode;
-        private final LinkedList<MovementTrigger> triggers;
-
-        public Schedule(MapNode initialMapNode, List<MovementTrigger> triggers) {
-            this.initialMapNode = initialMapNode;
-            this.triggers = new LinkedList<>(triggers);
-        }
-
-        public MapNode getInitialMapNode() {
-            return initialMapNode;
-        }
-
-        public MapNode nextMapNode() {
-            return triggers.remove().getNode();
-        }
-
-        public int nextMapNodeAvailable() {
-            if (triggers.size() == 0) {
-                return Integer.MAX_VALUE;
-            }
-            return triggers.get(0).getStartingTime();
-        }
-    }
-
-    public static class MovementTrigger {
-        private final int startingTime;
-        private final MapNode mapNode;
-
-        public MovementTrigger(int startingTime, MapNode mapNode) {
-            this.startingTime = startingTime;
-            this.mapNode = mapNode;
-        }
-
-        public int getStartingTime() {
-            return startingTime;
-        }
-
-        public MapNode getNode() {
-            return mapNode;
-        }
-    }
-
-    public static class PointOfInterest {
-        private final NodeType nodeType;
-        private final Size size;
-        private final MapNode mapNode;
-
-        public PointOfInterest(MapNode mapNode) {
-            NodeType nodeType = null;
-            for (NodeType nodeTypeToCheck : NodeType.values()) {
-                if (mapNode.isType(nodeTypeToCheck.getType())) {
-                    nodeType = nodeTypeToCheck;
-                    break;
-                }
-            }
-            Size size = null;
-            for (Size sizeToCheck : Size.values()) {
-                if (mapNode.isType(sizeToCheck.getType())) {
-                    size = sizeToCheck;
-                    break;
-                }
-            }
-
-            this.nodeType = nodeType;
-            this.size = size;
-            this.mapNode = mapNode;
-        }
-
-        public <T> T getProperty(Map<NodeType, Map<Size, T>> propertyMap) {
-            if (propertyMap.containsKey(nodeType) && propertyMap.get(nodeType).containsKey(size)) {
-                return propertyMap.get(nodeType).get(size);
-            }
-            return null;
-        }
-
-        public NodeType getNodeType() {
-            return nodeType;
-        }
-
-        public Size getSize() {
-            return size;
-        }
-
-        public MapNode getMapNode() {
-            return mapNode;
-        }
-
-        public static <T> Function<PointOfInterest, T> property(Map<NodeType, Map<Size, T>> propertyMap) {
-            return pointOfInterest -> pointOfInterest.getProperty(propertyMap);
-        }
-    }
-
-    public static class Lecture {
-        private final int startingTime;
-        private final int duration;
-        private final int size;
-        private final MapNode room;
-
-        public Lecture(int startingTime, int duration, int size, MapNode room) {
-            this.startingTime = startingTime;
-            this.duration = duration;
-            this.size = size;
-            this.room = room;
-        }
-
-        public int getStartingTime() {
-            return startingTime;
-        }
-
-        public int getDuration() {
-            return duration;
-        }
-
-        private int getEndTime() {
-            return startingTime + duration;
-        }
-
-        public int getSize() {
-            return size;
-        }
-
-        public MapNode getRoom() {
-            return room;
-        }
-    }
 }

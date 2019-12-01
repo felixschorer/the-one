@@ -1,19 +1,18 @@
-package movement;
+package movement.university.v1;
 
 import core.Coord;
 import core.Settings;
-import movement.fmi.Event;
-import movement.fmi.NodeType;
+import movement.MovementModel;
+import movement.Path;
+import movement.university.NodeType;
 import movement.map.MapNode;
 import movement.nodegrid.NodeGridMovementModel;
 import movement.pathfinder.*;
-import movement.fmi.Lecture;
-import movement.fmi.Schedule;
 
 import java.util.*;
 import java.util.stream.Collectors;
 
-public class FMIMovement extends NodeGridMovementModel {
+public class UniversityMovement extends NodeGridMovementModel {
     private PathFinder pathFinder;
 
     private MapNode currentNode;
@@ -27,7 +26,7 @@ public class FMIMovement extends NodeGridMovementModel {
 
     private boolean isStuck = false;
 
-    public FMIMovement(Settings settings) {
+    public UniversityMovement(Settings settings) {
         super(settings);
 
         Heuristic heuristic = new RandomizedDistanceHeuristic(rng::nextGaussian, 2);
@@ -81,7 +80,7 @@ public class FMIMovement extends NodeGridMovementModel {
                 .collect(Collectors.toCollection(ArrayList::new));
     }
 
-    public FMIMovement(FMIMovement other) {
+    public UniversityMovement(UniversityMovement other) {
         super(other);
         pathFinder = other.pathFinder;
         otherPois = other.otherPois;
@@ -142,7 +141,7 @@ public class FMIMovement extends NodeGridMovementModel {
 
     @Override
     public MovementModel replicate() {
-        return new FMIMovement(this);
+        return new UniversityMovement(this);
     }
 
     private double estimateTravelTime(MapNode from, MapNode to, double averageSpeed) {

@@ -17,8 +17,8 @@ myInterface.transmitSpeed = 0
 Group1.router = PassiveRouter
 
 Group1.nrofHosts = 1000
-Group1.movementModel = UniversityMovement
-Group1.universityNrofLectures = 2
+Group1.movementModel = university.v2.UniversityMovement
+Group1.universityNrofLectures = 3
 
 
 NodeGridMovementModel.rasterInterval = 0.6
