@@ -1,7 +1,7 @@
 # ======================================================================
 # GENERAL
 # ======================================================================
-Scenario.name = MyScenario
+Scenario.name = University_FMI
 Scenario.nrofHostGroups = 1
 Scenario.endTime = 86400
 Scenario.updateInterval = 0.5
@@ -30,12 +30,12 @@ myInterface.transmitRange = 0
 myInterface.transmitSpeed = 0
 
 # ======================================================================
-# SCHEDULE AGLORITHM: CHANGE TO V1 TO SELECT SIMPLER AGLORITHM
+# SCHEDULE ALGORITHM: CHANGE TO V1 TO SELECT SIMPLER ALGORITHM
 # ======================================================================
 Group1.movementModel = university.v2.UniversityMovement
 
 # ======================================================================
-# SCHEDULE AGLORITHM: DETAILS (ONLY APPLIES IF V2 IS SELECTED)
+# SCHEDULE ALGORITHM: DETAILS (ONLY APPLIES IF V2 IS SELECTED)
 # ======================================================================
 Group1.universityMeanLecturesPerStudent = 2.5
 Group1.universityPathRandomness = 3
