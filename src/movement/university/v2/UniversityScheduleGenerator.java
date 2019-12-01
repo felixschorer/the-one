@@ -25,8 +25,8 @@ public class UniversityScheduleGenerator {
                 .map(PointOfInterest::new)
                 .collect(Collectors.toList());
         rooms = filterNodeTypes(pointOfInterests, NodeType.EXERCISE_ROOM, NodeType.LECTURE_HALL);
-        transports = filterNodeTypes(pointOfInterests, NodeType.TRANSPORT);
-        activities = filterNodeTypes(pointOfInterests, NodeType.CAFE, NodeType.STUDY_PLACE);
+        transports = filterNodeTypes(pointOfInterests, NodeType.COLLECTION_AREA);
+        activities = filterNodeTypes(pointOfInterests, NodeType.STUDY_PLACE, NodeType.COLLECTION_AREA);
 
         this.lectureBuckets = generateLectureBuckets();
     }
@@ -85,7 +85,7 @@ public class UniversityScheduleGenerator {
                             pickedActivity = pickWeightedItems(possibleActivities, PointOfInterest.property(settings.getCapacities()));
                         } while (pickedActivity.isEmpty());
                         currentNode = pickedActivity.get().getMapNode();
-                        triggers.add(new MovementTrigger(currentTime, currentNode));
+                        triggers.add(new MovementTrigger(currentTime + (int) magicNumberGenerator(90, 120), currentNode));
                         currentTime += MINIMUM_STAY_TIME;
                         startWalkingAt = lecture.getStartingTime() - estimateTravelTime(currentNode, lecture.getRoom());
 
@@ -105,15 +105,20 @@ public class UniversityScheduleGenerator {
         }
         // go back to transport
         if (previousLecture != null) {
-            triggers.add(new MovementTrigger(previousLecture.getEndTime(), initialMapNode));
+            triggers.add(new MovementTrigger(previousLecture.getEndTime() + (int) magicNumberGenerator(60, 120), initialMapNode));
         }
         return new Schedule(initialMapNode, triggers);
+    }
+
+    private double magicNumberGenerator(double mean, double deviation) {
+        return rng.nextGaussian() * deviation * settings.getTravelTimeEstimationMagicFactor()
+                + mean * settings.getTravelTimeEstimationMagicFactor();
     }
 
     private int estimateTravelTime(MapNode from, MapNode to) {
         double distance = from.getLocation().distance(to.getLocation());
         double speed = 1.0;  // meters per second
-        return  (int) (speed * distance * (rng.nextGaussian() + settings.getTravelTimeEstimationMagicFactor()));
+        return  (int) (speed * distance * settings.getTravelTimeEstimationMagicFactor() + magicNumberGenerator(100, 30));
     }
 
     private List<Lecture> pickLectures(double numberOfLectures) {
