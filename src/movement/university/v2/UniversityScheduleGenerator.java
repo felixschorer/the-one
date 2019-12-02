@@ -36,6 +36,8 @@ public class UniversityScheduleGenerator {
     }
 
     public Optional<Schedule> generateSchedule(double numberOfLectures) {
+        // TODO use UniversityGroupSettings
+
         return pickWeightedItems(transports, PointOfInterest.property(settings.getCapacities()))
                 .map(PointOfInterest::getMapNode)
                 .map(mapNode -> planDay(mapNode, pickLectures(numberOfLectures)));
