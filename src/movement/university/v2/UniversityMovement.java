@@ -32,9 +32,8 @@ public class UniversityMovement extends NodeGridMovementModel {
         }
         scheduleGenerator = scheduleGeneratorCache;
 
-
         groupSettings = new UniversityGroupSettings(settings);
-        schedule = scheduleGenerator.generateSchedule(groupSettings.getMeanLecturesPerStudent()).orElseThrow();
+        schedule = scheduleGenerator.generateSchedule(groupSettings);
 
         pathFinder = PathFinderBuilder
                 .random(rng, groupSettings.getPathRandomness())
@@ -48,7 +47,7 @@ public class UniversityMovement extends NodeGridMovementModel {
         pathFinder = mm.pathFinder;
         scheduleGenerator = mm.scheduleGenerator;
         groupSettings = mm.groupSettings;
-        schedule = mm.scheduleGenerator.generateSchedule(groupSettings.getMeanLecturesPerStudent()).orElseThrow();
+        schedule = mm.scheduleGenerator.generateSchedule(groupSettings);
     }
 
     @Override

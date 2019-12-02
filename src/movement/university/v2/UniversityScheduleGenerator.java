@@ -35,20 +35,15 @@ public class UniversityScheduleGenerator {
         return settings;
     }
 
-    public Optional<Schedule> generateSchedule(double numberOfLectures) {
-        // TODO use UniversityGroupSettings
-
-        return pickWeightedItems(transports, PointOfInterest.property(settings.getCapacities()))
-                .map(PointOfInterest::getMapNode)
-                .map(mapNode -> planDay(mapNode, pickLectures(numberOfLectures)));
-    }
-
-    private Schedule planDay(MapNode initialMapNode, List<Lecture> lectures) {
+    public Schedule generateSchedule(UniversityGroupSettings groupSettings) {
+        MapNode initialMapNode = pickWeightedItems(transports, PointOfInterest.property(settings.getCapacities())).getMapNode();
+        List<Lecture> lectures = pickLectures(groupSettings.getMeanLecturesPerStudent());
         List<MovementTrigger> triggers = new ArrayList<>();
         Lecture previousLecture = null;
         for (Lecture lecture : lectures) {
             MapNode currentNode = previousLecture == null ? initialMapNode : previousLecture.getRoom();
-            int startWalkingAt = lecture.getStartingTime() - estimateTravelTime(currentNode, lecture.getRoom());
+            int startWalkingAt = lecture.getStartingTime() - estimateTravelTime(currentNode, lecture.getRoom(), groupSettings.getDistanceEstimateDistortion())
+                    + (int) nextTemporalOffset(groupSettings.getTemporalSpread());
             int currentTime = previousLecture == null ? startWalkingAt : previousLecture.getEndTime();
             // come form transport
             if (previousLecture == null) {
@@ -63,7 +58,7 @@ public class UniversityScheduleGenerator {
                        continue;
                    } else {
                        // come in late
-                       triggers.add(new MovementTrigger(currentTime, lecture.getRoom()));
+                       triggers.add(new MovementTrigger(currentTime + (int) nextTemporalOffset(groupSettings.getTemporalSpread()), lecture.getRoom()));
                    }
                 }
                 // free time to fill
@@ -72,8 +67,8 @@ public class UniversityScheduleGenerator {
                         int spareTime = lecture.getStartingTime() - currentTime;
                         List<PointOfInterest> possibleActivities = new ArrayList<>();
                         for (PointOfInterest activity : activities) {
-                            int travelTimeTo = estimateTravelTime(currentNode, activity.getMapNode());
-                            int travelTimeFrom = estimateTravelTime(activity.getMapNode(), lecture.getRoom());
+                            int travelTimeTo = estimateTravelTime(currentNode, activity.getMapNode(), groupSettings.getDistanceEstimateDistortion());
+                            int travelTimeFrom = estimateTravelTime(activity.getMapNode(), lecture.getRoom(), groupSettings.getDistanceEstimateDistortion());
                             int timeSpent = travelTimeFrom + travelTimeTo + MINIMUM_STAY_TIME;
                             if (timeSpent <= spareTime) {
                                 possibleActivities.add(activity);
@@ -82,17 +77,14 @@ public class UniversityScheduleGenerator {
                         if (possibleActivities.size() == 0) {
                             break;
                         }
-                        Optional<PointOfInterest> pickedActivity;
-                        do {
-                            pickedActivity = pickWeightedItems(possibleActivities, PointOfInterest.property(settings.getCapacities()));
-                        } while (!pickedActivity.isPresent());
-                        currentNode = pickedActivity.get().getMapNode();
-                        triggers.add(new MovementTrigger(currentTime + (int) magicNumberGenerator(90, 120), currentNode));
+                       PointOfInterest pickedActivity = pickWeightedItems(possibleActivities, PointOfInterest.property(settings.getCapacities()));
+                        currentNode = pickedActivity.getMapNode();
+                        triggers.add(new MovementTrigger(currentTime + (int) nextTemporalOffset(groupSettings.getTemporalSpread()), currentNode));
                         currentTime += MINIMUM_STAY_TIME;
-                        startWalkingAt = lecture.getStartingTime() - estimateTravelTime(currentNode, lecture.getRoom());
+                        startWalkingAt = lecture.getStartingTime() - estimateTravelTime(currentNode, lecture.getRoom(), groupSettings.getDistanceEstimateDistortion());
 
                         // convert seconds into probability of geometric distribution
-                        int stayTime = pickedActivity.get().getProperty(settings.getStayTimes());
+                        int stayTime = pickedActivity.getProperty(settings.getStayTimes());
                         double expectedValue = Math.min(1, stayTime / (double) MINIMUM_STAY_TIME);
                         // probability for leaving in a given slot
                         double probability = 1 / expectedValue;
@@ -100,27 +92,28 @@ public class UniversityScheduleGenerator {
                             currentTime += MINIMUM_STAY_TIME;
                         }
                     }
-                    triggers.add(new MovementTrigger(currentTime, lecture.getRoom()));
+                    triggers.add(new MovementTrigger(currentTime + (int) nextTemporalOffset(groupSettings.getTemporalSpread()), lecture.getRoom()));
                 }
             }
             previousLecture = lecture;
         }
         // go back to transport
         if (previousLecture != null) {
-            triggers.add(new MovementTrigger(previousLecture.getEndTime() + (int) magicNumberGenerator(60, 120), initialMapNode));
+            triggers.add(new MovementTrigger(previousLecture.getEndTime() + (int) nextTemporalOffset(groupSettings.getTemporalSpread()), initialMapNode));
         }
         return new Schedule(initialMapNode, triggers);
     }
 
-    private double magicNumberGenerator(double mean, double deviation) {
-        return rng.nextGaussian() * deviation * settings.getTravelTimeEstimationMagicFactor()
-                + mean * settings.getTravelTimeEstimationMagicFactor();
+    private double nextTemporalOffset(double variance) {
+        return rng.nextGaussian() * variance;
     }
 
-    private int estimateTravelTime(MapNode from, MapNode to) {
+    private int estimateTravelTime(MapNode from, MapNode to, double distortionFactor) {
         double distance = from.getLocation().distance(to.getLocation());
+        double distortion = Math.sqrt(distance * distance / 2) * 2 - distance;
+        double distortedDistance = distance + distortion * distortionFactor;
         double speed = 1.0;  // meters per second
-        return  (int) (speed * distance * settings.getTravelTimeEstimationMagicFactor() + magicNumberGenerator(100, 30));
+        return  (int) (speed * distortedDistance);
     }
 
     private List<Lecture> pickLectures(double numberOfLectures) {
@@ -130,7 +123,7 @@ public class UniversityScheduleGenerator {
         List<Lecture> pickedLectures = new ArrayList<>();
         for (List<Lecture> lectureBucket : lectureBuckets) {
             if (rng.nextDouble() < probability) {
-                pickWeightedItems(lectureBucket, Lecture::getSize).ifPresent(pickedLectures::add);
+                pickedLectures.add(pickWeightedItems(lectureBucket, Lecture::getSize));
             }
         }
 
@@ -170,7 +163,7 @@ public class UniversityScheduleGenerator {
                 .collect(Collectors.toList());
     }
 
-    private <T> Optional<T> pickWeightedItems(Collection<T> items, Function<T, Integer> weightGetter) {
+    private <T> T pickWeightedItems(Collection<T> items, Function<T, Integer> weightGetter) {
         double totalWeight = items.stream().map(weightGetter).reduce(0, Integer::sum);
         double accumulatedProbabilityMass = 0;
         double randomValue = rng.nextDouble();
@@ -178,11 +171,11 @@ public class UniversityScheduleGenerator {
             double probabilityMass = weightGetter.apply(item) / totalWeight;
             double newAccumulatedProbabilityMass = accumulatedProbabilityMass + probabilityMass;
             if (accumulatedProbabilityMass <= randomValue && randomValue < newAccumulatedProbabilityMass) {
-                return Optional.of(item);
+                return item;
             }
             accumulatedProbabilityMass = newAccumulatedProbabilityMass;
         }
-        return Optional.empty();
+        return null;
     }
 
     private List<PointOfInterest> filterNodeTypes(List<PointOfInterest> pointOfInterests, NodeType... nodeTypes) {
