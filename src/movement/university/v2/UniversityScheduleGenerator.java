@@ -83,7 +83,7 @@ public class UniversityScheduleGenerator {
                         Optional<PointOfInterest> pickedActivity;
                         do {
                             pickedActivity = pickWeightedItems(possibleActivities, PointOfInterest.property(settings.getCapacities()));
-                        } while (pickedActivity.isEmpty());
+                        } while (!pickedActivity.isPresent());
                         currentNode = pickedActivity.get().getMapNode();
                         triggers.add(new MovementTrigger(currentTime + (int) magicNumberGenerator(90, 120), currentNode));
                         currentTime += MINIMUM_STAY_TIME;
