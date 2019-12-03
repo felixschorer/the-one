@@ -2,7 +2,7 @@ Scenario.name = MyScenario
 Scenario.endTime = 86400
 Scenario.updateInterval = 0.5
 Scenario.simulateConnections = false
-MovementModel.worldSize = 1000,1000
+MovementModel.worldSize = 300,300
 Report.nrofReports = 0
 Events.nrof = 0
 
@@ -95,3 +95,33 @@ University.collectionArea_small_capacity = 15
 University.collectionArea_medium_capacity = 100
 University.collectionArea_large_capacity = 500
 # ------------------------------------------------
+
+Report.warmup = 0
+Report.reportDir = reports
+
+Report.nrofReports = 5
+Report.report1 = university.NodeDensityReportLayer0
+Report.report2 = university.NodeDensityReportLayer1
+Report.report3 = university.NodeDensityReportLayer2
+Report.report4 = university.NodeDensityReportLayer3
+Report.report5 = NodeDensityReport
+
+NodeDensityReportLayer0.xCount = 100
+NodeDensityReportLayer0.yCount = 100
+NodeDensityReportLayer0.onlyAverage = true
+
+NodeDensityReportLayer1.xCount = 100
+NodeDensityReportLayer1.yCount = 100
+NodeDensityReportLayer1.onlyAverage = true
+
+NodeDensityReportLayer2.xCount = 100
+NodeDensityReportLayer2.yCount = 100
+NodeDensityReportLayer2.onlyAverage = true
+
+NodeDensityReportLayer3.xCount = 100
+NodeDensityReportLayer3.yCount = 100
+NodeDensityReportLayer3.onlyAverage = true
+
+NodeDensityReport.xCount = 100
+NodeDensityReport.yCount = 100
+NodeDensityReport.onlyAverage = true
