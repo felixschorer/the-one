@@ -150,7 +150,7 @@ public class OSMReader {
             case WAY:
                 return ways.get(id);
             default:
-                return entityFactory.entity(id, Map.of());
+                return entityFactory.entity(id, new HashMap<>());
         }
     }
 
