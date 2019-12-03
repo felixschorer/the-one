@@ -108,30 +108,20 @@ Report.report5 = NodeDensityReport
 
 NodeDensityReportLayer0.xCount = 100
 NodeDensityReportLayer0.yCount = 100
-NodeDensityReportLayer0.outputGnuplot = true
-NodeDensityReportLayer0.gnuplotFileExtension = png
 NodeDensityReportLayer0.onlyAverage = true
 
 NodeDensityReportLayer1.xCount = 100
 NodeDensityReportLayer1.yCount = 100
-NodeDensityReportLayer1.outputGnuplot = true
-NodeDensityReportLayer1.gnuplotFileExtension = png
 NodeDensityReportLayer1.onlyAverage = true
 
 NodeDensityReportLayer2.xCount = 100
 NodeDensityReportLayer2.yCount = 100
-NodeDensityReportLayer2.outputGnuplot = true
-NodeDensityReportLayer2.gnuplotFileExtension = png
 NodeDensityReportLayer2.onlyAverage = true
 
 NodeDensityReportLayer3.xCount = 100
 NodeDensityReportLayer3.yCount = 100
-NodeDensityReportLayer3.outputGnuplot = true
-NodeDensityReportLayer3.gnuplotFileExtension = png
 NodeDensityReportLayer3.onlyAverage = true
 
 NodeDensityReport.xCount = 100
 NodeDensityReport.yCount = 100
-NodeDensityReport.outputGnuplot = true
-NodeDensityReport.gnuplotFileExtension = png
 NodeDensityReport.onlyAverage = true
