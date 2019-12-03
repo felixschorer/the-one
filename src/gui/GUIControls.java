@@ -50,7 +50,7 @@ public class GUIControls extends JPanel implements ActionListener, ChangeListene
 	private static final String TEXT_STEP = "step forward one interval";
 	private static final String TEXT_FFW = "enable/disable fast forward";
 	private static final String TEXT_UP_CHOOSER = "GUI update:";
-	private static final String TEXT_LAYER_CHOOSER = "Floor:";
+	private static final String TEXT_LAYER_CHOOSER = "Layer:";
 	private static final String TEXT_SCREEN_SHOT = "screen shot";
 	private static final String TEXT_SIMTIME = "Simulation time - "+
 		"click to force update, right click to change format";
