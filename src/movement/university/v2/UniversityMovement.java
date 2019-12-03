@@ -37,7 +37,7 @@ public class UniversityMovement extends NodeGridMovementModel {
 
         pathFinder = PathFinderBuilder
                 .random(rng, groupSettings.getPathRandomness())
-                .discourage( NodeType.LECTURE_HALL.getType(), NodeType.EXERCISE_ROOM.getType(), NodeType.STUDY_PLACE.getType())
+                .discourage(NodeType.LECTURE_HALL.getType(), NodeType.EXERCISE_ROOM.getType(), NodeType.STUDY_PLACE.getType())
                 .levelAware(getPortals())
                 .build();
     }

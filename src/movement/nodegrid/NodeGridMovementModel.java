@@ -2,7 +2,7 @@ package movement.nodegrid;
 
 import core.Settings;
 import movement.MovementModel;
-import movement.RenderableMovement;
+import movement.map.HasMap;
 import movement.map.MapNode;
 import movement.map.SimMap;
 
@@ -10,7 +10,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
-public abstract class NodeGridMovementModel extends MovementModel implements RenderableMovement {
+public abstract class NodeGridMovementModel extends MovementModel implements HasMap {
     private static OSM2NodeGrid osm2NodeGridCache = null;
 
     private SimMap simMap;
