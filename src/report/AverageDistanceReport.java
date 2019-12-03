@@ -6,10 +6,12 @@ import core.MovementListener;
 
 import java.util.HashMap;
 
+// TODO: floor changes, averages in the end
+
 public class AverageDistanceReport extends Report implements MovementListener {
     /** Syntax of the report lines */
     public static final String SYNTAX =
-            "host name, distance, number of points of interest";
+            "host name, distance";
     private HashMap<String, HostEntry> valuesByHost = new HashMap<String, HostEntry>();
 
     public AverageDistanceReport() {
