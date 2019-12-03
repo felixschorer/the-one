@@ -17,6 +17,7 @@ import java.util.Queue;
 import java.util.Set;
 import java.util.Vector;
 
+import movement.map.HasMap;
 import movement.map.MapNode;
 import movement.map.SimMap;
 import core.Coord;
@@ -28,7 +29,7 @@ import core.SimError;
  * Map based movement model which gives out Paths that use the
  * roads of a SimMap.
  */
-public class MapBasedMovement extends MovementModel implements SwitchableMovement, RenderableMovement {
+public class MapBasedMovement extends MovementModel implements SwitchableMovement, HasMap {
 	/** sim map for the model */
 	private SimMap map = null;
 	/** node where the last path ended or node next to initial placement */
