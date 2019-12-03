@@ -18,8 +18,27 @@ Group1.router = PassiveRouter
 
 Group1.nrofHosts = 1000
 Group1.movementModel = university.v2.UniversityMovement
+
+
+# Mean number of lectures per student per day
+# Variance is determined by the number of lecture slots per day ~(lastLecturesStart - firstLecturesStart, LectureLength)
 Group1.universityMeanLecturesPerStudent = 2.5
+
+# Magic number for adding randomness to A* path finding heuristic
+# Uses folded normal distribution for discounting path costs
+# The value is the variance of the folded normal distribution in meters
 Group1.universityPathRandomness = 3
+
+# factor for distorting the point to point distance to a more realistic walking distance
+# 0 -> no distortion at all, direct point to point distance
+# 1 -> path distorted to zig-zag line, i.e., walking forward, turning 90 degree, walking forward, turning 90 degree, ...
+# A too small distortion means students will come in late
+# A too big distortion means students will come in early
+Group1.universityDistanceEstimateDistortion = 1
+
+# Determines the temporal spread of a group, e.g. when all students leave a lecture hall at the same time
+# Variance of a normal distribution in seconds
+Group1.universityTemporalSpread = 120
 
 
 NodeGridMovementModel.rasterInterval = 1
@@ -36,8 +55,6 @@ University.lastLecturesStart = 18:30
 # lecture length in minutes
 University.lectureLength = 90
 
-# factor for estimating the walking distance between two points by multiplying the euclidean distance
-University.travelTimeEstimationMagicFactor = 1.5
 
 # --- average time between lectures in minutes ---
 University.exerciseRoom_small_timeBetweenBookings = 2880
@@ -49,6 +66,7 @@ University.lectureHall_medium_timeBetweenBookings = 30
 University.lectureHall_large_timeBetweenBookings = 30
 # ------------------------------------------------
 
+
 # --------- average stay time in minutes ---------
 University.studyPlace_small_stayTime = 30
 University.studyPlace_medium_stayTime = 60
@@ -58,6 +76,7 @@ University.collectionArea_small_stayTime = 15
 University.collectionArea_medium_stayTime = 60
 University.collectionArea_large_stayTime = 120
 # ------------------------------------------------
+
 
 # --------- point of interest capacities ---------
 University.lectureHall_small_capacity = 100
