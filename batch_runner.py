@@ -1,42 +1,46 @@
 #!/usr/bin/env python3
 
-import sys
-import subprocess
-from multiprocessing import Pool, Lock, cpu_count
 import os
-from os import path
 import shutil
+import subprocess
+import sys
 from functools import partial
+from multiprocessing import Pool, Lock, cpu_count
+from os import path
 
 print_lock = Lock()
 
 
 def run_simulation(one_jar, out_dir, settings_file, data_dir=None):
-    file_name, etx = path.splitext(path.basename(settings_file))
-    cwd = path.join(out_dir, file_name)
+    try:
+        file_name, etx = path.splitext(path.basename(settings_file))
+        cwd = path.join(out_dir, file_name)
 
-    # remove working directory if it already exists
-    if path.exists(cwd):
-        shutil.rmtree(cwd)
+        # remove working directory if it already exists
+        if path.exists(cwd):
+            shutil.rmtree(cwd)
 
-    # create working directory and copy settings and data into it
-    os.mkdir(cwd)
-    shutil.copy2(settings_file, path.join(cwd, 'default_settings.txt'))
-    if data_dir is not None:
-        shutil.copytree(data_dir, path.join(cwd, path.basename(data_dir)))
+        # create working directory and copy settings and data into it
+        os.mkdir(cwd)
+        shutil.copy2(settings_file, path.join(cwd, 'default_settings.txt'))
+        if data_dir is not None:
+            shutil.copytree(data_dir, path.join(cwd, path.basename(data_dir)))
 
-    with print_lock:
-        print('Start processing {}'.format(file_name))
+        with print_lock:
+            print('Start processing {}'.format(file_name))
 
-    # run simulator in working directory
-    exit_code = subprocess.call('java -jar {} -b'.format(path.abspath(one_jar)),
-                                cwd=cwd, stdout=subprocess.DEVNULL)
+        # run simulator in working directory
+        with open(path.join(cwd, 'out.log'), 'w') as log_file:
+            exit_code = subprocess.call('java -jar {} -b'.format(path.abspath(one_jar)),
+                                        cwd=cwd, stdout=log_file, stderr=subprocess.STDOUT)
 
-    with print_lock:
-        if exit_code == 0:
-            print('Finished processing {}'.format(file_name))
-        else:
-            print('Error processing {}'.format(file_name))
+        with print_lock:
+            if exit_code == 0:
+                print('Finished processing {}'.format(file_name))
+            else:
+                print('Error processing {}'.format(file_name))
+    except KeyboardInterrupt:
+        return
 
 
 def main(argv):
@@ -54,16 +58,9 @@ def main(argv):
     directory_entries = [path.join(settings_dir, entry) for entry in os.listdir(settings_dir)]
     settings_files = [entry for entry in directory_entries if path.isfile(entry)]
 
-    # wrapper function for partially applying arguments to run_simulation and handling keyboard interrupts
-    def run_fn(settings_file):
-        try:
-            run_simulation(one_jar, out_dir, settings_file, data_dir=data_dir)
-        except KeyboardInterrupt:
-            return
-
     with Pool(processes=cpu_count()) as p:
         try:
-            p.map(run_fn, settings_files)
+            p.map(partial(run_simulation, one_jar, out_dir, data_dir=data_dir), settings_files)
         except KeyboardInterrupt:
             p.terminate()
 
