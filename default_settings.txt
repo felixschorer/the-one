@@ -37,8 +37,6 @@ Group1.movementModel = university.v2.UniversityMovement
 # ======================================================================
 # SCHEDULE ALGORITHM: DETAILS (ONLY APPLIES IF V2 IS SELECTED)
 # ======================================================================
-Group1.universityMeanLecturesPerStudent = 2.5
-Group1.universityPathRandomness = 3
 
 # Mean number of lectures per student per day
 # Variance is determined by the number of lecture slots per day ~(lastLecturesStart - firstLecturesStart, LectureLength)
