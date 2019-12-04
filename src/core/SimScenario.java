@@ -11,9 +11,8 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-import movement.MapBasedMovement;
 import movement.MovementModel;
-import movement.RenderableMovement;
+import movement.map.HasMap;
 import movement.map.SimMap;
 import routing.MessageRouter;
 
@@ -386,8 +385,8 @@ public class SimScenario implements Serializable {
 				}
 			}
 
-			if (mmProto instanceof RenderableMovement) {
-				this.simMap = ((RenderableMovement)mmProto).getMap();
+			if (mmProto instanceof HasMap) {
+				this.simMap = ((HasMap)mmProto).getMap();
 			}
 
 			// creates hosts of ith group

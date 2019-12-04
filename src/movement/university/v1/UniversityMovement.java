@@ -29,12 +29,11 @@ public class UniversityMovement extends NodeGridMovementModel {
     public UniversityMovement(Settings settings) {
         super(settings);
 
-        Heuristic heuristic = new RandomizedDistanceHeuristic(rng::nextGaussian, 2);
-        Heuristic levelAwareHeuristic = new LevelAwareHeuristic(heuristic, getPortals());
-        Heuristic discouragingHeuristic = new DiscouragingHeuristic(levelAwareHeuristic,
-                NodeType.LECTURE_HALL.getType(), NodeType.EXERCISE_ROOM.getType(),
-                NodeType.STUDY_PLACE.getType());
-        pathFinder = new AStarPathFinder(discouragingHeuristic);
+        pathFinder = PathFinderBuilder
+                .random(rng, 2)
+                .discourage( NodeType.LECTURE_HALL.getType(), NodeType.EXERCISE_ROOM.getType(), NodeType.STUDY_PLACE.getType())
+                .levelAware(getPortals())
+                .build();
 
         fixedEvents = generateFixedEvents();
         otherPois = getOtherPois();

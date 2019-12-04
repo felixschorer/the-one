@@ -57,6 +57,9 @@ extends SamplingReport {
 	//========================================================================//
 	// Instance vars
 	//========================================================================//
+    /** Layer selection. Use -1 for merging all layers into a single report. */
+	protected int layer = -1;
+
 	private final int horizontalCount;
 	private final int verticalCount;
 	private final double divisionWidth;
@@ -128,6 +131,11 @@ extends SamplingReport {
 
 		for (final DTNHost host : hosts) {
 			final Coord location = host.getLocation();
+
+			if (0 <= layer && layer != location.getLayer()) {
+				continue;
+			}
+
 			final int xBucket = (int) (location.getX() / this.divisionWidth);
 			final int yBucket = (int) (location.getY() / this.divisionHeight);
 			sample[xBucket][yBucket]++;

@@ -12,42 +12,42 @@ import movement.pathfinder.*;
 import java.util.List;
 
 public class UniversityMovement extends NodeGridMovementModel {
-    private static final String MEAN_LECTURES_PER_STUDENT = "universityMeanLecturesPerStudent";
-    private static final String PATH_RANDOMNESS = "universityPathRandomness";
-
     private static UniversityScheduleGenerator scheduleGeneratorCache = null;
 
-    private UniversityScheduleGenerator scheduleGenerator;
-    private Schedule schedule;
+    private final UniversityGroupSettings groupSettings;
+    private final UniversityScheduleGenerator scheduleGenerator;
+    private final Schedule schedule;
+    private final PathFinder pathFinder;
+
     private MapNode currentNode;
-    private PathFinder pathFinder;
-    private double numberOfLectures;
     private boolean isStuck = false;
 
     public UniversityMovement(Settings settings) {
         super(settings);
+
+        // cache scheduleGenerator in case of multiple host groups
         UniversitySettings universitySettings = new UniversitySettings();
         if (scheduleGeneratorCache == null || !scheduleGeneratorCache.getSettings().equals(universitySettings)) {
             scheduleGeneratorCache = new UniversityScheduleGenerator(rng, universitySettings, getPointsOfInterest());
         }
         scheduleGenerator = scheduleGeneratorCache;
 
-        numberOfLectures = settings.getDouble(MEAN_LECTURES_PER_STUDENT, 2);
+        groupSettings = new UniversityGroupSettings(settings);
+        schedule = scheduleGenerator.generateSchedule(groupSettings);
 
-        double pathRandomness = settings.getDouble(PATH_RANDOMNESS, 2);
-        Heuristic heuristic = new RandomizedDistanceHeuristic(rng::nextGaussian, pathRandomness);
-        Heuristic levelAwareHeuristic = new LevelAwareHeuristic(heuristic, getPortals());
-        Heuristic discouragingHeuristic = new DiscouragingHeuristic(levelAwareHeuristic,
-                NodeType.LECTURE_HALL.getType(), NodeType.EXERCISE_ROOM.getType(),
-                NodeType.STUDY_PLACE.getType());
-
-        pathFinder = new AStarPathFinder(discouragingHeuristic);
+        pathFinder = PathFinderBuilder
+                .random(rng, groupSettings.getPathRandomness())
+                .discourage(NodeType.LECTURE_HALL.getType(), NodeType.EXERCISE_ROOM.getType(), NodeType.STUDY_PLACE.getType())
+                .levelAware(getPortals())
+                .build();
     }
 
     public UniversityMovement(UniversityMovement mm) {
         super(mm);
         pathFinder = mm.pathFinder;
-        schedule = mm.scheduleGenerator.generateSchedule(mm.numberOfLectures).orElseThrow();
+        scheduleGenerator = mm.scheduleGenerator;
+        groupSettings = mm.groupSettings;
+        schedule = mm.scheduleGenerator.generateSchedule(groupSettings);
     }
 
     @Override
