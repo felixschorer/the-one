@@ -3,7 +3,7 @@
 # ======================================================================
 Scenario.name = University_FMI
 Scenario.nrofHostGroups = 1
-Scenario.endTime = 86400
+Scenario.endTime = 36000
 Scenario.updateInterval = 0.5
 Scenario.simulateConnections = false
 MovementModel.worldSize = 300,300
