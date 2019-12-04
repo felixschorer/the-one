@@ -4,38 +4,33 @@ import core.Coord;
 import core.DTNHost;
 import core.MovementListener;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.stream.Collectors;
 
-// TODO: floor changes, averages in the end
+// DONE: distance that each host is going average/variance over all hosts, number of nodes not moving at all
+// TODO: number of floor changes
 
-public class AverageDistanceReport extends Report implements MovementListener {
-    /** Syntax of the report lines */
-    public static final String SYNTAX =
-            "host name, distance";
+public class BasicMetricsReport extends Report implements MovementListener {
     private HashMap<String, HostEntry> valuesByHost = new HashMap<String, HostEntry>();
 
-    public AverageDistanceReport() {
+    public BasicMetricsReport() {
         init();
     }
 
-    @Override
-    protected void init() {
-        super.init();
-        printHeader();
-    }
-
     public void done() {
-        for (String host : valuesByHost.keySet()) {
-            HostEntry hostEntry = valuesByHost.get(host);
-            report(host, hostEntry.getDistance());
+        write("# Scenario " + getScenarioName());
+
+        reportAggregations();
+
+        write("# host name, distance: ");
+
+        for (String hostName : valuesByHost.keySet()) {
+            HostEntry hostEntry = valuesByHost.get(hostName);
+            report(hostName, hostEntry.getDistance());
         }
 
         super.done();
-    }
-
-    private void printHeader() {
-        write("# Scenario " + getScenarioName());
-        write("# " + SYNTAX);
     }
 
     /**
@@ -44,7 +39,27 @@ public class AverageDistanceReport extends Report implements MovementListener {
      * @param distance distance of host over all points of interest
      */
     private void report(String hostName, double distance) {
-        write(hostName + " " + " " + distance);
+        write(hostName + " " + distance);
+    }
+
+    private void reportAggregations() {
+        ArrayList distances = valuesByHost.values().stream()
+                .map(host -> host.getDistance())
+                .filter(distance -> distance != 0)
+                .collect(Collectors.toCollection(ArrayList::new));
+
+        int numberOfNodesNotMoving = valuesByHost.values().stream()
+                .filter(host -> host.getDistance() == 0)
+                .collect(Collectors.toCollection(ArrayList::new))
+                .size();
+
+        double averageDistance = Double.valueOf(getAverage(distances));
+        double varianceDistance = Double.valueOf(getVariance(distances));
+        double standardDeviationDistance = Math.sqrt(varianceDistance);
+
+        write("# average distance of moving hosts: " + averageDistance);
+        write("# standard deviation of distances of moving hosts: " + standardDeviationDistance);
+        write("# hosts that are not moving: " + numberOfNodesNotMoving + "/" + valuesByHost.size());
     }
 
     @Override
