@@ -85,7 +85,7 @@ public class UniversityScheduleGenerator {
 
                         // convert seconds into probability of geometric distribution
                         int stayTime = pickedActivity.getProperty(settings.getStayTimes());
-                        double expectedValue = Math.min(1, stayTime / (double) MINIMUM_STAY_TIME);
+                        double expectedValue = Math.max(1, stayTime / (double) MINIMUM_STAY_TIME);
                         // probability for leaving in a given slot
                         double probability = 1 / expectedValue;
                         while (rng.nextDouble() >= probability && currentTime < startWalkingAt) {

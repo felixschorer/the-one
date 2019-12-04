@@ -1,0 +1,67 @@
+# ======================================================================
+# GENERAL
+# ======================================================================
+Scenario.name = University_FMI
+Scenario.nrofHostGroups = 1
+Scenario.endTime = 36000
+Scenario.updateInterval = 0.5
+Scenario.simulateConnections = false
+MovementModel.worldSize = 300,300
+Events.nrof = 0
+
+myInterface.type = SimpleBroadcastInterface
+myInterface.transmitRange = 0
+myInterface.transmitSpeed = 0
+
+Group1.groupID = x
+Group1.nrofInterfaces = 1
+Group1.interface1 = myInterface
+Group1.router = PassiveRouter
+
+# number of students
+Group1.nrofHosts = 1000
+
+MovementModel.rngSeed = 42
+
+# university map data
+NodeGridMovementModel.rasterInterval = 1
+NodeGridMovementModel.projectionLatitude = 48.26225591888
+NodeGridMovementModel.osmLevel0 = data/FMI/fmi0.osm
+NodeGridMovementModel.osmLevel1 = data/FMI/fmi1.osm
+NodeGridMovementModel.osmLevel2 = data/FMI/fmi2.osm
+NodeGridMovementModel.osmLevel3 = data/FMI/fmi3.osm
+
+# ======================================================================
+# SCHEDULE ALGORITHM
+# ======================================================================
+Group1.movementModel = university.v1.UniversityMovement
+
+# ======================================================================
+# REPORTS
+# ======================================================================
+
+Report.warmup = 0
+Report.reportDir = reports
+
+Report.nrofReports = 6
+Report.report1 = university.NodeDensityReportLayer0
+Report.report2 = university.NodeDensityReportLayer1
+Report.report3 = university.NodeDensityReportLayer2
+Report.report4 = university.NodeDensityReportLayer3
+Report.report5 = NodeDensityReport
+Report.report6 = BasicMetricsReport
+
+NodeDensityReportLayer0.xCount = 100
+NodeDensityReportLayer0.yCount = 100
+
+NodeDensityReportLayer1.xCount = 100
+NodeDensityReportLayer1.yCount = 100
+
+NodeDensityReportLayer2.xCount = 100
+NodeDensityReportLayer2.yCount = 100
+
+NodeDensityReportLayer3.xCount = 100
+NodeDensityReportLayer3.yCount = 100
+
+NodeDensityReport.xCount = 100
+NodeDensityReport.yCount = 100
