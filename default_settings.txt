@@ -7,7 +7,6 @@ Scenario.endTime = 86400
 Scenario.updateInterval = 0.5
 Scenario.simulateConnections = false
 MovementModel.worldSize = 300,300
-Report.nrofReports = 0
 Events.nrof = 0
 
 myInterface.type = SimpleBroadcastInterface
