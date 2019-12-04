@@ -1486,9 +1486,7 @@
     <tag k='one:attachment_point' v='1' />
   </node>
   <node id='-147464' action='modify' visible='true' lat='48.26257759224' lon='11.66825824905' />
-  <node id='-147466' action='modify' visible='true' lat='48.26254899224' lon='11.66849904905'>
-    <tag k='one:portal' v='elevator1' />
-  </node>
+  <node id='-147466' action='modify' visible='true' lat='48.26254899224' lon='11.66849904905'></node>
   <node id='-147468' action='modify' visible='true' lat='48.26253459224' lon='11.66862034905' />
   <node id='-147470' action='modify' visible='true' lat='48.26254267851' lon='11.66855223344' />
   <node id='-147472' action='modify' visible='true' lat='48.26250982919' lon='11.66850938343' />

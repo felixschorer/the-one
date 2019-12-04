@@ -1880,19 +1880,19 @@
     <tag k='one:attachment_point' v='1' />
   </node>
   <node id='-144864' action='modify' visible='true' lat='48.26261660207' lon='11.66755697334'>
-    <tag k='one:point_of_interest' v='3,5' />
+    <tag k='one:point_of_interest' v='3,6' />
   </node>
   <node id='-144866' action='modify' visible='true' lat='48.26260440152' lon='11.66763987654'>
-    <tag k='one:point_of_interest' v='3,5' />
+    <tag k='one:point_of_interest' v='3,6' />
   </node>
   <node id='-144868' action='modify' visible='true' lat='48.26258452738' lon='11.66777980184'>
-    <tag k='one:point_of_interest' v='3,5' />
+    <tag k='one:point_of_interest' v='3,6' />
   </node>
   <node id='-144870' action='modify' visible='true' lat='48.26246845215' lon='11.66792602701'>
-    <tag k='one:point_of_interest' v='3,5' />
+    <tag k='one:point_of_interest' v='3,6' />
   </node>
   <node id='-144872' action='modify' visible='true' lat='48.26244164334' lon='11.66806956828'>
-    <tag k='one:point_of_interest' v='3,5' />
+    <tag k='one:point_of_interest' v='3,6' />
   </node>
   <node id='-144874' action='modify' visible='true' lat='48.26241871852' lon='11.66819073727'>
     <tag k='one:point_of_interest' v='3,5' />
@@ -1901,16 +1901,16 @@
     <tag k='one:portal' v='stairs1-0' />
   </node>
   <node id='-144878' action='modify' visible='true' lat='48.26252025773' lon='11.66845097175'>
-    <tag k='one:point_of_interest' v='3,5' />
+    <tag k='one:point_of_interest' v='3,6' />
   </node>
   <node id='-144880' action='modify' visible='true' lat='48.26248129609' lon='11.66844989788'>
-    <tag k='one:point_of_interest' v='3,5' />
+    <tag k='one:point_of_interest' v='3,6' />
   </node>
   <node id='-144882' action='modify' visible='true' lat='48.26248644347' lon='11.66833320362'>
-    <tag k='one:point_of_interest' v='3,5' />
+    <tag k='one:point_of_interest' v='3,6' />
   </node>
   <node id='-144884' action='modify' visible='true' lat='48.26252559609' lon='11.66833875155'>
-    <tag k='one:point_of_interest' v='3,5' />
+    <tag k='one:point_of_interest' v='3,6' />
   </node>
   <node id='-144886' action='modify' visible='true' lat='48.26271170708' lon='11.66727085805'>
     <tag k='one:point_of_interest' v='3,5' />
