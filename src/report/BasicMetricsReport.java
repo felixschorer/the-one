@@ -53,8 +53,8 @@ public class BasicMetricsReport extends Report implements MovementListener {
                 .collect(Collectors.toCollection(ArrayList::new))
                 .size();
 
-        double averageDistance = Double.valueOf(getAverage(distances));
-        double varianceDistance = Double.valueOf(getVariance(distances));
+        double averageDistance = Double.valueOf(getAverage(distances) != "NaN" ? getAverage(distances) : "0.0");
+        double varianceDistance = Double.valueOf(getVariance(distances) != "NaN" ? getVariance(distances) : "0.0");
         double standardDeviationDistance = Math.sqrt(varianceDistance);
 
         write("# average distance of moving hosts: " + averageDistance);
