@@ -30,7 +30,7 @@ NodeGridMovementModel.osmLevel2 = data/FMI/fmi2.osm
 NodeGridMovementModel.osmLevel3 = data/FMI/fmi3.osm
 
 # ======================================================================
-# SCHEDULE ALGORITHM
+# MOVEMENT ALGORITHM
 # ======================================================================
 Group1.movementModel = university.v1.UniversityMovement
 

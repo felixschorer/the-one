@@ -22,6 +22,7 @@ public class UniversityMovement extends NodeGridMovementModel {
     private Schedule schedule;
 
     private ArrayList<Lecture> fixedEvents;
+    private ArrayList<MapNode> outsideBuildingPois;
     private ArrayList<MapNode> otherPois;
 
     private boolean isStuck = false;
@@ -36,19 +37,12 @@ public class UniversityMovement extends NodeGridMovementModel {
                 .build();
 
         fixedEvents = generateFixedEvents();
+        outsideBuildingPois = getCollectionAreas();
         otherPois = getOtherPois();
     }
 
-    private ArrayList<MapNode> getOtherPois() {
-        ArrayList<NodeType> areaTypes = new ArrayList<>(
-                Arrays.asList(NodeType.COLLECTION_AREA, NodeType.STUDY_PLACE));
-        return filterPointsOfInterest(areaTypes);
-    }
-
     private ArrayList<Lecture> generateFixedEvents() {
-        ArrayList<NodeType> areaTypes = new ArrayList<>(
-                Arrays.asList(NodeType.LECTURE_HALL, NodeType.EXERCISE_ROOM));
-        ArrayList<MapNode> pois = filterPointsOfInterest(areaTypes);
+        ArrayList<MapNode> pois = filterPointsOfInterest(NodeType.LECTURE_HALL, NodeType.EXERCISE_ROOM);
 
         fixedEvents = new ArrayList<>();
         int offset = 300;
@@ -66,7 +60,15 @@ public class UniversityMovement extends NodeGridMovementModel {
         return this.fixedEvents;
     }
 
-    private ArrayList<MapNode> filterPointsOfInterest(ArrayList<NodeType> types) {
+    private ArrayList<MapNode> getCollectionAreas() {
+        return filterPointsOfInterest(NodeType.COLLECTION_AREA);
+    }
+
+    private ArrayList<MapNode> getOtherPois() {
+        return filterPointsOfInterest(NodeType.COLLECTION_AREA, NodeType.STUDY_PLACE);
+    }
+
+    private ArrayList<MapNode> filterPointsOfInterest(NodeType... types) {
         return getPointsOfInterest().stream()
                 .filter(poi -> {
                     for (NodeType type : types) {
@@ -82,10 +84,11 @@ public class UniversityMovement extends NodeGridMovementModel {
     public UniversityMovement(UniversityMovement other) {
         super(other);
         pathFinder = other.pathFinder;
-        otherPois = other.otherPois;
         fixedEvents = other.fixedEvents;
+        outsideBuildingPois = other.outsideBuildingPois;
+        otherPois = other.otherPois;
 
-        schedule = new Schedule(fixedEvents, otherPois, rng);
+        schedule = new Schedule(fixedEvents, outsideBuildingPois, otherPois, rng);
     }
 
     @Override
@@ -129,12 +132,8 @@ public class UniversityMovement extends NodeGridMovementModel {
     public Coord getInitialLocation() {
         nextEvent = schedule.getNextEvent();
 
-        ArrayList<NodeType> areaTypes = new ArrayList<>(
-                Arrays.asList(NodeType.COLLECTION_AREA));
-        ArrayList<MapNode> collectionAreas = filterPointsOfInterest(areaTypes);
-        int randomLocationIndex = rng.nextInt(collectionAreas.size());
-//        currentNode = pickRandomNode(getMap().getNodes());
-        currentNode = collectionAreas.get(randomLocationIndex);
+        int randomLocationIndex = rng.nextInt(outsideBuildingPois.size());
+        currentNode = outsideBuildingPois.get(randomLocationIndex);
         return currentNode.getLocation().clone();
     }
 
@@ -152,10 +151,5 @@ public class UniversityMovement extends NodeGridMovementModel {
             current = next;
         }
         return distance / averageSpeed;
-    }
-
-    private MapNode pickRandomNode(List<MapNode> graphNodes) {
-        int chosenIndex = rng.nextInt(graphNodes.size());
-        return graphNodes.get(chosenIndex);
     }
 }
