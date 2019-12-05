@@ -11,7 +11,7 @@ public class Schedule {
     private int SWITCHING_PLACE_TIME = 60 * 15;
     private int MAX_TIME_AT_UNIVERSITY = 60 * 60 * 10;
 
-    public Schedule(ArrayList<Lecture> fixedEvents, ArrayList<MapNode> otherPois, Random rng) {
+    public Schedule(ArrayList<Lecture> fixedEvents, ArrayList<MapNode> outsideBuildingPois, ArrayList<MapNode> otherPois, Random rng) {
         LinkedList<Event> lectureSchedule = new LinkedList<>();
         LinkedList<Event> otherSchedule = new LinkedList<>();
 
@@ -50,6 +50,15 @@ public class Schedule {
                 .collect(Collectors.toCollection(LinkedList::new));
 
         schedule.sort(Comparator.comparing(Event::getRealStart));
+
+        // leave the building in the end of the university day
+        if (schedule.size() > 0) {
+            Event lastEvent = schedule.get(schedule.size() - 1);
+            int currentAvailableTime = lastEvent instanceof Lecture ? ((Lecture) lastEvent).getRealEnd() : MAX_TIME_AT_UNIVERSITY;
+            int collectionAreaIndex = rng.nextInt(outsideBuildingPois.size());
+            Event otherEvent = new Event(outsideBuildingPois.get(collectionAreaIndex), currentAvailableTime);
+            schedule.add(otherEvent);
+        }
     }
 
     public boolean hasNextEvent() {

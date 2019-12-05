@@ -3,7 +3,7 @@
 # ======================================================================
 Scenario.name = University_FMI
 Scenario.nrofHostGroups = 1
-Scenario.endTime = 36000
+Scenario.endTime = 86400
 Scenario.updateInterval = 0.5
 Scenario.simulateConnections = false
 MovementModel.worldSize = 300,300
@@ -30,13 +30,9 @@ NodeGridMovementModel.osmLevel2 = data/FMI/fmi2.osm
 NodeGridMovementModel.osmLevel3 = data/FMI/fmi3.osm
 
 # ======================================================================
-# SCHEDULE ALGORITHM
+# MOVEMENT ALGORITHM
 # ======================================================================
 Group1.movementModel = university.v1.UniversityMovement
-
-# ======================================================================
-# REPORTS
-# ======================================================================
 
 Report.warmup = 0
 Report.reportDir = reports
