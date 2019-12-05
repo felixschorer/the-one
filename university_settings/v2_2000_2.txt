@@ -19,7 +19,9 @@ Group1.interface1 = myInterface
 Group1.router = PassiveRouter
 
 # number of students
-Group1.nrofHosts = 1000
+Group1.nrofHosts = 2000
+
+MovementModel.rngSeed = 42
 
 # university map data
 NodeGridMovementModel.rasterInterval = 1
@@ -73,13 +75,13 @@ University.lectureHall_medium_timeBetweenBookings = 30
 University.lectureHall_large_timeBetweenBookings = 30
 
 # average stay time in minutes
-University.studyPlace_small_stayTime = 300
-University.studyPlace_medium_stayTime = 300
-University.studyPlace_large_stayTime = 300
+University.studyPlace_small_stayTime = 30
+University.studyPlace_medium_stayTime = 60
+University.studyPlace_large_stayTime = 90
 
-University.collectionArea_small_stayTime = 300
-University.collectionArea_medium_stayTime = 300
-University.collectionArea_large_stayTime = 300
+University.collectionArea_small_stayTime = 15
+University.collectionArea_medium_stayTime = 60
+University.collectionArea_large_stayTime = 120
 
 # point of interest capacities
 University.lectureHall_small_capacity = 100
