@@ -19,7 +19,7 @@ Group1.interface1 = myInterface
 Group1.router = PassiveRouter
 
 # number of students
-Group1.nrofHosts = 1000
+Group1.nrofHosts = 2000
 
 # university map data
 NodeGridMovementModel.rasterInterval = 1

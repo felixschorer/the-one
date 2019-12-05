@@ -3,7 +3,7 @@
 # ======================================================================
 Scenario.name = University_FMI
 Scenario.nrofHostGroups = 1
-Scenario.endTime = 36000
+Scenario.endTime = 86400
 Scenario.updateInterval = 0.5
 Scenario.simulateConnections = false
 MovementModel.worldSize = 300,300
@@ -19,7 +19,7 @@ Group1.interface1 = myInterface
 Group1.router = PassiveRouter
 
 # number of students
-Group1.nrofHosts = 1000
+Group1.nrofHosts = 100
 
 # university map data
 NodeGridMovementModel.rasterInterval = 1
@@ -30,9 +30,9 @@ NodeGridMovementModel.osmLevel2 = data/FMI/fmi2.osm
 NodeGridMovementModel.osmLevel3 = data/FMI/fmi3.osm
 
 # ======================================================================
-# SCHEDULE ALGORITHM
+# MOVEMENT ALGORITHM
 # ======================================================================
-Group1.movementModel = university.v1.UniversityMovement
+Group1.movementModel = nodegrid.RandomWaypoint
 
 # ======================================================================
 # REPORTS

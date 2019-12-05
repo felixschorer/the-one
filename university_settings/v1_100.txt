@@ -19,15 +19,18 @@ Group1.interface1 = myInterface
 Group1.router = PassiveRouter
 
 # number of students
-Group1.nrofHosts = 1000
+Group1.nrofHosts = 100
 
 # university map data
 NodeGridMovementModel.rasterInterval = 1
 NodeGridMovementModel.projectionLatitude = 48.26225591888
 NodeGridMovementModel.osmLevel0 = data/FMI/fmi0.osm
+NodeGridMovementModel.osmLevel1 = data/FMI/fmi1.osm
+NodeGridMovementModel.osmLevel2 = data/FMI/fmi2.osm
+NodeGridMovementModel.osmLevel3 = data/FMI/fmi3.osm
 
 # ======================================================================
-# SCHEDULE ALGORITHM
+# MOVEMENT ALGORITHM
 # ======================================================================
 Group1.movementModel = university.v1.UniversityMovement
 

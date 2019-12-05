@@ -1,3 +1,6 @@
+# ======================================================================
+# GENERAL
+# ======================================================================
 Scenario.name = University_FMI
 Scenario.nrofHostGroups = 1
 Scenario.endTime = 86400
@@ -26,7 +29,14 @@ NodeGridMovementModel.osmLevel1 = data/FMI/fmi1.osm
 NodeGridMovementModel.osmLevel2 = data/FMI/fmi2.osm
 NodeGridMovementModel.osmLevel3 = data/FMI/fmi3.osm
 
+# ======================================================================
+# MOVEMENT ALGORITHM
+# ======================================================================
 Group1.movementModel = nodegrid.RandomWalk
+
+# ======================================================================
+# REPORTS
+# ======================================================================
 
 Report.warmup = 0
 Report.reportDir = reports

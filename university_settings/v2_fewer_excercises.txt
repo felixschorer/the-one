@@ -30,13 +30,9 @@ NodeGridMovementModel.osmLevel2 = data/FMI/fmi2.osm
 NodeGridMovementModel.osmLevel3 = data/FMI/fmi3.osm
 
 # ======================================================================
-# SCHEDULE ALGORITHM
+# MOVEMENT ALGORITHM
 # ======================================================================
 Group1.movementModel = university.v2.UniversityMovement
-
-# ======================================================================
-# SCHEDULE ALGORITHM: DETAILS
-# ======================================================================
 
 # Mean number of lectures per student per day
 # Variance is determined by the number of lecture slots per day ~(lastLecturesStart - firstLecturesStart, LectureLength)
@@ -64,9 +60,9 @@ University.lastLecturesStart = 18:30
 University.lectureLength = 90
 
 # average time between lectures in minutes
-University.exerciseRoom_small_timeBetweenBookings = 1440
-University.exerciseRoom_medium_timeBetweenBookings = 1440
-University.exerciseRoom_large_timeBetweenBookings = 100
+University.exerciseRoom_small_timeBetweenBookings = 5000
+University.exerciseRoom_medium_timeBetweenBookings = 5000
+University.exerciseRoom_large_timeBetweenBookings = 5000
 
 University.lectureHall_small_timeBetweenBookings = 30
 University.lectureHall_medium_timeBetweenBookings = 30
