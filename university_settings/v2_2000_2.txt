@@ -32,13 +32,9 @@ NodeGridMovementModel.osmLevel2 = data/FMI/fmi2.osm
 NodeGridMovementModel.osmLevel3 = data/FMI/fmi3.osm
 
 # ======================================================================
-# SCHEDULE ALGORITHM
+# MOVEMENT ALGORITHM
 # ======================================================================
 Group1.movementModel = university.v2.UniversityMovement
-
-# ======================================================================
-# SCHEDULE ALGORITHM: DETAILS
-# ======================================================================
 
 # Mean number of lectures per student per day
 # Variance is determined by the number of lecture slots per day ~(lastLecturesStart - firstLecturesStart, LectureLength)
