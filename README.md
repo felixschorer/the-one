@@ -10,6 +10,11 @@ The [wiki page](https://github.com/akeranen/the-one/wiki) has the latest informa
 
 ## Getting Started: FMI Building
 
-Compile the simulator into a JAR and run `$ ./batch_runner.py the_one.jar university_settings reports data`.
+1. Compile the simulator into a JAR
+2. The next step assumes the JAR is located in the project root and is named `the_one.jar`
+3. Run `$ python3 ./batch_runner.py ./the_one.jar ./university_settings ./reports ./data` to run all settings.  
 
-The jupyter notebook has to be run in the output folder of the batch.
+See `batch_runner.py` for detailed usage information.
+
+Heat maps can be generated with `$ jupyter notebook ./heat_maps.ipynb`. This requires Jupyter with a Python 3 kernel to be installed. 
+`numpy` and `matplotlib` have to be installed in the Python environment.
