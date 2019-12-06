@@ -6,7 +6,7 @@ Scenario.nrofHostGroups = 1
 Scenario.endTime = 86400
 Scenario.updateInterval = 0.5
 Scenario.simulateConnections = false
-MovementModel.worldSize = 300,300
+MovementModel.worldSize = 215,215
 Events.nrof = 0
 
 myInterface.type = SimpleBroadcastInterface
