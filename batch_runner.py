@@ -1,5 +1,16 @@
 #!/usr/bin/env python3
 
+"""
+Script for running multiple instances of the simulator in parallel. Default settings are ignored.
+
+Usage: {} ONE_JAR SETTINGS_DIR OUT_DIR [DATA_DIR]
+
+ONE_JAR       path to compiled .jar of the simulator
+SETTINGS_DIR  path to the directory which contains the settings files which should be run
+OUT_DIR       path to the directory where the results should be saved
+DATA_DIR      path to an optional data directory which should be copied into the working directory of the simulator
+"""
+
 import os
 import shutil
 import subprocess
